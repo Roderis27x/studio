@@ -1,11 +1,24 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const navLinks = [
     {
@@ -30,23 +43,36 @@ const Header: React.FC = () => {
     { name: 'Contacto', href: '#contact' },
   ];
 
+  const headerClasses = cn(
+    "sticky top-0 z-50 transition-all duration-300",
+    isScrolled ? "bg-white/80 backdrop-blur-md border-b border-slate-200" : "bg-transparent border-b-transparent"
+  );
+  
+  const linkClasses = cn(
+    "transition-colors",
+    isScrolled ? "text-slate-600 hover:text-primary" : "text-white hover:text-white/80"
+  );
+
+  const logoColor = isScrolled ? "text-slate-800" : "text-white";
+  const logoSubColor = isScrolled ? "text-slate-500" : "text-slate-200";
+
   return (
-    <header className="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
+    <header className={headerClasses}>
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         <a href="#" className="flex items-center text-3xl font-bold">
-          <span className="text-slate-800 tracking-tight">CPT</span>
-          <span className="text-slate-500 tracking-tight">SOFT</span>
+          <span className={cn("tracking-tight", logoColor)}>CPT</span>
+          <span className={cn("tracking-tight", logoSubColor)}>SOFT</span>
         </a>
         
         <nav className="hidden lg:flex items-center space-x-8">
           {navLinks.map((link) => (
             <div key={link.name} className="relative group">
               {link.href ? (
-                 <a href={link.href} className="text-slate-600 hover:text-primary transition-colors py-2">
+                 <a href={link.href} className={cn("py-2", linkClasses)}>
                     {link.name}
                  </a>
               ) : (
-                <button className="flex items-center text-slate-600 hover:text-primary transition-colors focus:outline-none py-2">
+                <button className={cn("flex items-center focus:outline-none py-2", linkClasses)}>
                   <span>{link.name}</span>
                   <ChevronDown className="ml-1 h-4 w-4 transition-transform group-hover:rotate-180" />
                 </button>
@@ -73,7 +99,7 @@ const Header: React.FC = () => {
         </div>
 
         <div className="lg:hidden">
-          <button onClick={() => setIsOpen(!isOpen)} className="text-dark">
+          <button onClick={() => setIsOpen(!isOpen)} className={cn("text-dark", !isScrolled && "text-white")}>
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>

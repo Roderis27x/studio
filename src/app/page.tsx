@@ -5,7 +5,6 @@ import ClientTestimonials from '@/components/sections/client-testimonials';
 import ContactSection from '@/components/sections/contact-section';
 import Footer from '@/components/layout/footer';
 import Chatbot from '@/components/chatbot';
-import Pricing from '@/components/sections/pricing';
 
 
 export default function Home() {
@@ -16,7 +15,6 @@ export default function Home() {
         <Hero />
         <ProductShowcase />
         <ClientTestimonials />
-        <Pricing />
         <ContactSection />
       </main>
       <Footer />
