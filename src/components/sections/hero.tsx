@@ -1,44 +1,34 @@
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { ArrowRight } from "lucide-react";
+'use client';
 
-export default function Hero() {
-  const heroImage = PlaceHolderImages.find(p => p.id === "hero-background");
+import { ArrowRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
+const Hero: React.FC = () => {
   return (
-    <section className="relative h-[80vh] min-h-[600px] flex items-center justify-center text-center text-white overflow-hidden">
-      {heroImage && (
-        <Image
-          src={heroImage.imageUrl}
-          alt={heroImage.description}
-          fill
-          className="object-cover"
-          data-ai-hint={heroImage.imageHint}
-          priority
-        />
-      )}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
-      <div className="relative z-10 container px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl font-headline animate-fade-in-up">
-            Empowering Your Business with Integrated Software Solutions
-          </h1>
-          <p className="mt-6 max-w-2xl mx-auto text-lg sm:text-xl text-neutral-200 animate-fade-in-up animation-delay-300">
-            Discover our suite of ERP and custom software designed to drive growth, efficiency, and innovation.
-          </p>
-          <div className="mt-10 flex flex-wrap justify-center gap-4 animate-fade-in-up animation-delay-600">
-            <Button size="lg" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
-              <a href="#solutions">
-                Find Your Solution <ArrowRight className="ml-2 h-5 w-5" />
-              </a>
-            </Button>
-            <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white hover:text-primary" asChild>
-              <a href="#contact">Request a Demo</a>
-            </Button>
+    <section className="bg-background py-20 md:py-32">
+      <div className="container mx-auto px-6 text-center">
+        <h1 className="text-4xl md:text-6xl font-extrabold text-foreground leading-tight mb-4">
+          El ERP Todo en Uno para <span className="text-primary">Optimizar</span> tu Negocio
+        </h1>
+        <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
+          CPT-SOFT integra tus ventas, finanzas, operaciones y recursos humanos en una única plataforma inteligente. Toma decisiones más inteligentes, más rápido.
+        </p>
+        <div className="flex justify-center items-center">
+          <Button size="lg" asChild className="bg-slate-100 hover:bg-slate-200 text-primary">
+            <a href="#products">
+              Saber Más
+              <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+            </a>
+          </Button>
+        </div>
+        <div className="mt-16 max-w-5xl mx-auto p-4 bg-card rounded-xl shadow-2xl border border-border">
+          <div className="aspect-video bg-muted rounded-lg flex items-center justify-center">
+            <p className="text-muted-foreground">Maqueta de tu Panel ERP</p>
           </div>
         </div>
       </div>
     </section>
   );
-}
+};
+
+export default Hero;
