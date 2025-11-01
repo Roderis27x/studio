@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
-import Logo from '@/components/logo';
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,7 +33,10 @@ const Header: React.FC = () => {
   return (
     <header className="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        <Logo />
+        <a href="#" className="flex items-center text-3xl font-bold">
+          <span className="text-slate-800 tracking-tight">CPT</span>
+          <span className="text-slate-500 tracking-tight">SOFT</span>
+        </a>
         
         <nav className="hidden lg:flex items-center space-x-8">
           {navLinks.map((link) => (
@@ -65,13 +67,13 @@ const Header: React.FC = () => {
         </nav>
 
         <div className="hidden lg:flex items-center space-x-4">
-            <a href="#contact" className="bg-primary text-white px-5 py-2.5 rounded-lg font-semibold hover:bg-primary/90 transition-all duration-300 shadow-sm">
+            <a href="#" className="bg-primary text-white px-5 py-2.5 rounded-lg font-semibold hover:bg-primary-hover transition-all duration-300 shadow-sm">
                 Solicitar una Demo
             </a>
         </div>
 
         <div className="lg:hidden">
-          <button onClick={() => setIsOpen(!isOpen)} className="text-foreground">
+          <button onClick={() => setIsOpen(!isOpen)} className="text-dark">
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
@@ -109,7 +111,7 @@ const Header: React.FC = () => {
               </div>
             ))}
             <div className="border-t border-slate-200 pt-4 mt-4">
-                <a href="#contact" className="bg-primary text-white text-center block w-full px-5 py-2.5 rounded-lg font-semibold hover:bg-primary/90 transition-all duration-300 shadow-sm">
+                <a href="#" className="bg-primary text-white text-center block w-full px-5 py-2.5 rounded-lg font-semibold hover:bg-primary-hover transition-all duration-300 shadow-sm">
                     Solicitar una Demo
                 </a>
             </div>
