@@ -1,92 +1,73 @@
-import Image from 'next/image';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Landmark, Users, Truck, HeartHandshake, AreaChart, CheckCircle2 } from 'lucide-react';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
+import React from 'react';
+import { BarChart3, Users, Briefcase, DollarSign, Settings, Shield } from 'lucide-react';
 
-const products = [
-  {
-    id: 'product-1',
-    name: 'SynergyERP Core',
-    description: 'The all-in-one platform to manage your core business operations with modules for finance, HR, and CRM.',
-    image: PlaceHolderImages.find(p => p.id === 'product-1'),
-    features: ['Financial Management', 'Human Resources', 'Customer Relationships'],
-    icons: [Landmark, Users, HeartHandshake],
-    badge: 'Most Popular',
-  },
-  {
-    id: 'product-2',
-    name: 'SynergySCM',
-    description: 'Optimize your supply chain from procurement to logistics with real-time tracking and analytics.',
-    image: PlaceHolderImages.find(p => p.id === 'product-2'),
-    features: ['Inventory Control', 'Order Management', 'Logistics & Warehouse'],
-    icons: [Truck, CheckCircle2, Truck],
-    badge: 'New',
-  },
-  {
-    id: 'product-3',
-    name: 'SynergyBI',
-    description: 'Turn data into actionable insights with our powerful business intelligence and analytics suite.',
-    image: PlaceHolderImages.find(p => p.id === 'product-3'),
-    features: ['Interactive Dashboards', 'Predictive Analytics', 'Custom Reporting'],
-    icons: [AreaChart, AreaChart, AreaChart],
-    badge: '',
-  },
-];
+interface FeatureCardProps {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+}
 
-export default function ProductShowcase() {
+const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description }) => (
+  <div className="bg-card p-6 rounded-lg border transform transition-transform duration-300 hover:-translate-y-2 hover:shadow-xl">
+    <div className="bg-primary text-primary-foreground rounded-full p-3 w-12 h-12 mb-4">
+      {icon}
+    </div>
+    <h3 className="text-xl font-bold text-foreground mb-2">{title}</h3>
+    <p className="text-muted-foreground">{description}</p>
+  </div>
+);
+
+const Features: React.FC = () => {
+  const features = [
+    {
+      icon: <BarChart3 className="h-6 w-6" />,
+      title: 'Gestión Financiera',
+      description: 'Automatiza la contabilidad, facturación y reportes para obtener una visión en tiempo real de tu salud financiera.',
+    },
+    {
+      icon: <Briefcase className="h-6 w-6" />,
+      title: 'Cadena de Suministro e Inventario',
+      description: 'Optimiza tus niveles de inventario, gestiona las adquisiciones y agiliza las operaciones de tu almacén.',
+    },
+    {
+      icon: <Users className="h-6 w-6" />,
+      title: 'CRM y Ventas',
+      description: 'Gestiona las relaciones con los clientes, sigue los pipelines de ventas y mejora el rendimiento de tus ventas.',
+    },
+    {
+        icon: <DollarSign className="h-6 w-6" />,
+        title: 'Recursos Humanos',
+        description: 'Simplifica la nómina, gestiona los datos de los empleados y agiliza los procesos de RRHH desde un único panel.',
+    },
+    {
+        icon: <Settings className="h-6 w-6" />,
+        title: 'Módulos Personalizables',
+        description: 'Adapta el ERP a tus necesidades exactas con módulos flexibles y potentes opciones de integración.',
+    },
+    {
+        icon: <Shield className="h-6 w-6" />,
+        title: 'Seguridad de Nivel Empresarial',
+        description: 'Protege los datos sensibles de tu negocio con sólidas funciones de seguridad y estándares de cumplimiento.',
+    },
+  ];
+
   return (
-    <section id="products" className="py-16 sm:py-24 bg-background">
-      <div className="container">
+    <section id="features" className="py-20 bg-background">
+      <div className="container mx-auto px-6">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl font-headline">
-            Tailored Software for Every Business Need
-          </h2>
-          <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-            Explore our flagship products, engineered for performance and scalability.
+          <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">Funcionalidades Potentes para Cada Departamento</h2>
+          <p className="text-lg text-muted-foreground mt-4 max-w-2xl mx-auto">
+            CPT-SOFT proporciona un conjunto completo de herramientas para gestionar y hacer crecer todo tu negocio.
           </p>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products.map((product) => (
-            <Card key={product.id} className="flex flex-col overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-              <div className="relative">
-                {product.image && (
-                    <Image
-                    src={product.image.imageUrl}
-                    alt={product.image.description}
-                    width={600}
-                    height={400}
-                    className="object-cover w-full h-48"
-                    data-ai-hint={product.image.imageHint}
-                    />
-                )}
-                {product.badge && (
-                  <Badge className="absolute top-4 right-4 bg-accent text-accent-foreground">{product.badge}</Badge>
-                )}
-              </div>
-              <CardHeader>
-                <CardTitle>{product.name}</CardTitle>
-              </CardHeader>
-              <CardContent className="flex-grow flex flex-col">
-                <p className="text-muted-foreground mb-4">{product.description}</p>
-                <ul className="space-y-2 flex-grow">
-                  {product.features.map((feature, index) => {
-                    const Icon = product.icons[index];
-                    return (
-                      <li key={feature} className="flex items-center">
-                        <Icon className="h-5 w-5 text-primary mr-3 flex-shrink-0" />
-                        <span>{feature}</span>
-                      </li>
-                    );
-                  })}
-                </ul>
-                <a href="#" className="mt-6 text-sm font-semibold text-primary hover:underline">Learn More &rarr;</a>
-              </CardContent>
-            </Card>
+          {features.map((feature) => (
+            <FeatureCard key={feature.title} {...feature} />
           ))}
         </div>
       </div>
     </section>
   );
-}
+};
+
+export default Features;
