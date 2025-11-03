@@ -17,7 +17,6 @@ const Header: React.FC = () => {
         { name: 'Hoja de Ruta', href: '#' },
       ]
     },
-    { name: 'Precios', href: '#pricing' },
     { name: 'Testimonios', href: '#testimonials' },
     {
       name: 'Recursos',
