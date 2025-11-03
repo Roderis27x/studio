@@ -2,13 +2,31 @@
 
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
+import { TypeAnimation } from 'react-type-animation';
 
 const Hero: React.FC = () => {
   return (
     <section className="bg-white py-20 md:py-32">
       <div className="container mx-auto px-6 text-center">
-        <h1 className="text-4xl md:text-6xl font-extrabold text-dark leading-tight mb-4">
-          El ERP Todo en Uno para <span className="text-primary">Optimizar</span> tu Negocio
+        <h1 className="text-4xl md:text-6xl font-extrabold text-dark leading-tight mb-4 h-24 md:h-36">
+          El ERP Todo en Uno para{' '}
+          <span className="text-primary">
+            <TypeAnimation
+              sequence={[
+                'Optimizar tu Negocio',
+                2000,
+                'Automatizar tus Ventas',
+                2000,
+                'Gestionar tus Finanzas',
+                2000,
+                'Controlar tu Inventario',
+                2000,
+              ]}
+              wrapper="span"
+              speed={50}
+              repeat={Infinity}
+            />
+          </span>
         </h1>
         <p className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto mb-8">
           CPT-SOFT integra tus ventas, finanzas, operaciones y recursos humanos en una única plataforma inteligente. Toma decisiones más inteligentes, más rápido.
