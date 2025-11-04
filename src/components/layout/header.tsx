@@ -1,76 +1,178 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import Logo from '@/components/logo';
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [hovering, setHovering] = useState<number | null>(null);
+  const [popoverLeft, setPopoverLeft] = useState<number | null>(null);
+  const [popoverHeight, setPopoverHeight] = useState<number | null>(null);
+
+  const refs = useRef<(HTMLElement | null)[]>([]);
 
   const navLinks = [
     {
+      id: 'software',
       name: 'Software',
-      dropdown: [
-        { name: 'ERP', href: '#' },
-        { name: 'Prestamos', href: '#' },
-        { name: 'Gestión de cobros', href: '#' },
-        { name: 'Perfil', href: '#' },
-        { name: 'CRM', href: '#' },
-        { name: 'Help Desk', href: '#' },
-        { name: 'Report', href: '#' },
-        { name: 'Planilla', href: '#' },
-      ]
+      menu: (
+        <div className="p-6">
+          <div className="grid grid-cols-2 gap-6">
+            <a href="#" className="group">
+              <div className="font-semibold text-slate-900 group-hover:text-primary transition-colors">ERP</div>
+              <div className="text-sm text-slate-500">Gestión empresarial</div>
+            </a>
+            <a href="#" className="group">
+              <div className="font-semibold text-slate-900 group-hover:text-primary transition-colors">Préstamos</div>
+              <div className="text-sm text-slate-500">Administración de créditos</div>
+            </a>
+            <a href="#" className="group">
+              <div className="font-semibold text-slate-900 group-hover:text-primary transition-colors">Gestión de cobros</div>
+              <div className="text-sm text-slate-500">Sistema de recaudación</div>
+            </a>
+            <a href="#" className="group">
+              <div className="font-semibold text-slate-900 group-hover:text-primary transition-colors">Perfil</div>
+              <div className="text-sm text-slate-500">Gestión de identidad</div>
+            </a>
+            <a href="#" className="group">
+              <div className="font-semibold text-slate-900 group-hover:text-primary transition-colors">CRM</div>
+              <div className="text-sm text-slate-500">Relación con clientes</div>
+            </a>
+            <a href="#" className="group">
+              <div className="font-semibold text-slate-900 group-hover:text-primary transition-colors">Help Desk</div>
+              <div className="text-sm text-slate-500">Atención al cliente</div>
+            </a>
+            <a href="#" className="group">
+              <div className="font-semibold text-slate-900 group-hover:text-primary transition-colors">Reports</div>
+              <div className="text-sm text-slate-500">Análisis y reportes</div>
+            </a>
+            <a href="#" className="group">
+              <div className="font-semibold text-slate-900 group-hover:text-primary transition-colors">Planilla</div>
+              <div className="text-sm text-slate-500">Nómina y RRHH</div>
+            </a>
+          </div>
+        </div>
+      )
     },
-    { name: 'Testimonios', href: '#testimonials' },
     {
+      id: 'recursos',
       name: 'Recursos',
-      dropdown: [
-        { name: 'Blog', href: '#' },
-        { name: 'Casos de Éxito', href: '#' },
-        { name: 'Documentación', href: '#' },
-      ]
+      menu: (
+        <div className="p-6">
+          <div className="grid grid-cols-1 gap-4">
+            <a href="#" className="group">
+              <div className="font-semibold text-slate-900 group-hover:text-primary transition-colors">Blog</div>
+              <div className="text-sm text-slate-500">Artículos y noticias</div>
+            </a>
+            <a href="#" className="group">
+              <div className="font-semibold text-slate-900 group-hover:text-primary transition-colors">Casos de Éxito</div>
+              <div className="text-sm text-slate-500">Historias de clientes</div>
+            </a>
+            <a href="#" className="group">
+              <div className="font-semibold text-slate-900 group-hover:text-primary transition-colors">Documentación</div>
+              <div className="text-sm text-slate-500">Guías y referencias</div>
+            </a>
+          </div>
+        </div>
+      )
     },
-    { name: 'Contacto', href: '#contact' },
+    { id: 'testimonios', name: 'Testimonios', href: '#testimonials' },
+    { id: 'contacto', name: 'Contacto', href: '#contact' },
   ];
+
+  const focusMenu = (index: number, el: HTMLElement) => {
+    setHovering(index);
+    setPopoverLeft(el.offsetLeft);
+    
+    const menuElement = refs.current[index];
+    if (menuElement) {
+      setPopoverHeight(menuElement.offsetHeight);
+    }
+  };
+
+  const menuLinks = navLinks.filter(link => link.menu);
 
   return (
     <header className="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         <Logo />
-        
-        <nav className="hidden lg:flex items-center space-x-8">
+
+        {/* Desktop Navigation */}
+        <nav
+          className="hidden lg:flex items-center space-x-8 relative"
+          onMouseLeave={() => setHovering(null)}
+        >
           {navLinks.map((link, index) => (
-            <div key={`${link.name}-${index}`} className="relative group">
-              {link.href ? (
-                 <a href={link.href} className="text-slate-600 hover:text-primary transition-colors py-2">
-                    {link.name}
-                 </a>
-              ) : (
-                <button className="flex items-center text-slate-600 hover:text-primary transition-colors focus:outline-none py-2">
-                  <span>{link.name}</span>
-                  <ChevronDown className="ml-1 h-4 w-4 transition-transform group-hover:rotate-180" />
-                </button>
-              )}
-              {link.dropdown && (
-                 <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 bg-white rounded-lg shadow-xl border border-slate-100 hidden group-hover:block z-10">
-                    <div className="py-2">
-                        {link.dropdown.map((item) => (
-                            <a key={item.name} href={item.href} className="block w-full text-left px-4 py-2 text-slate-600 hover:bg-slate-50 hover:text-primary transition-colors">
-                                {item.name}
-                            </a>
-                        ))}
-                    </div>
-                 </div>
-              )}
-            </div>
+            link.href ? (
+              <a
+                key={link.id}
+                href={link.href}
+                className="text-slate-600 hover:text-primary transition-colors py-2 font-medium"
+              >
+                {link.name}
+              </a>
+            ) : (
+              <button
+                key={link.id}
+                onMouseEnter={(event) => focusMenu(menuLinks.indexOf(link), event.currentTarget)}
+                className="flex items-center text-slate-600 hover:text-primary transition-colors focus:outline-none py-2 font-medium"
+              >
+                <span>{link.name}</span>
+                <ChevronDown
+                  className={`ml-1 h-4 w-4 transition-transform duration-300 ${
+                    hovering === menuLinks.indexOf(link) ? 'rotate-180' : ''
+                  }`}
+                />
+              </button>
+            )
           ))}
+
+          {/* Popover Container */}
+          {typeof hovering === 'number' && (
+            <div
+              className="absolute top-full left-0 mt-2 bg-white rounded-xl shadow-lg border border-slate-100 transition-all duration-300 z-40"
+              style={{
+                left: `${popoverLeft}px`,
+                minHeight: `${popoverHeight}px`,
+                pointerEvents: 'auto'
+              }}
+              onMouseLeave={() => setHovering(null)}
+            >
+              {/* Arrow */}
+              <div
+                className="absolute -top-2 w-3 h-3 bg-white rotate-45 border-l border-t border-slate-100"
+                style={{
+                  left: `calc(50% - 6px)`
+                }}
+              />
+
+              {/* Menu Items */}
+              {menuLinks.map((link, index) => (
+                <div
+                  key={link.id}
+                  ref={(el) => {
+                    if (el) refs.current[index] = el;
+                  }}
+                  className={`transition-opacity duration-300 ${
+                    hovering === index ? 'opacity-100' : 'opacity-0 hidden'
+                  }`}
+                >
+                  {link.menu}
+                </div>
+              ))}
+            </div>
+          )}
         </nav>
 
         <div className="hidden lg:flex items-center space-x-4">
-            <a href="#" className="bg-primary text-white px-5 py-2.5 rounded-lg font-semibold hover:bg-primary-hover transition-all duration-300 shadow-sm">
-                Solicitar una Demo
-            </a>
+          <a
+            href="#"
+            className="bg-primary text-white px-5 py-2.5 rounded-lg font-semibold hover:bg-primary-hover transition-all duration-300 shadow-sm"
+          >
+            Solicitar una Demo
+          </a>
         </div>
 
         <div className="lg:hidden">
@@ -79,42 +181,52 @@ const Header: React.FC = () => {
           </button>
         </div>
       </div>
-      
+
+      {/* Mobile Navigation */}
       {isOpen && (
         <div className="lg:hidden bg-white border-t border-slate-200">
           <div className="container mx-auto px-6 py-4 flex flex-col">
-            {navLinks.map((link, index) => (
-              <div key={`${link.name}-${index}-mobile`} className="py-1">
-                {link.dropdown ? (
+            {navLinks.map((link) => (
+              <div key={link.id} className="py-1">
+                {link.menu ? (
                   <>
                     <button
-                      onClick={() => setOpenDropdown(openDropdown === link.name ? null : link.name)}
+                      onClick={() =>
+                        setOpenDropdown(openDropdown === link.id ? null : link.id)
+                      }
                       className="w-full flex justify-between items-center py-2 text-slate-700 hover:text-primary font-semibold"
                     >
                       <span>{link.name}</span>
-                      <ChevronDown className={`h-5 w-5 transition-transform ${openDropdown === link.name ? 'rotate-180' : ''}`} />
+                      <ChevronDown
+                        className={`h-5 w-5 transition-transform ${
+                          openDropdown === link.id ? 'rotate-180' : ''
+                        }`}
+                      />
                     </button>
-                    {openDropdown === link.name && (
-                      <div className="pl-4 pt-1 pb-2 flex flex-col space-y-2 border-l-2 border-slate-200 ml-2">
-                        {link.dropdown.map((item) => (
-                          <a key={item.name} href={item.href} className="text-slate-600 hover:text-primary" onClick={() => setIsOpen(false)}>
-                            {item.name}
-                          </a>
-                        ))}
+                    {openDropdown === link.id && (
+                      <div className="pl-4 pt-2 pb-2 border-l-2 border-slate-200 ml-2">
+                        {link.menu}
                       </div>
                     )}
                   </>
                 ) : (
-                  <a href={link.href} className="block py-2 text-slate-700 hover:text-primary font-semibold" onClick={() => setIsOpen(false)}>
+                  <a
+                    href={link.href}
+                    className="block py-2 text-slate-700 hover:text-primary font-semibold"
+                    onClick={() => setIsOpen(false)}
+                  >
                     {link.name}
                   </a>
                 )}
               </div>
             ))}
             <div className="border-t border-slate-200 pt-4 mt-4">
-                <a href="#" className="bg-primary text-white text-center block w-full px-5 py-2.5 rounded-lg font-semibold hover:bg-primary-hover transition-all duration-300 shadow-sm">
-                    Solicitar una Demo
-                </a>
+              <a
+                href="#"
+                className="bg-primary text-white text-center block w-full px-5 py-2.5 rounded-lg font-semibold hover:bg-primary-hover transition-all duration-300 shadow-sm"
+              >
+                Solicitar una Demo
+              </a>
             </div>
           </div>
         </div>
