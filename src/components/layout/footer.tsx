@@ -9,7 +9,7 @@ const SocialIcon = ({ href, children }: { href: string; children: React.ReactNod
 
 const Footer: React.FC = () => {
   const footerLinks = {
-    'Producto': ['Características', 'Precios', 'Integraciones', 'Actualizaciones'],
+    'Software': ['Características', 'Precios', 'Integraciones', 'Actualizaciones'],
     'Compañía': ['Sobre Nosotros', 'Carreras', 'Contacto', 'Blog'],
     'Legal': ['Política de Privacidad', 'Términos de Servicio', 'Seguridad'],
   };

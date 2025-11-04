@@ -9,7 +9,7 @@ const Header: React.FC = () => {
 
   const navLinks = [
     {
-      name: 'Producto',
+      name: 'Software',
       dropdown: [
         { name: 'Características', href: '#features' },
         { name: 'Integraciones', href: '#' },
