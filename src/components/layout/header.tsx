@@ -1,17 +1,19 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, BookOpen, Briefcase, Code, BarChart3, Users, DollarSign, Settings, Shield } from 'lucide-react';
 import Logo from '@/components/logo';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Header: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
+  // State for the popover
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [popoverStyle, setPopoverStyle] = useState({});
   const [arrowStyle, setArrowStyle] = useState({});
+  const [contentStyle, setContentStyle] = useState({});
 
   const navRef = useRef<HTMLElement>(null);
   const buttonRefs = useRef<Record<string, HTMLButtonElement | null>>({});
@@ -21,39 +23,49 @@ const Header: React.FC = () => {
       id: 'software',
       name: 'Software',
       content: (
-        <div className="p-6 grid grid-cols-2 gap-x-6 gap-y-4 w-[490px]">
-          <a href="#" className="group">
-            <div className="font-semibold text-slate-900 group-hover:text-primary transition-colors">ERP</div>
-            <div className="text-sm text-slate-500">Gestión empresarial</div>
-          </a>
-          <a href="#" className="group">
-            <div className="font-semibold text-slate-900 group-hover:text-primary transition-colors">Préstamos</div>
-            <div className="text-sm text-slate-500">Administración de créditos</div>
-          </a>
-          <a href="#" className="group">
-            <div className="font-semibold text-slate-900 group-hover:text-primary transition-colors">Gestión de cobros</div>
-            <div className="text-sm text-slate-500">Sistema de recaudación</div>
-          </a>
-          <a href="#" className="group">
-            <div className="font-semibold text-slate-900 group-hover:text-primary transition-colors">Perfil</div>
-            <div className="text-sm text-slate-500">Gestión de identidad</div>
-          </a>
-          <a href="#" className="group">
-            <div className="font-semibold text-slate-900 group-hover:text-primary transition-colors">CRM</div>
-            <div className="text-sm text-slate-500">Relación con clientes</div>
-          </a>
-          <a href="#" className="group">
-            <div className="font-semibold text-slate-900 group-hover:text-primary transition-colors">Help Desk</div>
-            <div className="text-sm text-slate-500">Atención al cliente</div>
-          </a>
-          <a href="#" className="group">
-            <div className="font-semibold text-slate-900 group-hover:text-primary transition-colors">Reports</div>
-            <div className="text-sm text-slate-500">Análisis y reportes</div>
-          </a>
-          <a href="#" className="group">
-            <div className="font-semibold text-slate-900 group-hover:text-primary transition-colors">Planilla</div>
-            <div className="text-sm text-slate-500">Nómina y RRHH</div>
-          </a>
+        <div className="p-6 grid grid-cols-2 gap-x-8 gap-y-6 w-[490px]">
+           <a href="#" className="group flex items-start gap-4">
+              <div className="bg-blue-100 p-2 rounded-full"><BarChart3 className="h-5 w-5 text-blue-500" /></div>
+              <div>
+                <h3 className="font-semibold text-slate-900 group-hover:text-primary transition-colors text-sm uppercase tracking-wider">ERP</h3>
+                <p className="text-sm text-slate-500">Gestión empresarial integral</p>
+              </div>
+            </a>
+            <a href="#" className="group flex items-start gap-4">
+              <div className="bg-green-100 p-2 rounded-full"><DollarSign className="h-5 w-5 text-green-500" /></div>
+              <div>
+                <h3 className="font-semibold text-slate-900 group-hover:text-primary transition-colors text-sm uppercase tracking-wider">Préstamos</h3>
+                <p className="text-sm text-slate-500">Administración de créditos</p>
+              </div>
+            </a>
+            <a href="#" className="group flex items-start gap-4">
+              <div className="bg-indigo-100 p-2 rounded-full"><Users className="h-5 w-5 text-indigo-500" /></div>
+              <div>
+                <h3 className="font-semibold text-slate-900 group-hover:text-primary transition-colors text-sm uppercase tracking-wider">CRM</h3>
+                <p className="text-sm text-slate-500">Relación con clientes</p>
+              </div>
+            </a>
+            <a href="#" className="group flex items-start gap-4">
+               <div className="bg-sky-100 p-2 rounded-full"><Briefcase className="h-5 w-5 text-sky-500" /></div>
+              <div>
+                <h3 className="font-semibold text-slate-900 group-hover:text-primary transition-colors text-sm uppercase tracking-wider">Planilla</h3>
+                <p className="text-sm text-slate-500">Nómina y RRHH</p>
+              </div>
+            </a>
+            <a href="#" className="group flex items-start gap-4">
+              <div className="bg-rose-100 p-2 rounded-full"><Shield className="h-5 w-5 text-rose-500" /></div>
+              <div>
+                <h3 className="font-semibold text-slate-900 group-hover:text-primary transition-colors text-sm uppercase tracking-wider">Gestión de cobros</h3>
+                <p className="text-sm text-slate-500">Sistema de recaudación</p>
+              </div>
+            </a>
+            <a href="#" className="group flex items-start gap-4">
+               <div className="bg-purple-100 p-2 rounded-full"><Settings className="h-5 w-5 text-purple-500" /></div>
+              <div>
+                <h3 className="font-semibold text-slate-900 group-hover:text-primary transition-colors text-sm uppercase tracking-wider">Help Desk</h3>
+                <p className="text-sm text-slate-500">Atención al cliente</p>
+              </div>
+            </a>
         </div>
       )
     },
@@ -81,6 +93,11 @@ const Header: React.FC = () => {
     { id: 'contacto', name: 'Contacto', href: '#contact' },
   ];
 
+  const menuDimensions: Record<string, {width: number; height: number}> = {
+      software: { width: 490, height: 280 },
+      recursos: { width: 280, height: 180 },
+  }
+
   const handleMouseEnter = (menuId: string) => {
     const button = buttonRefs.current[menuId];
     const nav = navRef.current;
@@ -88,45 +105,36 @@ const Header: React.FC = () => {
 
     setActiveMenu(menuId);
 
-    const link = navLinks.find(l => l.id === menuId);
-    if (!link || !link.content) return;
+    const menuData = menuDimensions[menuId];
+    if (!menuData) return;
 
-    // A bit of a hack to get the width and height from the JSX
-    const widthMatch = (link.content.props.className.match(/w-\[(\d+)px\]/) || [])[1];
-    const width = widthMatch ? parseInt(widthMatch) : 300;
-    
-    // We can't get height from className, so let's estimate or set a fixed one.
-    // This is a limitation compared to the pure JS version.
-    // Let's manually define heights for better control.
-    const dimensions: Record<string, {width: number; height: number}> = {
-      software: { width: 490, height: 280 },
-      recursos: { width: 280, height: 180 },
-    }
-    
-    const menuDimensions = dimensions[menuId];
-
-    const buttonRect = button.getBoundingClientRect();
     const navRect = nav.getBoundingClientRect();
+    const buttonRect = button.getBoundingClientRect();
 
     const popoverX = buttonRect.left - navRect.left;
     const arrowX = buttonRect.left + buttonRect.width / 2 - navRect.left;
-    
-    setPopoverStyle({
-      width: menuDimensions.width,
-      height: menuDimensions.height,
-      x: popoverX,
-    });
 
+    setPopoverStyle({
+      transform: `translateX(${popoverX}px)`,
+      width: menuData.width,
+      height: menuData.height,
+    });
+    
     setArrowStyle({
-      x: arrowX,
+      transform: `translateX(${arrowX}px) rotate(45deg)`,
+    });
+    
+    setContentStyle({
+      width: menuData.width,
+      height: menuData.height,
     });
   };
 
   const handleMouseLeave = () => {
     setActiveMenu(null);
   };
-
-  const menuLinks = navLinks.filter(link => link.content);
+  
+  const menuLinksWithContent = navLinks.filter(link => link.content);
 
   return (
     <header 
@@ -170,49 +178,43 @@ const Header: React.FC = () => {
           <AnimatePresence>
             {activeMenu && (
               <motion.div
-                initial={{ opacity: 0, rotateX: -15, y: -20 }}
+                initial={{ opacity: 0, rotateX: -15, y: 10 }}
                 animate={{ opacity: 1, rotateX: 0, y: 0 }}
-                exit={{ opacity: 0, rotateX: -15, y: -20 }}
+                exit={{ opacity: 0, rotateX: -15, y: 10 }}
                 transition={{ duration: 0.3, ease: 'easeOut' }}
-                className="absolute top-full mt-2"
-                style={{ perspective: '2000px', left: 0 }}
+                className="absolute top-full mt-2 -translate-x-1/2"
+                style={{ perspective: '2000px', left: "50%"}}
               >
-                <motion.div
+                 <motion.div 
                   className="absolute top-0 left-0 bg-white rounded-lg shadow-xl border border-slate-100"
+                  style={{transformOrigin: '0 0'}}
                   animate={popoverStyle}
                   transition={{ duration: 0.3, ease: 'easeOut' }}
                 />
                 <motion.div
-                  className="absolute -top-1.5 w-3 h-3 bg-white rotate-45 border-l border-t border-slate-100 rounded-tl-sm"
-                  style={{ transformOrigin: 'center' }}
+                  className="absolute -top-[5px] w-3 h-3 bg-white rotate-45 border-l border-t border-slate-100 rounded-tl-sm -ml-[6px]"
                   animate={arrowStyle}
                   transition={{ duration: 0.3, ease: 'easeOut' }}
                 />
+                
                 <motion.div 
                   className="relative z-10 overflow-hidden"
-                  animate={{
-                    width: (popoverStyle as any).width,
-                    height: (popoverStyle as any).height
-                  }}
+                  animate={contentStyle}
                   transition={{ duration: 0.3, ease: 'easeOut' }}
                 >
-                  <AnimatePresence exitBeforeEnter>
-                    {menuLinks.map(link => (
-                      activeMenu === link.id && (
-                        <motion.div
-                          key={link.id}
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          transition={{ duration: 0.2 }}
-                          className="absolute top-0"
-                          style={{ x: (popoverStyle as any).x }}
-                        >
-                          {link.content}
-                        </motion.div>
-                      )
-                    ))}
-                  </AnimatePresence>
+                  {menuLinksWithContent.map(link => (
+                    <motion.div
+                      key={link.id}
+                      className="absolute top-0 left-0"
+                      animate={{
+                        opacity: activeMenu === link.id ? 1 : 0,
+                        x: (buttonRefs.current[link.id]?.getBoundingClientRect().left ?? 0) - (buttonRefs.current[activeMenu]?.getBoundingClientRect().left ?? 0)
+                      }}
+                      transition={{duration: 0.3, ease: 'easeOut'}}
+                    >
+                      {link.content}
+                    </motion.div>
+                  ))}
                 </motion.div>
               </motion.div>
             )}
@@ -230,15 +232,21 @@ const Header: React.FC = () => {
         </div>
 
         <div className="lg:hidden">
-          <button onClick={() => setIsOpen(!isOpen)} className="text-dark">
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          <button onClick={() => setMobileMenuOpen(!isMobileMenuOpen)} className="text-dark">
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
 
       {/* Mobile Navigation */}
-      {isOpen && (
-        <div className="lg:hidden bg-white border-t border-slate-200">
+      <AnimatePresence>
+      {isMobileMenuOpen && (
+        <motion.div 
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: 'auto' }}
+          exit={{ opacity: 0, height: 0 }}
+          className="lg:hidden bg-white border-t border-slate-200 overflow-hidden"
+        >
           <div className="container mx-auto px-6 py-4 flex flex-col">
             {navLinks.map((link) => (
               <div key={link.id} className="py-1">
@@ -269,7 +277,7 @@ const Header: React.FC = () => {
                   <a
                     href={link.href}
                     className="block py-2 text-slate-700 hover:text-primary font-semibold"
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => setMobileMenuOpen(false)}
                   >
                     {link.name}
                   </a>
@@ -285,8 +293,9 @@ const Header: React.FC = () => {
               </a>
             </div>
           </div>
-        </div>
+        </motion.div>
       )}
+      </AnimatePresence>
     </header>
   );
 };
