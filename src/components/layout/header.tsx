@@ -9,7 +9,7 @@ const Header: React.FC = () => {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [hovering, setHovering] = useState<number | null>(null);
   const [popoverLeft, setPopoverLeft] = useState<number | null>(null);
-  const [popoverHeight, setPopoverHeight] = useState<number | null>(null);
+  const [popoverWidth, setPopoverWidth] = useState<number | null>(null);
 
   const refs = useRef<(HTMLElement | null)[]>([]);
 
@@ -84,11 +84,12 @@ const Header: React.FC = () => {
 
   const focusMenu = (index: number, el: HTMLElement) => {
     setHovering(index);
-    setPopoverLeft(el.offsetLeft);
-    
     const menuElement = refs.current[index];
     if (menuElement) {
-      setPopoverHeight(menuElement.offsetHeight);
+        const menuWidth = menuElement.offsetWidth;
+        const triggerCenter = el.offsetLeft + el.offsetWidth / 2;
+        setPopoverLeft(triggerCenter - menuWidth / 2);
+        setPopoverWidth(menuWidth);
     }
   };
 
@@ -132,17 +133,17 @@ const Header: React.FC = () => {
           {/* Popover Container */}
           {typeof hovering === 'number' && (
             <div
-              className="absolute top-full left-0 mt-2 bg-white rounded-xl shadow-lg border border-slate-100 transition-all duration-300 z-40"
+              className="absolute top-full mt-2 bg-white rounded-xl shadow-lg border border-slate-100 transition-all duration-300 z-40"
               style={{
                 left: `${popoverLeft}px`,
-                minHeight: `${popoverHeight}px`,
+                width: `${popoverWidth}px`,
                 pointerEvents: 'auto'
               }}
               onMouseLeave={() => setHovering(null)}
             >
               {/* Arrow */}
               <div
-                className="absolute -top-2 w-3 h-3 bg-white rotate-45 border-l border-t border-slate-100"
+                className="absolute -top-[6px] w-3 h-3 bg-white rotate-45 border-l border-t border-slate-100"
                 style={{
                   left: `calc(50% - 6px)`
                 }}
@@ -156,8 +157,11 @@ const Header: React.FC = () => {
                     if (el) refs.current[index] = el;
                   }}
                   className={`transition-opacity duration-300 ${
-                    hovering === index ? 'opacity-100' : 'opacity-0 hidden'
+                    hovering === index ? 'opacity-100' : 'opacity-0 invisible'
                   }`}
+                  style={{
+                    position: hovering !== index ? 'absolute' : 'relative',
+                  }}
                 >
                   {link.menu}
                 </div>
@@ -205,7 +209,10 @@ const Header: React.FC = () => {
                     </button>
                     {openDropdown === link.id && (
                       <div className="pl-4 pt-2 pb-2 border-l-2 border-slate-200 ml-2">
-                        {link.menu}
+                        {React.cloneElement(link.menu, {
+                          // This is a bit of a trick to make the links inside mobile menu look better
+                          className: 'p-0 grid-cols-1'
+                        })}
                       </div>
                     )}
                   </>
