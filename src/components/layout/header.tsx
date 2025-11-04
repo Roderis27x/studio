@@ -11,10 +11,14 @@ const Header: React.FC = () => {
     {
       name: 'Software',
       dropdown: [
-        { name: 'Características', href: '#features' },
-        { name: 'Integraciones', href: '#' },
-        { name: 'Seguridad', href: '#' },
-        { name: 'Hoja de Ruta', href: '#' },
+        { name: 'ERP', href: '#' },
+        { name: 'Prestamos', href: '#' },
+        { name: 'Gestión de cobros', href: '#' },
+        { name: 'Perfil', href: '#' },
+        { name: 'CRM', href: '#' },
+        { name: 'Help Desk', href: '#' },
+        { name: 'Report', href: '#' },
+        { name: 'Planilla', href: '#' },
       ]
     },
     { name: 'Testimonios', href: '#testimonials' },
