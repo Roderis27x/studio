@@ -148,26 +148,29 @@ const Header: React.FC = () => {
                   left: `calc(50% - 6px)`
                 }}
               />
-
-              {/* Menu Items */}
-              {menuLinks.map((link, index) => (
-                <div
-                  key={link.id}
-                  ref={(el) => {
-                    if (el) refs.current[index] = el;
-                  }}
-                  className={`transition-opacity duration-300 ${
-                    hovering === index ? 'opacity-100' : 'opacity-0 invisible'
-                  }`}
-                  style={{
-                    position: hovering !== index ? 'absolute' : 'relative',
-                  }}
-                >
-                  {link.menu}
-                </div>
-              ))}
+              <div
+                className={`transition-opacity duration-300 ${
+                  hovering !== null ? 'opacity-100' : 'opacity-0 invisible'
+                }`}
+              >
+                {menuLinks[hovering]?.menu}
+              </div>
             </div>
           )}
+
+          {/* This is a hidden div to measure the width of the menu content */}
+          <div className="absolute top-full opacity-0 -z-10">
+            {menuLinks.map((link, index) => (
+              <div
+                key={link.id}
+                ref={(el) => {
+                  if (el) refs.current[index] = el;
+                }}
+              >
+                {link.menu}
+              </div>
+            ))}
+          </div>
         </nav>
 
         <div className="hidden lg:flex items-center space-x-4">
