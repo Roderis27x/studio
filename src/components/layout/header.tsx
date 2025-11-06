@@ -26,14 +26,14 @@ const Header: React.FC = () => {
       setScrolled(window.scrollY > 10);
     };
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Check on initial render
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <header
       className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white/80 backdrop-blur-md shadow-md' : 'bg-white'
+        scrolled ? 'bg-white/80 backdrop-blur-md shadow-md' : 'bg-white border-b'
       }`}
     >
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
@@ -98,6 +98,7 @@ const Header: React.FC = () => {
     </header>
   );
 };
+
 
 const MenuItem = ({
   icon,
@@ -197,6 +198,7 @@ const ResourcesContent = () => (
   </div>
 );
 
+
 const TABS = [
   {
     id: 1,
@@ -212,150 +214,169 @@ const TABS = [
 
 
 const DesktopNav = () => {
-  const [selected, setSelected] = useState<number | null>(null);
-  const [dir, setDir] = useState<null | 'l' | 'r'>(null);
-  const [isHovering, setIsHovering] = useState(false);
-
-  const handleSetSelected = (val: number | null) => {
-    if (typeof selected === 'number' && typeof val === 'number') {
-      setDir(selected > val ? 'r' : 'l');
-    } else if (val === null) {
-      setDir(null);
-    }
-    setSelected(val);
+    const [selected, setSelected] = useState<number | null>(null);
+    const [dir, setDir] = useState<null | "l" | "r">(null);
+  
+    const handleSetSelected = (val: number | null) => {
+      if (typeof selected === "number" && typeof val === "number") {
+        setDir(selected > val ? "r" : "l");
+      } else if (val === null) {
+        setDir(null);
+      }
+  
+      setSelected(val);
+    };
+  
+    return (
+      <nav
+        onMouseLeave={() => handleSetSelected(null)}
+        className="hidden lg:flex relative h-fit gap-2"
+      >
+        {TABS.map((t) => (
+            <Tab
+                key={t.id}
+                selected={selected}
+                handleSetSelected={handleSetSelected}
+                tab={t.id}
+            >
+                {t.title}
+            </Tab>
+        ))}
+        <a
+          href="#testimonials"
+          className="text-slate-600 hover:text-primary transition-colors px-3 py-1.5 rounded-md text-sm font-medium"
+        >
+          Testimonios
+        </a>
+        <a
+          href="#contact"
+          className="text-slate-600 hover:text-primary transition-colors px-3 py-1.5 rounded-md text-sm font-medium"
+        >
+          Contacto
+        </a>
+  
+        <AnimatePresence>
+          {selected && <Content dir={dir} selected={selected} />}
+        </AnimatePresence>
+      </nav>
+    );
   };
   
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  const handleMouseEnter = (val: number) => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-    handleSetSelected(val);
-    setIsHovering(true);
-  };
-
-  const handleMouseLeave = () => {
-    timeoutRef.current = setTimeout(() => {
-        setIsHovering(false);
-        handleSetSelected(null);
-    }, 50); // Small delay to allow moving to the content
-  };
-
-  const handleContentMouseEnter = () => {
-    if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-    }
-  };
-
-  const handleContentMouseLeave = () => {
-      handleMouseLeave();
-  };
-
-  return (
-    <nav className="hidden lg:flex items-center space-x-2 relative" onMouseLeave={handleMouseLeave}>
-      {TABS.map((t) => (
-        <Tab
-          key={t.id}
-          handleSetSelected={handleMouseEnter}
-          selected={selected}
-          tab={t.id}
-        >
-          {t.title}
-        </Tab>
-      ))}
-      <a
-        href="#testimonials"
-        className="text-slate-600 hover:text-primary transition-colors px-3 py-2 rounded-md text-sm font-medium"
+  const Tab = ({
+    children,
+    tab,
+    handleSetSelected,
+    selected,
+  }: {
+    children: ReactNode;
+    tab: number;
+    handleSetSelected: (val: number | null) => void;
+    selected: number | null;
+  }) => {
+    return (
+      <button
+        id={`shift-tab-${tab}`}
+        onMouseEnter={() => handleSetSelected(tab)}
+        onClick={() => handleSetSelected(tab)}
+        className={`flex items-center gap-1 rounded-full px-3 py-1.5 text-sm transition-colors ${
+          selected === tab
+            ? "bg-slate-100 text-slate-700"
+            : "text-slate-500"
+        } hover:bg-slate-100 hover:text-slate-700`}
       >
-        Testimonios
-      </a>
-      <a
-        href="#contact"
-        className="text-slate-600 hover:text-primary transition-colors px-3 py-2 rounded-md text-sm font-medium"
+        <span>{children}</span>
+        <ChevronDown
+          className={`transition-transform ${
+            selected === tab ? "rotate-180" : ""
+          }`}
+        />
+      </button>
+    );
+  };
+  
+  const Content = ({
+    selected,
+    dir,
+  }: {
+    selected: number | null;
+    dir: null | "l" | "r";
+  }) => {
+    // Determine the width based on the selected tab
+    const contentWidth = selected === 1 ? 'w-[48rem]' : 'w-72';
+  
+    return (
+      <motion.div
+        id="overlay-content"
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 8 }}
+        style={{
+          width: selected === 1 ? '48rem' : '12rem',
+        }}
+        className="absolute left-0 top-[calc(100%_+_24px)] rounded-lg border border-slate-200 bg-white shadow-lg"
       >
-        Contacto
-      </a>
-      
-      <AnimatePresence>
-        {(selected || isHovering) && (
-          <motion.div
-            layoutId="nav-dropdown"
-            className="absolute left-0 top-[calc(100%_+_10px)] rounded-lg border border-slate-200 bg-white shadow-lg"
-            onMouseEnter={handleContentMouseEnter}
-            onMouseLeave={handleContentMouseLeave}
-            initial={{ opacity: 0, y: -5, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -5, scale: 0.98 }}
-            transition={{ duration: 0.15, ease: 'easeOut' }}
-          >
-             <AnimatePresence mode="wait" custom={dir}>
-                {selected && (
-                     <motion.div
-                        key={selected}
-                        custom={dir}
-                        variants={contentVariants}
-                        initial="initial"
-                        animate="animate"
-                        exit="exit"
-                    >
-                        {TABS.find((t) => t.id === selected)?.Component()}
-                    </motion.div>
-                )}
-             </AnimatePresence>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </nav>
+        <Bridge />
+        <Nub selected={selected} />
+  
+        {TABS.map((t) => {
+          return (
+            <div className="overflow-hidden" key={t.id}>
+              {selected === t.id && (
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                    x: dir === "l" ? 100 : dir === "r" ? -100 : 0,
+                  }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.25, ease: "easeInOut" }}
+                >
+                  <t.Component />
+                </motion.div>
+              )}
+            </div>
+          );
+        })}
+      </motion.div>
+    );
+  };
+  
+  const Bridge = () => (
+    <div className="absolute -top-[24px] left-0 right-0 h-[24px]" />
   );
-};
-
-const contentVariants = {
-    initial: (dir: 'l' | 'r' | null) => ({
-      opacity: 0,
-      x: dir === 'l' ? 20 : -20,
-    }),
-    animate: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.15, ease: 'easeOut' },
-    },
-    exit: (dir: 'l' | 'r' | null) => ({
-      opacity: 0,
-      x: dir === 'l' ? 20 : -20,
-      transition: { duration: 0.15, ease: 'easeIn' },
-    }),
-  };
-
-
-const Tab = ({
-  children,
-  tab,
-  handleSetSelected,
-  selected,
-}: {
-  children: ReactNode;
-  tab: number;
-  handleSetSelected: (val: number | null) => void;
-  selected: number | null;
-}) => {
-  return (
-    <button
-      id={`shift-tab-${tab}`}
-      onMouseEnter={() => handleSetSelected(tab)}
-      onClick={() => handleSetSelected(tab)}
-      className={`flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-        selected === tab ? 'text-primary' : 'text-slate-600'
-      } hover:text-primary`}
-    >
-      <span>{children}</span>
-      <ChevronDown
-        className={`transition-transform duration-200 ${
-          selected === tab ? 'rotate-180' : ''
-        }`}
+  
+  const Nub = ({ selected }: { selected: number | null }) => {
+    const [left, setLeft] = useState(0);
+  
+    useEffect(() => {
+      moveNub();
+    }, [selected]);
+  
+    const moveNub = () => {
+      if (selected) {
+        const hoveredTab = document.getElementById(`shift-tab-${selected}`);
+        const overlayContent = document.getElementById("overlay-content");
+  
+        if (!hoveredTab || !overlayContent) return;
+  
+        const tabRect = hoveredTab.getBoundingClientRect();
+        const { left: contentLeft } = overlayContent.getBoundingClientRect();
+  
+        const tabCenter = tabRect.left + tabRect.width / 2 - contentLeft;
+  
+        setLeft(tabCenter);
+      }
+    };
+  
+    return (
+      <motion.span
+        style={{
+          clipPath: "polygon(0 0, 100% 0, 50% 50%, 0% 100%)",
+        }}
+        animate={{ left }}
+        transition={{ duration: 0.25, ease: "easeInOut" }}
+        className="absolute left-1/2 top-0 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-tl border border-slate-200 bg-white"
       />
-    </button>
-  );
-};
+    );
+  };
 
 export default Header;
