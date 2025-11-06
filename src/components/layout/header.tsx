@@ -107,7 +107,6 @@ const Header: React.FC = () => {
   );
 };
 
-
 const MenuItem = ({
   icon,
   title,
@@ -219,11 +218,10 @@ const TABS = [
   },
 ];
 
-
 const DesktopNav = () => {
     return (
       <nav className="hidden lg:flex relative h-fit gap-2">
-        <Tabs />
+        <TabsComponent />
         <a
           href="#testimonials"
           className="text-slate-600 hover:text-primary transition-colors px-3 py-1.5 rounded-md text-sm font-medium"
@@ -240,7 +238,7 @@ const DesktopNav = () => {
     );
 };
 
-const Tabs = () => {
+const TabsComponent = () => {
   const [selected, setSelected] = useState<number | null>(null);
   const [dir, setDir] = useState<null | "l" | "r">(null);
 
@@ -295,7 +293,7 @@ const Tab = ({
       id={`shift-tab-${tab}`}
       onMouseEnter={() => handleSetSelected(tab)}
       onClick={() => handleSetSelected(tab)}
-      className={`flex items-center gap-1 rounded-full px-3 py-1.5 text-sm transition-colors ${
+      className={`flex items-center gap-1 rounded-md px-3 py-1.5 text-sm transition-colors ${
         selected === tab
           ? "bg-slate-200 text-slate-800"
           : "text-slate-600"
@@ -318,6 +316,8 @@ const Content = ({
   selected: number | null;
   dir: null | "l" | "r";
 }) => {
+  const selectedTab = TABS.find((t) => t.id === selected);
+
   return (
     <motion.div
       id="overlay-content"
@@ -338,24 +338,21 @@ const Content = ({
       <Bridge />
       <Nub selected={selected} />
 
-      {TABS.map((t) => {
-        return (
-          <div className="overflow-hidden" key={t.id}>
-            {selected === t.id && (
-              <motion.div
-                initial={{
-                  opacity: 0,
-                  x: dir === "l" ? 100 : dir === "r" ? -100 : 0,
-                }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.25, ease: "easeInOut" }}
-              >
-                <t.Component />
-              </motion.div>
-            )}
-          </div>
-        );
-      })}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={selected}
+          layout
+          initial={{
+            opacity: 0,
+            x: dir === "l" ? 100 : dir === "r" ? -100 : 0,
+          }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: dir === "l" ? -100 : 100 }}
+          transition={{ duration: 0.25, ease: "easeInOut" }}
+        >
+          {selectedTab && <selectedTab.Component />}
+        </motion.div>
+      </AnimatePresence>
     </motion.div>
   );
 };
@@ -398,6 +395,5 @@ const Nub = ({ selected }: { selected: number | null }) => {
     />
   );
 };
-
 
 export default Header;
