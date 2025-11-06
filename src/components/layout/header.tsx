@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, ChevronDown, Briefcase, BookOpen } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '@/components/logo';
@@ -86,6 +86,15 @@ const Header: React.FC = () => {
     const [openMobileDropdown, setOpenMobileDropdown] = useState<string | null>(null);
     const [activeMenu, setActiveMenu] = useState<string | null>(null);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const [scrolled, setScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 0);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     const navLinks = [
         { name: 'Software', dropdownId: 'software' },
@@ -115,7 +124,7 @@ const Header: React.FC = () => {
     
     return (
         <header 
-            className="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200"
+            className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-md shadow-md' : 'bg-white border-b border-slate-200'}`}
             onMouseLeave={handleMouseLeave}
         >
             <div className="container mx-auto px-6 py-4 flex justify-between items-center">
