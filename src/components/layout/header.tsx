@@ -127,16 +127,15 @@ const Header: React.FC = () => {
 const Tabs = () => {
   const [selected, setSelected] = useState<number | null>(null);
   const [dir, setDir] = useState<null | 'l' | 'r'>(null);
-  const [prev, setPrev] = useState<number | null>(null);
 
 
   const handleSetSelected = (val: number | null) => {
-    if (typeof selected === 'number' && typeof val === 'number') {
+    if (typeof selected === "number" && typeof val === "number") {
       setDir(selected > val ? 'r' : 'l');
     } else if (val === null) {
       setDir(null);
     }
-    setPrev(selected);
+
     setSelected(val);
   };
 
@@ -181,11 +180,11 @@ const Tab = ({
       onMouseEnter={() => handleSetSelected(tab)}
       onClick={() => handleSetSelected(tab)}
       className={cn(
-        'flex items-center gap-1 rounded-md px-3 py-1.5 text-sm font-medium transition-colors',
-        selected === tab
-          ? 'bg-slate-200 text-slate-800'
-          : 'text-slate-600 hover:bg-slate-100'
-      )}
+          'flex items-center gap-1 rounded-full px-3 py-1.5 text-sm font-medium transition-colors',
+          selected === tab
+            ? 'bg-slate-100 text-slate-900'
+            : 'text-slate-600 hover:text-slate-700'
+        )}
     >
       <span>{children}</span>
       <ChevronDown
@@ -217,39 +216,37 @@ const Content = ({
       animate={{
         opacity: 1,
         y: 0,
-        transition: {
-          duration: 0.15,
-          delay: 0.1,
-        },
       }}
       exit={{
         opacity: 0,
         y: 8,
-        transition: {
-          duration: 0.15,
-        },
       }}
       style={{
         width: selectedTab ? selectedTab.width : 'auto',
       }}
-      className="absolute left-0 top-[calc(100%_+_24px)] rounded-lg border border-slate-700 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-800 p-4"
+      className="absolute left-0 top-[calc(100%_+_24px)] rounded-lg border border-slate-200 bg-gradient-to-b from-white via-white to-slate-50 p-4 shadow-lg"
     >
       <Bridge />
       <Nub selected={selected} />
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={selected}
-          initial={{
-            opacity: 0,
-            x: dir === 'l' ? 100 : dir === 'r' ? -100 : 0,
-          }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: dir === 'l' ? -100 : 100 }}
-          transition={{ duration: 0.2, ease: 'easeInOut' }}
-        >
-          {selectedTab && <selectedTab.Component />}
-        </motion.div>
-      </AnimatePresence>
+
+      {TABS_DATA.map((t) => {
+        return (
+          <div className="overflow-hidden" key={t.id}>
+            {selected === t.id && (
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  x: dir === 'l' ? 100 : dir === 'r' ? -100 : 0,
+                }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.25, ease: 'easeInOut' }}
+              >
+                <t.Component />
+              </motion.div>
+            )}
+          </div>
+        );
+      })}
     </motion.div>
   );
 };
@@ -285,7 +282,7 @@ const Nub = ({ selected }: { selected: number | null }) => {
       }}
       animate={{ left }}
       transition={{ duration: 0.25, ease: 'easeInOut' }}
-      className="absolute left-1/2 top-0 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-tl-sm border-l border-t border-slate-700 bg-slate-900"
+      className="absolute left-1/2 top-0 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-tl-sm border-l border-t border-slate-200 bg-white shadow-sm"
     />
   );
 };
@@ -303,87 +300,87 @@ const MenuItem = ({
 }) => (
   <a
     href="#"
-    className="flex items-start space-x-4 p-3 rounded-lg hover:bg-slate-700 transition-colors"
+    className="flex items-start space-x-3 p-2.5 rounded-lg hover:bg-slate-50 transition-colors"
   >
-    <div className="w-10 h-10 flex-shrink-0 bg-slate-800 rounded-md flex items-center justify-center text-primary">
+    <div className="w-9 h-9 flex-shrink-0 bg-slate-100 rounded-md flex items-center justify-center text-primary">
       {icon}
     </div>
-    <div>
-      <h4 className="font-semibold text-slate-50">{title}</h4>
-      <p className="text-sm text-slate-400">{description}</p>
+    <div className="flex-1 min-w-0">
+      <h4 className="font-semibold text-slate-800 text-sm">{title}</h4>
+      <p className="text-xs text-slate-600 leading-snug">{description}</p>
     </div>
   </a>
 );
 
 const SoftwareContent = () => (
-    <div className="grid grid-cols-3 gap-4">
-      <div>
-        <h3 className="mb-2 text-sm font-medium text-slate-400 uppercase">
-          ERP
-        </h3>
-        <MenuItem
-          icon={<Building className="w-5 h-5" />}
-          title="ERP Core"
-          description="Gestión de recursos empresariales."
-        />
-        <MenuItem
-          icon={<FileText className="w-5 h-5" />}
-          title="Planilla"
-          description="Gestión de nóminas y empleados."
-        />
-      </div>
-      <div>
-        <h3 className="mb-2 text-sm font-medium text-slate-400 uppercase">
-          Financiero
-        </h3>
-        <MenuItem
-          icon={<CreditCard className="w-5 h-5" />}
-          title="Préstamos"
-          description="Gestión de préstamos y créditos."
-        />
-        <MenuItem
-          icon={<Briefcase className="w-5 h-5" />}
-          title="Gestión de cobros"
-          description="Seguimiento y gestión de cobros."
-        />
-      </div>
-      <div>
-        <h3 className="mb-2 text-sm font-medium text-slate-400 uppercase">
-          Clientes
-        </h3>
-        <MenuItem
-          icon={<Users className="w-5 h-5" />}
-          title="CRM"
-          description="Relaciones con los clientes."
-        />
-        <MenuItem
-          icon={<Headphones className="w-5 h-5" />}
-          title="Help Desk"
-          description="Soporte y tickets de ayuda."
-        />
-      </div>
+  <div className="grid grid-cols-3 gap-8">
+    <div className="space-y-2">
+      <h3 className="mb-3 text-xs font-semibold text-slate-600 uppercase tracking-wider">
+        ERP
+      </h3>
+      <MenuItem
+        icon={<Building className="w-4 h-4" />}
+        title="ERP Core"
+        description="Gestión de recursos empresariales."
+      />
+      <MenuItem
+        icon={<FileText className="w-4 h-4" />}
+        title="Planilla"
+        description="Gestión de nóminas y empleados."
+      />
     </div>
+    <div className="space-y-2">
+      <h3 className="mb-3 text-xs font-semibold text-slate-600 uppercase tracking-wider">
+        Financiero
+      </h3>
+      <MenuItem
+        icon={<CreditCard className="w-4 h-4" />}
+        title="Préstamos"
+        description="Gestión de préstamos y créditos."
+      />
+      <MenuItem
+        icon={<Briefcase className="w-4 h-4" />}
+        title="Gestión de cobros"
+        description="Seguimiento y gestión de cobros."
+      />
+    </div>
+    <div className="space-y-2">
+      <h3 className="mb-3 text-xs font-semibold text-slate-600 uppercase tracking-wider">
+        Clientes
+      </h3>
+      <MenuItem
+        icon={<Users className="w-4 h-4" />}
+        title="CRM"
+        description="Relaciones con los clientes."
+      />
+      <MenuItem
+        icon={<Headphones className="w-4 h-4" />}
+        title="Help Desk"
+        description="Soporte y tickets de ayuda."
+      />
+    </div>
+  </div>
 );
 
 const ResourcesContent = () => (
   <div className="p-2">
     <ul className="space-y-1">
-      <li className="p-2 rounded-md hover:bg-slate-700">
+      <li className="p-2 rounded-md hover:bg-slate-50">
         <a href="#" className="flex items-center space-x-3">
-          <BookOpen className="w-5 h-5 text-slate-400" />
-          <span className="text-slate-200 font-medium">Blog</span>
+          <BookOpen className="w-5 h-5 text-slate-500" />
+          <span className="text-slate-800 font-medium">Blog</span>
         </a>
       </li>
-      <li className="p-2 rounded-md hover:bg-slate-700">
+      <li className="p-2 rounded-md hover:bg-slate-50">
         <a href="#" className="flex items-center space-x-3">
-          <Users className="w-5 h-5 text-slate-400" />
-          <span className="text-slate-200 font-medium">Casos de Éxito</span>
+          <Users className="w-5 h-5 text-slate-500" />
+          <span className="text-slate-800 font-medium">Casos de Éxito</span>
         </a>
       </li>
-      <li className="p-2 rounded-md hover:bg-slate-700">
+      <li className="p-2 rounded-md hover:bg-slate-50">
         <a href="#" className="flex items-center space-x-3">
-          <FileText className="w-5 h-5 text-slate-400" />
-          <span className="text-slate-200 font-medium">Documentación</span>
+          <FileText className="w-5 h-5 text-slate-500" />
+          <span className="text-slate-800 font-medium">Documentación</span>
         </a>
       </li>
     </ul>
@@ -396,7 +393,7 @@ const TABS_DATA = [
     id: 1,
     title: 'Software',
     Component: SoftwareContent,
-    width: '48rem',
+    width: '56rem',
   },
   {
     id: 2,
