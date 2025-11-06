@@ -154,11 +154,11 @@ const Header: React.FC = () => {
                             <AnimatePresence>
                                 {activeMenu === link.dropdownId && (
                                     <motion.div
-                                        initial={{ opacity: 0, scale: 0.97, y: -10 }}
+                                        initial={{ opacity: 0, scale: 0.98, y: -5 }}
                                         animate={{ opacity: 1, scale: 1, y: 0 }}
-                                        exit={{ opacity: 0, scale: 0.97, y: -10 }}
-                                        transition={{ duration: 0.2, ease: 'easeOut' }}
-                                        className="absolute top-full left-0 mt-2"
+                                        exit={{ opacity: 0, scale: 0.98, y: -5 }}
+                                        transition={{ duration: 0.15, ease: 'easeOut' }}
+                                        className="absolute top-full left-0 mt-2 z-50"
                                         onMouseEnter={handlePopoverEnter}
                                         onMouseLeave={handleMouseLeave}
                                     >
