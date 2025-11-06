@@ -1,67 +1,49 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, X, ChevronDown, Briefcase, BookOpen } from 'lucide-react';
+import { Menu, X, ChevronDown, Briefcase, BookOpen, Building, Users, CreditCard, Headphones, FileText, ShieldCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '@/components/logo';
+
+const MenuItem = ({ icon, title, description }: { icon: React.ReactNode, title: string, description: string }) => (
+    <a href="#" className="flex items-start space-x-4 p-3 rounded-lg hover:bg-slate-50 transition-colors">
+        <div className="w-10 h-10 flex-shrink-0 bg-slate-100 rounded-md flex items-center justify-center">
+            {icon}
+        </div>
+        <div>
+            <h4 className="font-semibold text-slate-800">{title}</h4>
+            <p className="text-sm text-slate-500">{description}</p>
+        </div>
+    </a>
+);
+
 
 const menuContents = {
   software: {
     id: 'software',
     content: (
-        <div className="grid grid-cols-2 gap-x-8 gap-y-4 p-6 w-[520px]">
-            <div className="flex items-start space-x-3 p-3 rounded-lg hover:bg-slate-50 transition-colors">
-                <div className="w-10 h-10 flex-shrink-0 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center">
-                    <Briefcase className="w-6 h-6" />
+        <div className="p-6 w-[720px]">
+            <div className="grid grid-cols-3 gap-x-6">
+                <div className="space-y-1">
+                    <h3 className="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">ERP</h3>
+                    <div className="flex flex-col">
+                        <MenuItem icon={<Building className="w-5 h-5 text-slate-600"/>} title="ERP Core" description="Gestión de recursos empresariales." />
+                        <MenuItem icon={<FileText className="w-5 h-5 text-slate-600"/>} title="Planilla" description="Gestión de nóminas y empleados." />
+                    </div>
                 </div>
-                <div>
-                    <h4 className="font-semibold text-slate-800">ERP</h4>
-                    <p className="text-sm text-slate-500">Gestión de recursos empresariales.</p>
+                <div className="space-y-1">
+                    <h3 className="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">Financiero</h3>
+                     <div className="flex flex-col">
+                        <MenuItem icon={<CreditCard className="w-5 h-5 text-slate-600"/>} title="Préstamos" description="Gestión de préstamos y créditos." />
+                        <MenuItem icon={<Briefcase className="w-5 h-5 text-slate-600"/>} title="Gestión de cobros" description="Seguimiento y gestión de cobros." />
+                    </div>
                 </div>
-            </div>
-            <div className="flex items-start space-x-3 p-3 rounded-lg hover:bg-slate-50 transition-colors">
-                <div className="w-10 h-10 flex-shrink-0 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center">
-                    <Briefcase className="w-6 h-6" />
-                </div>
-                <div>
-                    <h4 className="font-semibold text-slate-800">Préstamos</h4>
-                    <p className="text-sm text-slate-500">Gestión de préstamos y créditos.</p>
-                </div>
-            </div>
-            <div className="flex items-start space-x-3 p-3 rounded-lg hover:bg-slate-50 transition-colors">
-                <div className="w-10 h-10 flex-shrink-0 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center">
-                    <Briefcase className="w-6 h-6" />
-                </div>
-                <div>
-                    <h4 className="font-semibold text-slate-800">Gestión de cobros</h4>
-                    <p className="text-sm text-slate-500">Seguimiento y gestión de cobros.</p>
-                </div>
-            </div>
-            <div className="flex items-start space-x-3 p-3 rounded-lg hover:bg-slate-50 transition-colors">
-                <div className="w-10 h-10 flex-shrink-0 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center">
-                    <Briefcase className="w-6 h-6" />
-                </div>
-                <div>
-                    <h4 className="font-semibold text-slate-800">CRM</h4>
-                    <p className="text-sm text-slate-500">Relaciones con los clientes.</p>
-                </div>
-            </div>
-            <div className="flex items-start space-x-3 p-3 rounded-lg hover:bg-slate-50 transition-colors">
-                <div className="w-10 h-10 flex-shrink-0 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center">
-                    <Briefcase className="w-6 h-6" />
-                </div>
-                <div>
-                    <h4 className="font-semibold text-slate-800">Help Desk</h4>
-                    <p className="text-sm text-slate-500">Soporte y tickets de ayuda.</p>
-                </div>
-            </div>
-            <div className="flex items-start space-x-3 p-3 rounded-lg hover:bg-slate-50 transition-colors">
-                <div className="w-10 h-10 flex-shrink-0 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center">
-                    <Briefcase className="w-6 h-6" />
-                </div>
-                <div>
-                    <h4 className="font-semibold text-slate-800">Planilla</h4>
-                    <p className="text-sm text-slate-500">Gestión de nóminas y empleados.</p>
+                <div className="space-y-1">
+                    <h3 className="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">Clientes</h3>
+                     <div className="flex flex-col">
+                        <MenuItem icon={<Users className="w-5 h-5 text-slate-600"/>} title="CRM" description="Relaciones con los clientes." />
+                        <MenuItem icon={<Headphones className="w-5 h-5 text-slate-600"/>} title="Help Desk" description="Soporte y tickets de ayuda." />
+                    </div>
                 </div>
             </div>
         </div>
@@ -126,9 +108,8 @@ const Header: React.FC = () => {
     return (
         <header 
             className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-md shadow-md' : 'bg-white border-b'}`}
-            onMouseLeave={handleMouseLeave}
         >
-            <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div className="container mx-auto px-6 py-4 flex justify-between items-center" onMouseLeave={handleMouseLeave}>
                 <Logo />
                 
                 <nav className="hidden lg:flex items-center space-x-2">
@@ -150,24 +131,6 @@ const Header: React.FC = () => {
                                     <ChevronDown className={`ml-1 h-4 w-4 transition-transform duration-200 ${activeMenu === link.dropdownId ? 'rotate-180' : ''}`} />
                                 </button>
                             )}
-
-                            <AnimatePresence>
-                                {activeMenu === link.dropdownId && (
-                                    <motion.div
-                                        initial={{ opacity: 0, scale: 0.98, y: -5 }}
-                                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                                        exit={{ opacity: 0, scale: 0.98, y: -5 }}
-                                        transition={{ duration: 0.15, ease: 'easeOut' }}
-                                        className="absolute top-full left-0 mt-2 z-50"
-                                        onMouseEnter={handlePopoverEnter}
-                                        onMouseLeave={handleMouseLeave}
-                                    >
-                                        <div className="bg-white rounded-lg shadow-xl border border-slate-100 overflow-hidden">
-                                            {menuContents[activeMenu as keyof typeof menuContents].content}
-                                        </div>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
                         </div>
                     ))}
                 </nav>
@@ -184,6 +147,24 @@ const Header: React.FC = () => {
                     </button>
                 </div>
             </div>
+
+            <AnimatePresence>
+                {activeMenu && (
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.98, y: -5 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.98, y: -5 }}
+                        transition={{ duration: 0.15, ease: 'easeOut' }}
+                        className="absolute top-full left-0 right-0 flex justify-center"
+                        onMouseEnter={handlePopoverEnter}
+                        onMouseLeave={handleMouseLeave}
+                    >
+                        <div className="bg-white rounded-lg shadow-xl border border-slate-100 overflow-hidden">
+                            {menuContents[activeMenu as keyof typeof menuContents].content}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
             
             {isMobileMenuOpen && (
                 <div className="lg:hidden bg-white border-t border-slate-200">
