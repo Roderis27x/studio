@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '@/components/logo';
+import { cn } from '@/lib/utils';
 
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -31,11 +32,12 @@ const Header: React.FC = () => {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${
+      className={cn(
+        'sticky top-0 z-50 transition-all duration-300',
         scrolled
           ? 'bg-white/80 backdrop-blur-md shadow-md'
           : 'bg-white border-b'
-      }`}
+      )}
     >
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         <Logo />
@@ -131,7 +133,7 @@ const MenuItem = ({
 );
 
 const SoftwareContent = () => (
-    <div className="w-full grid grid-cols-3 gap-6 p-4">
+    <div className="grid grid-cols-3 gap-6 p-4 w-[48rem]">
       <div>
         <h3 className="mb-2 text-sm font-medium text-slate-400 uppercase">
           ERP
@@ -240,11 +242,11 @@ const DesktopNav = () => {
 
 const TabsComponent = () => {
   const [selected, setSelected] = useState<number | null>(null);
-  const [dir, setDir] = useState<null | "l" | "r">(null);
+  const [dir, setDir] = useState<null | 'l' | 'r'>(null);
 
   const handleSetSelected = (val: number | null) => {
-    if (typeof selected === "number" && typeof val === "number") {
-      setDir(selected > val ? "r" : "l");
+    if (typeof selected === 'number' && typeof val === 'number') {
+      setDir(selected > val ? 'r' : 'l');
     } else if (val === null) {
       setDir(null);
     }
@@ -293,16 +295,16 @@ const Tab = ({
       id={`shift-tab-${tab}`}
       onMouseEnter={() => handleSetSelected(tab)}
       onClick={() => handleSetSelected(tab)}
-      className={`flex items-center gap-1 rounded-md px-3 py-1.5 text-sm transition-colors ${
+      className={`flex items-center gap-1 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
         selected === tab
-          ? "bg-slate-200 text-slate-800"
-          : "text-slate-600"
+          ? 'bg-slate-200 text-slate-800'
+          : 'text-slate-600'
       }`}
     >
       <span>{children}</span>
       <ChevronDown
         className={`transition-transform ${
-          selected === tab ? "rotate-180" : ""
+          selected === tab ? 'rotate-180' : ''
         }`}
       />
     </button>
@@ -314,47 +316,53 @@ const Content = ({
   dir,
 }: {
   selected: number | null;
-  dir: null | "l" | "r";
+  dir: null | 'l' | 'r';
 }) => {
   const selectedTab = TABS.find((t) => t.id === selected);
 
   return (
     <motion.div
       id="overlay-content"
-      initial={{
-        opacity: 0,
-        y: 8,
-      }}
-      animate={{
-        opacity: 1,
-        y: 0,
-      }}
-      exit={{
-        opacity: 0,
-        y: 8,
-      }}
-      className="absolute left-0 top-[calc(100%_+_24px)] rounded-lg border border-slate-700 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-800 p-4"
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 8 }}
+      transition={{ duration: 0.15, ease: 'easeOut' }}
+      className="absolute left-0 top-[calc(100%_+_24px)] rounded-lg border border-slate-700 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-800"
+      layout
     >
       <Bridge />
       <Nub selected={selected} />
 
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="wait" custom={dir} initial={false}>
         <motion.div
           key={selected}
-          layout
-          initial={{
-            opacity: 0,
-            x: dir === "l" ? 100 : dir === "r" ? -100 : 0,
-          }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: dir === "l" ? -100 : 100 }}
-          transition={{ duration: 0.25, ease: "easeInOut" }}
+          custom={dir}
+          variants={contentVariants}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          transition={{ duration: 0.25, ease: 'easeInOut' }}
         >
           {selectedTab && <selectedTab.Component />}
         </motion.div>
       </AnimatePresence>
     </motion.div>
   );
+};
+
+const contentVariants = {
+  initial: (dir: 'l' | 'r' | null) => ({
+    opacity: 0,
+    x: dir === 'l' ? 100 : dir === 'r' ? -100 : 0,
+  }),
+  animate: {
+    opacity: 1,
+    x: 0,
+  },
+  exit: (dir: 'l' | 'r' | null) => ({
+    opacity: 0,
+    x: dir === 'l' ? -100 : 100,
+  }),
 };
 
 const Bridge = () => (
@@ -371,7 +379,7 @@ const Nub = ({ selected }: { selected: number | null }) => {
   const moveNub = () => {
     if (selected) {
       const hoveredTab = document.getElementById(`shift-tab-${selected}`);
-      const overlayContent = document.getElementById("overlay-content");
+      const overlayContent = document.getElementById('overlay-content');
 
       if (!hoveredTab || !overlayContent) return;
 
@@ -387,10 +395,10 @@ const Nub = ({ selected }: { selected: number | null }) => {
   return (
     <motion.span
       style={{
-        clipPath: "polygon(0 0, 100% 0, 50% 50%, 0% 100%)",
+        clipPath: 'polygon(0 0, 100% 0, 50% 50%, 0% 100%)',
       }}
       animate={{ left }}
-      transition={{ duration: 0.25, ease: "easeInOut" }}
+      transition={{ duration: 0.25, ease: 'easeInOut' }}
       className="absolute left-1/2 top-0 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-tl border border-slate-700 bg-slate-900"
     />
   );
