@@ -113,9 +113,10 @@ const Header: React.FC = () => {
                 const rect = el.getBoundingClientRect();
 
                 if (navId && menuContents[navId as keyof typeof menuContents]) {
+                    const menu = menuContents[navId as keyof typeof menuContents];
                     dimensions[navId] = {
-                        width: menuContents[navId as keyof typeof menuContents].width,
-                        height: menuContents[navId as keyof typeof menuContents].height,
+                        width: menu.width,
+                        height: menu.height,
                         x: rect.left - popoverLeft,
                         arrowX: rect.left + (rect.width / 2) - popoverLeft,
                     };
@@ -153,8 +154,6 @@ const Header: React.FC = () => {
 
     const currentContent = activeMenu ? menuContents[activeMenu as keyof typeof menuContents]?.content : null;
 
-    const transformOrigin = activeMenu ? `${menuDimensions[activeMenu].arrowX - menuDimensions[activeMenu].x}px 0px` : '0 0';
-
     return (
         <header 
             className="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200"
@@ -190,26 +189,26 @@ const Header: React.FC = () => {
                 <AnimatePresence>
                     {activeMenu && (
                         <motion.div
-                            initial={{ opacity: 0, rotateX: -15, y: -20 }}
-                            animate={{ opacity: 1, rotateX: 0, y: 0 }}
-                            exit={{ opacity: 0, rotateX: -15, y: -20 }}
-                            transition={{ duration: 0.3, ease: 'easeInOut' }}
-                            className="absolute top-full left-0 right-0"
+                            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                            transition={{ duration: 0.2, ease: 'easeInOut' }}
+                            className="absolute top-full left-0"
                             style={{ perspective: '2000px' }}
                             onMouseEnter={handlePopoverMouseEnter}
                             onMouseLeave={handleNavMouseLeave}
                         >
                             <motion.div
-                                className="absolute top-0 left-0 bg-white rounded-lg shadow-xl border border-slate-100"
-                                style={{ transformOrigin }}
+                                className="absolute top-[1.4rem] left-0 bg-white rounded-lg shadow-xl border border-slate-100"
                                 animate={{
-                                    transform: `translateX(${popoverX}px) scaleX(${popoverWidth ? popoverWidth / menuDimensions['software'].width : 0}) scaleY(${popoverHeight ? popoverHeight / menuDimensions['software'].height : 0})`,
+                                    width: popoverWidth,
+                                    height: popoverHeight,
+                                    x: popoverX,
                                 }}
                                 transition={{ duration: 0.3, ease: 'easeInOut' }}
                             />
                             <motion.div
-                                className="absolute top-0 left-0 overflow-hidden bg-white"
-                                style={{ originX: 0, originY: 0 }}
+                                className="absolute top-[1.4rem] left-0 overflow-hidden"
                                 animate={{
                                     width: popoverWidth,
                                     height: popoverHeight,
@@ -217,7 +216,7 @@ const Header: React.FC = () => {
                                 }}
                                 transition={{ duration: 0.3, ease: 'easeInOut' }}
                             >
-                                <div className="relative w-full h-full">
+                                <div className="relative w-full h-full bg-white">
                                     {Object.entries(menuContents).map(([key, { content }]) => (
                                         <motion.div
                                             key={key}
@@ -233,7 +232,7 @@ const Header: React.FC = () => {
                                 </div>
                             </motion.div>
                             <motion.div
-                                className="absolute top-[-6px] h-3 w-3 bg-white transform rotate-45 rounded-sm"
+                                className="absolute top-[1rem] h-3 w-3 bg-white transform rotate-45 rounded-sm"
                                 style={{ willChange: 'transform' }}
                                 animate={{
                                     x: arrowX,
