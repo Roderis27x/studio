@@ -34,14 +34,26 @@ const Header: React.FC = () => {
     <header
       className={cn(
         'sticky top-0 z-50 transition-all duration-300',
-        scrolled
-          ? 'bg-white/80 backdrop-blur-md shadow-md'
-          : 'bg-white border-b'
+        scrolled ? 'bg-white/80 backdrop-blur-md shadow-md' : 'bg-white'
       )}
     >
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         <Logo />
-        <DesktopNav />
+        <nav className="hidden lg:flex items-center gap-4">
+          <Tabs />
+          <a
+            href="#testimonials"
+            className="text-slate-600 hover:text-primary transition-colors px-3 py-1.5 rounded-md text-sm font-medium"
+          >
+            Testimonios
+          </a>
+          <a
+            href="#contact"
+            className="text-slate-600 hover:text-primary transition-colors px-3 py-1.5 rounded-md text-sm font-medium"
+          >
+            Contacto
+          </a>
+        </nav>
         <div className="hidden lg:flex items-center space-x-4">
           <a
             href="#"
@@ -108,6 +120,8 @@ const Header: React.FC = () => {
     </header>
   );
 };
+
+// --- Shifting Dropdown Components ---
 
 const MenuItem = ({
   icon,
@@ -207,7 +221,7 @@ const ResourcesContent = () => (
   </div>
 );
 
-const TABS = [
+const TABS_DATA = [
   {
     id: 1,
     title: 'Software',
@@ -220,30 +234,17 @@ const TABS = [
   },
 ];
 
-const DesktopNav = () => {
-    return (
-      <nav className="hidden lg:flex relative h-fit gap-2">
-        <TabsComponent />
-        <a
-          href="#testimonials"
-          className="text-slate-600 hover:text-primary transition-colors px-3 py-1.5 rounded-md text-sm font-medium"
-        >
-          Testimonios
-        </a>
-        <a
-          href="#contact"
-          className="text-slate-600 hover:text-primary transition-colors px-3 py-1.5 rounded-md text-sm font-medium"
-        >
-          Contacto
-        </a>
-      </nav>
-    );
-};
 
-const TabsComponent = () => {
+const Tabs = () => {
   const [selected, setSelected] = useState<number | null>(null);
+  const [dir, setDir] = useState<null | 'l' | 'r'>(null);
 
   const handleSetSelected = (val: number | null) => {
+    if (typeof selected === 'number' && typeof val === 'number') {
+      setDir(selected > val ? 'r' : 'l');
+    } else if (val === null) {
+      setDir(null);
+    }
     setSelected(val);
   };
 
@@ -252,21 +253,18 @@ const TabsComponent = () => {
       onMouseLeave={() => handleSetSelected(null)}
       className="relative flex h-fit gap-2"
     >
-      {TABS.map((t) => {
-        return (
-          <Tab
-            key={t.id}
-            selected={selected}
-            handleSetSelected={handleSetSelected}
-            tab={t.id}
-          >
-            {t.title}
-          </Tab>
-        );
-      })}
-
+      {TABS_DATA.map((t) => (
+        <Tab
+          key={t.id}
+          selected={selected}
+          handleSetSelected={handleSetSelected}
+          tab={t.id}
+        >
+          {t.title}
+        </Tab>
+      ))}
       <AnimatePresence>
-        {selected && <Content selected={selected} />}
+        {selected && <Content dir={dir} selected={selected} />}
       </AnimatePresence>
     </div>
   );
@@ -288,28 +286,26 @@ const Tab = ({
       id={`shift-tab-${tab}`}
       onMouseEnter={() => handleSetSelected(tab)}
       onClick={() => handleSetSelected(tab)}
-      className={`flex items-center gap-1 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+      className={cn(
+        'flex items-center gap-1 rounded-md px-3 py-1.5 text-sm font-medium transition-colors',
         selected === tab
           ? 'bg-slate-200 text-slate-800'
           : 'text-slate-600 hover:bg-slate-100'
-      }`}
+      )}
     >
       <span>{children}</span>
       <ChevronDown
-        className={`transition-transform ${
+        className={cn(
+          'h-4 w-4 transition-transform',
           selected === tab ? 'rotate-180' : ''
-        }`}
+        )}
       />
     </button>
   );
 };
 
-const Content = ({
-  selected,
-}: {
-  selected: number | null;
-}) => {
-  const selectedTab = TABS.find((t) => t.id === selected);
+const Content = ({ selected, dir }: { selected: number; dir: 'l' | 'r' | null }) => {
+  const selectedTab = TABS_DATA.find((t) => t.id === selected);
 
   return (
     <motion.div
@@ -318,16 +314,34 @@ const Content = ({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 8 }}
       transition={{ duration: 0.2, ease: 'easeOut' }}
-      className="absolute left-0 top-[calc(100%_+_24px)] rounded-lg border border-slate-700 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-800"
-      layout
-      layoutId="dropdown"
+      style={{
+        position: 'absolute',
+        left: 0,
+        top: 'calc(100% + 24px)',
+      }}
+      className="rounded-lg border border-slate-700 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-800 p-4"
     >
       <Bridge />
       <Nub selected={selected} />
-      {selectedTab && <selectedTab.Component />}
+
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={selected}
+          initial={{
+            opacity: 0,
+            x: dir === 'l' ? 100 : dir === 'r' ? -100 : 0,
+          }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: dir === 'l' ? -100 : 100 }}
+          transition={{ duration: 0.25, ease: 'easeInOut' }}
+        >
+          {selectedTab && <selectedTab.Component />}
+        </motion.div>
+      </AnimatePresence>
     </motion.div>
   );
 };
+
 
 const Bridge = () => (
   <div className="absolute -top-[24px] left-0 right-0 h-[24px]" />
@@ -337,24 +351,20 @@ const Nub = ({ selected }: { selected: number | null }) => {
   const [left, setLeft] = useState(0);
 
   useEffect(() => {
+    const moveNub = () => {
+      if (selected) {
+        const hoveredTab = document.getElementById(`shift-tab-${selected}`);
+        const overlayContent = document.getElementById('overlay-content');
+        if (!hoveredTab || !overlayContent) return;
+
+        const tabRect = hoveredTab.getBoundingClientRect();
+        const { left: contentLeft } = overlayContent.getBoundingClientRect();
+        const tabCenter = tabRect.left + tabRect.width / 2 - contentLeft;
+        setLeft(tabCenter);
+      }
+    };
     moveNub();
   }, [selected]);
-
-  const moveNub = () => {
-    if (selected) {
-      const hoveredTab = document.getElementById(`shift-tab-${selected}`);
-      const overlayContent = document.getElementById('overlay-content');
-
-      if (!hoveredTab || !overlayContent) return;
-
-      const tabRect = hoveredTab.getBoundingClientRect();
-      const { left: contentLeft } = overlayContent.getBoundingClientRect();
-
-      const tabCenter = tabRect.left + tabRect.width / 2 - contentLeft;
-
-      setLeft(tabCenter);
-    }
-  };
 
   return (
     <motion.span
@@ -363,7 +373,7 @@ const Nub = ({ selected }: { selected: number | null }) => {
       }}
       animate={{ left }}
       transition={{ duration: 0.25, ease: 'easeInOut' }}
-      className="absolute left-1/2 top-0 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-tl border border-slate-700 bg-slate-900"
+      className="absolute left-1/2 top-0 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-tl-sm border-l border-t border-slate-700 bg-slate-900"
     />
   );
 };
