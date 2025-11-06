@@ -205,18 +205,16 @@ const Header: React.FC = () => {
                                     height: popoverHeight,
                                     x: popoverX,
                                 }}
-                                transition={{ duration: 0.3, ease: 'easeInOut' }}
                             />
                             <motion.div
-                                className="absolute top-[1.4rem] left-0 overflow-hidden"
+                                className="absolute top-[1.4rem] left-0 overflow-hidden bg-white"
                                 animate={{
                                     width: popoverWidth,
                                     height: popoverHeight,
                                     x: popoverX,
                                 }}
-                                transition={{ duration: 0.3, ease: 'easeInOut' }}
                             >
-                                <div className="relative w-full h-full bg-white">
+                                <div className="relative w-full h-full">
                                     {Object.entries(menuContents).map(([key, { content }]) => (
                                         <motion.div
                                             key={key}
@@ -237,7 +235,6 @@ const Header: React.FC = () => {
                                 animate={{
                                     x: arrowX,
                                 }}
-                                transition={{ duration: 0.3, ease: 'easeInOut' }}
                             />
                         </motion.div>
                     )}
