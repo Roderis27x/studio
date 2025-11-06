@@ -4,7 +4,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Menu, X, ChevronDown, Briefcase, BookOpen, Building } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// Definimos los contenidos de los menús aquí para más claridad
 const menuContents = {
   software: {
     id: 'software',
@@ -89,7 +88,6 @@ const Header: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
-    // State for stripe-like menu
     const [activeMenu, setActiveMenu] = useState<string | null>(null);
     const [menuDimensions, setMenuDimensions] = useState<{ [key: string]: { width: number; height: number; x: number; arrowX: number } }>({});
     const navRef = useRef<HTMLDivElement>(null);
@@ -155,6 +153,8 @@ const Header: React.FC = () => {
 
     const currentContent = activeMenu ? menuContents[activeMenu as keyof typeof menuContents]?.content : null;
 
+    const transformOrigin = activeMenu ? `${menuDimensions[activeMenu].arrowX - menuDimensions[activeMenu].x}px 0px` : '0 0';
+
     return (
         <header 
             className="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200"
@@ -201,14 +201,14 @@ const Header: React.FC = () => {
                         >
                             <motion.div
                                 className="absolute top-0 left-0 bg-white rounded-lg shadow-xl border border-slate-100"
-                                style={{ transformOrigin: '0 0' }}
+                                style={{ transformOrigin }}
                                 animate={{
-                                    transform: `translateX(${popoverX}px) scaleX(${popoverWidth / (menuDimensions['software']?.width || 1)}) scaleY(${popoverHeight / (menuDimensions['software']?.height || 1)})`
+                                    transform: `translateX(${popoverX}px) scaleX(${popoverWidth ? popoverWidth / menuDimensions['software'].width : 0}) scaleY(${popoverHeight ? popoverHeight / menuDimensions['software'].height : 0})`,
                                 }}
                                 transition={{ duration: 0.3, ease: 'easeInOut' }}
                             />
                             <motion.div
-                                className="absolute top-0 left-0 overflow-hidden"
+                                className="absolute top-0 left-0 overflow-hidden bg-white"
                                 style={{ originX: 0, originY: 0 }}
                                 animate={{
                                     width: popoverWidth,
@@ -217,7 +217,7 @@ const Header: React.FC = () => {
                                 }}
                                 transition={{ duration: 0.3, ease: 'easeInOut' }}
                             >
-                                <div className="relative w-full h-full bg-white">
+                                <div className="relative w-full h-full">
                                     {Object.entries(menuContents).map(([key, { content }]) => (
                                         <motion.div
                                             key={key}
