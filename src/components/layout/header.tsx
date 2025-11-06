@@ -217,7 +217,7 @@ const Header: React.FC = () => {
                                 }}
                                 transition={{ duration: 0.3, ease: 'easeInOut' }}
                             >
-                                <div className="relative w-full h-full">
+                                <div className="relative w-full h-full bg-white">
                                     {Object.entries(menuContents).map(([key, { content }]) => (
                                         <motion.div
                                             key={key}
