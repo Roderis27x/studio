@@ -125,7 +125,7 @@ const Header: React.FC = () => {
     
     return (
         <header 
-            className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-md shadow-md' : 'bg-transparent border-b border-transparent'}`}
+            className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-md shadow-md' : 'bg-white border-b'}`}
             onMouseLeave={handleMouseLeave}
         >
             <div className="container mx-auto px-6 py-4 flex justify-between items-center">
