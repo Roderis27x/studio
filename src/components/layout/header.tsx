@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { Menu, X, ChevronDown, Briefcase, BookOpen } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '@/components/logo';
@@ -148,7 +148,7 @@ const Header: React.FC = () => {
                                         animate={{ opacity: 1, scale: 1, y: 0 }}
                                         exit={{ opacity: 0, scale: 0.97, y: -10 }}
                                         transition={{ duration: 0.2, ease: 'easeOut' }}
-                                        className="absolute top-full left-1/2 -translate-x-1/2 mt-2"
+                                        className="absolute top-full left-0 mt-2"
                                         onMouseEnter={handlePopoverEnter}
                                         onMouseLeave={handleMouseLeave}
                                     >
