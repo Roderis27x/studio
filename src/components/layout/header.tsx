@@ -90,9 +90,10 @@ const Header: React.FC = () => {
 
     useEffect(() => {
         const handleScroll = () => {
-            setScrolled(window.scrollY > 0);
+            setScrolled(window.scrollY > 10);
         };
         window.addEventListener('scroll', handleScroll);
+        handleScroll(); 
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
@@ -124,7 +125,7 @@ const Header: React.FC = () => {
     
     return (
         <header 
-            className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-md shadow-md' : 'bg-white border-b border-slate-200'}`}
+            className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-md shadow-md' : 'bg-transparent border-b border-transparent'}`}
             onMouseLeave={handleMouseLeave}
         >
             <div className="container mx-auto px-6 py-4 flex justify-between items-center">
