@@ -63,33 +63,44 @@ const menuContents = {
   },
 };
 
+const navLinks = [
+    { name: 'Software', dropdownId: 'software' },
+    { name: 'Testimonios', href: '#testimonials' },
+    { name: 'Recursos', dropdownId: 'recursos' },
+    { name: 'Contacto', href: '#contact' },
+];
+
 const Header: React.FC = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [openMobileDropdown, setOpenMobileDropdown] = useState<string | null>(null);
     const [activeMenu, setActiveMenu] = useState<string | null>(null);
+    const [direction, setDirection] = useState(0);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
     const [scrolled, setScrolled] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
-            setScrolled(window.scrollY > 10);
+            setScrolled(window.scrollY > 0);
         };
         window.addEventListener('scroll', handleScroll);
         handleScroll(); 
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
-
-    const navLinks = [
-        { name: 'Software', dropdownId: 'software' },
-        { name: 'Testimonios', href: '#testimonials' },
-        { name: 'Recursos', dropdownId: 'recursos' },
-        { name: 'Contacto', href: '#contact' },
-    ];
     
     const handleMouseEnter = (menuId: string) => {
         if (timeoutRef.current) {
             clearTimeout(timeoutRef.current);
         }
+
+        const currentIdx = navLinks.findIndex(link => link.dropdownId === menuId);
+        const prevIdx = navLinks.findIndex(link => link.dropdownId === activeMenu);
+
+        if (currentIdx > prevIdx) {
+            setDirection(1);
+        } else if (currentIdx < prevIdx) {
+            setDirection(-1);
+        }
+
         setActiveMenu(menuId);
     };
 
@@ -105,6 +116,21 @@ const Header: React.FC = () => {
         }
     };
     
+    const variants = {
+        initial: (direction: number) => ({
+            opacity: 0,
+            x: direction > 0 ? 50 : -50,
+        }),
+        animate: {
+            opacity: 1,
+            x: 0,
+        },
+        exit: (direction: number) => ({
+            opacity: 0,
+            x: direction > 0 ? -50 : 50,
+        }),
+    };
+
     return (
         <header 
             className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-md shadow-md' : 'bg-white'}`}
@@ -153,12 +179,14 @@ const Header: React.FC = () => {
                                 transition={{ duration: 0.15, ease: [0.4, 0, 0.2, 1] }}
                                 className="bg-white rounded-lg shadow-xl border border-slate-100 overflow-hidden mt-2"
                             >
-                                <AnimatePresence mode="wait">
+                                <AnimatePresence mode="wait" custom={direction}>
                                     <motion.div
                                         key={activeMenu}
-                                        initial={{ opacity: 0, y: -10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -10 }}
+                                        variants={variants}
+                                        custom={direction}
+                                        initial="initial"
+                                        animate="animate"
+                                        exit="exit"
                                         transition={{ duration: 0.15, ease: [0.4, 0, 0.2, 1] }}
                                     >
                                         {menuContents[activeMenu as keyof typeof menuContents].content}
