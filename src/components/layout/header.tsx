@@ -242,15 +242,8 @@ const DesktopNav = () => {
 
 const TabsComponent = () => {
   const [selected, setSelected] = useState<number | null>(null);
-  const [dir, setDir] = useState<null | 'l' | 'r'>(null);
 
   const handleSetSelected = (val: number | null) => {
-    if (typeof selected === 'number' && typeof val === 'number') {
-      setDir(selected > val ? 'r' : 'l');
-    } else if (val === null) {
-      setDir(null);
-    }
-
     setSelected(val);
   };
 
@@ -273,7 +266,7 @@ const TabsComponent = () => {
       })}
 
       <AnimatePresence>
-        {selected && <Content dir={dir} selected={selected} />}
+        {selected && <Content selected={selected} />}
       </AnimatePresence>
     </div>
   );
@@ -298,7 +291,7 @@ const Tab = ({
       className={`flex items-center gap-1 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
         selected === tab
           ? 'bg-slate-200 text-slate-800'
-          : 'text-slate-600'
+          : 'text-slate-600 hover:bg-slate-100'
       }`}
     >
       <span>{children}</span>
@@ -313,10 +306,8 @@ const Tab = ({
 
 const Content = ({
   selected,
-  dir,
 }: {
   selected: number | null;
-  dir: null | 'l' | 'r';
 }) => {
   const selectedTab = TABS.find((t) => t.id === selected);
 
@@ -326,43 +317,16 @@ const Content = ({
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 8 }}
-      transition={{ duration: 0.15, ease: 'easeOut' }}
+      transition={{ duration: 0.2, ease: 'easeOut' }}
       className="absolute left-0 top-[calc(100%_+_24px)] rounded-lg border border-slate-700 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-800"
       layout
+      layoutId="dropdown"
     >
       <Bridge />
       <Nub selected={selected} />
-
-      <AnimatePresence mode="wait" custom={dir} initial={false}>
-        <motion.div
-          key={selected}
-          custom={dir}
-          variants={contentVariants}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-          transition={{ duration: 0.25, ease: 'easeInOut' }}
-        >
-          {selectedTab && <selectedTab.Component />}
-        </motion.div>
-      </AnimatePresence>
+      {selectedTab && <selectedTab.Component />}
     </motion.div>
   );
-};
-
-const contentVariants = {
-  initial: (dir: 'l' | 'r' | null) => ({
-    opacity: 0,
-    x: dir === 'l' ? 100 : dir === 'r' ? -100 : 0,
-  }),
-  animate: {
-    opacity: 1,
-    x: 0,
-  },
-  exit: (dir: 'l' | 'r' | null) => ({
-    opacity: 0,
-    x: dir === 'l' ? -100 : 100,
-  }),
 };
 
 const Bridge = () => (
