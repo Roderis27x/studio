@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, X, ChevronDown, Briefcase, BookOpen, Building, Users, CreditCard, Headphones, FileText, ShieldCheck } from 'lucide-react';
+import { Menu, X, ChevronDown, Briefcase, BookOpen, Building, Users, CreditCard, Headphones, FileText } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '@/components/logo';
 
@@ -22,7 +22,7 @@ const menuContents = {
   software: {
     id: 'software',
     content: (
-        <div className="p-6 w-[720px]">
+        <div className="w-[720px] p-6">
             <div className="grid grid-cols-3 gap-x-6">
                 <div className="space-y-1">
                     <h3 className="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">ERP</h3>
@@ -52,7 +52,7 @@ const menuContents = {
   recursos: {
     id: 'recursos',
     content: (
-        <div className="p-6 w-[250px]">
+        <div className="w-[250px] p-6">
             <ul className="space-y-3">
                 <li className="p-2 rounded-md hover:bg-slate-50"><a href="#" className="flex items-center space-x-3"><BookOpen className="w-5 h-5 text-slate-400"/> <span className="text-slate-700">Blog</span></a></li>
                 <li className="p-2 rounded-md hover:bg-slate-50"><a href="#" className="flex items-center space-x-3"><BookOpen className="w-5 h-5 text-slate-400"/> <span className="text-slate-700">Casos de Éxito</span></a></li>
@@ -107,7 +107,7 @@ const Header: React.FC = () => {
     
     return (
         <header 
-            className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-md shadow-md' : 'bg-white border-b'}`}
+            className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-md shadow-md' : 'bg-white'}`}
         >
             <div className="container mx-auto px-6 py-4 flex justify-between items-center" onMouseLeave={handleMouseLeave}>
                 <Logo />
@@ -135,6 +135,40 @@ const Header: React.FC = () => {
                     ))}
                 </nav>
 
+                <AnimatePresence>
+                    {activeMenu && (
+                        <div
+                            className="absolute top-full left-0 w-full flex justify-center"
+                            onMouseEnter={handlePopoverEnter}
+                            onMouseLeave={handleMouseLeave}
+                            style={{
+                                pointerEvents: activeMenu ? 'auto' : 'none',
+                            }}
+                        >
+                            <motion.div
+                                layout
+                                initial={{ opacity: 0, scale: 0.98, y: -5 }}
+                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                exit={{ opacity: 0, scale: 0.98, y: -5 }}
+                                transition={{ duration: 0.15, ease: [0.4, 0, 0.2, 1] }}
+                                className="bg-white rounded-lg shadow-xl border border-slate-100 overflow-hidden mt-2"
+                            >
+                                <AnimatePresence mode="wait">
+                                    <motion.div
+                                        key={activeMenu}
+                                        initial={{ opacity: 0, y: -10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -10 }}
+                                        transition={{ duration: 0.15, ease: [0.4, 0, 0.2, 1] }}
+                                    >
+                                        {menuContents[activeMenu as keyof typeof menuContents].content}
+                                    </motion.div>
+                                </AnimatePresence>
+                            </motion.div>
+                        </div>
+                    )}
+                </AnimatePresence>
+
                 <div className="hidden lg:flex items-center space-x-4">
                     <a href="#" className="bg-primary text-white px-5 py-2.5 rounded-lg font-semibold hover:bg-primary/90 transition-all duration-300 shadow-sm text-sm">
                         Solicitar una Demo
@@ -148,23 +182,6 @@ const Header: React.FC = () => {
                 </div>
             </div>
 
-            <AnimatePresence>
-                {activeMenu && (
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.98, y: -5 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.98, y: -5 }}
-                        transition={{ duration: 0.15, ease: 'easeOut' }}
-                        className="absolute top-full left-0 right-0 flex justify-center"
-                        onMouseEnter={handlePopoverEnter}
-                        onMouseLeave={handleMouseLeave}
-                    >
-                        <div className="bg-white rounded-lg shadow-xl border border-slate-100 overflow-hidden">
-                            {menuContents[activeMenu as keyof typeof menuContents].content}
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
             
             {isMobileMenuOpen && (
                 <div className="lg:hidden bg-white border-t border-slate-200">
