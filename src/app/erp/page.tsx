@@ -29,7 +29,7 @@ export default function ERPPage() {
       <Header />
       <main className="flex-grow">
         <FadeIn>
-          <section className="bg-white py-20 md:py-32">
+          <section className="py-20 md:py-32">
             <div className="container mx-auto px-6 text-center">
               <span className="text-primary font-semibold uppercase tracking-wider">ERP Core</span>
               <h1 className="text-4xl md:text-6xl font-extrabold text-dark leading-tight mt-2 mb-4">
