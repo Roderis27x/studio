@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowRight, Landmark, FileCheck, ClipboardSignature, HandCoins, BookUser, Banknote, Scale, Library } from 'lucide-react';
+import { ArrowRight, Landmark, FileCheck, ClipboardSignature, HandCoins, BookUser, Banknote, Scale, Library, PieChart, TrendingUp, FileText as FileTextIcon } from 'lucide-react';
 import Image from 'next/image';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
@@ -32,6 +32,18 @@ const ProcessStep = ({ icon, title, description, isLast = false }: { icon: React
             <p className="text-muted-foreground mt-1">{description}</p>
         </div>
     </div>
+);
+
+const AnalyticsFeature = ({ icon, title, description }: { icon: React.ReactNode; title: string; description: string }) => (
+    <li className="flex items-start gap-4">
+        <div className="flex-shrink-0 bg-primary/10 text-primary rounded-full h-10 w-10 flex items-center justify-center mt-1">
+            {icon}
+        </div>
+        <div>
+            <h4 className="font-semibold text-foreground">{title}</h4>
+            <p className="text-muted-foreground">{description}</p>
+        </div>
+    </li>
 );
 
 export default function PrestamosPage() {
@@ -133,6 +145,50 @@ export default function PrestamosPage() {
                                     title="Gestión de Cobros"
                                     description="Conexión directa con el sistema de gestión de cobros para automatizar y optimizar la recuperación de cartera y reducir la morosidad."
                                 />
+                            </div>
+                        </div>
+                    </section>
+                </FadeIn>
+
+                <FadeIn>
+                    <section id="analytics" className="py-20 md:py-28">
+                        <div className="container mx-auto px-6">
+                            <div className="grid md:grid-cols-2 gap-12 items-center">
+                                <div className="space-y-8">
+                                    <div>
+                                        <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">Analítica Financiera para la Toma de Decisiones</h2>
+                                        <p className="text-lg text-muted-foreground mt-4">
+                                            Convierta los datos de su cartera en conocimiento. Nuestro sistema proporciona dashboards intuitivos y reportes clave.
+                                        </p>
+                                    </div>
+                                    <ul className="space-y-6">
+                                        <AnalyticsFeature 
+                                            icon={<PieChart className="w-5 h-5" />} 
+                                            title="Dashboards en Tiempo Real" 
+                                            description="Visualice la cartera vencida, morosidad por producto, y tendencias de aprobación en un solo vistazo."
+                                        />
+                                        <AnalyticsFeature 
+                                            icon={<TrendingUp className="w-5 h-5" />}
+                                            title="Rentabilidad por Cliente/Producto"
+                                            description="Identifique qué productos y segmentos de clientes generan la mayor rentabilidad ajustada al riesgo."
+                                        />
+                                        <AnalyticsFeature 
+                                            icon={<FileTextIcon className="w-5 h-5" />}
+                                            title="Informes Regulatorios"
+                                            description="Genere automáticamente los reportes requeridos por entidades de control y supervisión."
+                                        />
+                                    </ul>
+                                </div>
+                                <div className="bg-slate-50 p-4 rounded-lg">
+                                    <Image
+                                        src="https://picsum.photos/seed/financial-dashboard/800/600"
+                                        alt="Dashboard de analítica financiera"
+                                        width={800}
+                                        height={600}
+                                        className="rounded-lg shadow-xl"
+                                        data-ai-hint="financial dashboard"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </section>
