@@ -1,4 +1,6 @@
 
+'use client';
+
 import { ArrowRight, CheckCircle, Database, BarChart2, Users, Settings, DollarSign, Briefcase } from 'lucide-react';
 import Image from 'next/image';
 import Header from '@/components/layout/header';
