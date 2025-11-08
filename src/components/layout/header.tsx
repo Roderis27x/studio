@@ -230,15 +230,17 @@ const Content = ({
       id="overlay-content"
       initial={{
         opacity: 0,
-        y: 8,
       }}
       animate={{
         opacity: 1,
-        y: 0,
+        width: selectedTab?.width,
       }}
       exit={{
         opacity: 0,
-        y: 8,
+      }}
+      transition={{
+        duration: 0.25,
+        ease: 'easeInOut',
       }}
       style={{
         width: selectedTab ? selectedTab.width : 'auto',
@@ -255,7 +257,6 @@ const Content = ({
               <motion.div
                 initial={{
                   opacity: 0,
-                  x: dir === 'l' ? 100 : dir === 'r' ? -100 : 0,
                 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.25, ease: 'easeInOut' }}
@@ -407,7 +408,7 @@ const ServicesContent = () => (
       icon={<Cloud className="w-4 h-4" />}
       title="Alquiler de Nube"
       description="Hosting seguro y escalable."
-      href="#"
+      href="/alquiler-de-nube"
     />
     <MenuItem
       icon={<Users className="w-4 h-4" />}
