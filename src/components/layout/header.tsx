@@ -13,7 +13,8 @@ import {
   Headphones,
   FileText,
   Shield,
-  BarChart3
+  BarChart3,
+  Database,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '@/components/logo';
@@ -113,7 +114,7 @@ const Header: React.FC = () => {
                 href="#"
                 className="py-2 text-slate-700 hover:text-primary font-semibold"
               >
-                Recursos
+                Servicios
               </a>
               <a
                 href="#contact"
@@ -348,7 +349,7 @@ const SoftwareContent = () => (
         description="Gestión de nóminas y empleados."
       />
        <MenuItem
-        icon={<BarChart3 className="w-4 h-4" />}
+        icon={<Database className="w-4 h-4" />}
         title="Reportes"
         description="Inteligencia de negocios y analítica."
         href="/reportes"
@@ -432,7 +433,7 @@ const TABS_DATA = [
   },
   {
     id: 2,
-    title: 'Recursos',
+    title: 'Servicios',
     Component: ResourcesContent,
     width: '16rem',
   },
