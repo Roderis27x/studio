@@ -347,6 +347,7 @@ const SoftwareContent = () => (
         icon={<FileText className="w-4 h-4" />}
         title="Planilla"
         description="Gestión de nóminas y empleados."
+        href="/planilla"
       />
        <MenuItem
         icon={<Database className="w-4 h-4" />}
