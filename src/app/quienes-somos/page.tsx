@@ -8,6 +8,7 @@ import Footer from '@/components/layout/footer';
 import FadeIn from '@/components/fade-in';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { cn } from '@/lib/utils';
 
 const LevelCard = ({
   icon,
