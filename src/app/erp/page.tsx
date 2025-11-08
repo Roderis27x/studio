@@ -127,7 +127,7 @@ export default function ERPPage() {
                   <h1 className="text-6xl md:text-7xl font-extrabold text-primary leading-tight">
                     ERP
                   </h1>
-                  <h2 className="text-2xl md:text-3xl font-bold text-foreground">La Solución Integral para la Cadena de Valor de tu Negocio</h2>
+                  <h2 className="text-2xl md:text-3xl font-bold text-foreground">La Solución Integral para la Cadena de Valor de su Negocio</h2>
                   <p className="text-lg text-muted-foreground">
                     Integra toda la cadena de valor de su organización hasta la generación de la información financiera, permitiendo a los administradores y analistas tomar decisiones precisas y oportunas.
                   </p>
@@ -164,9 +164,9 @@ export default function ERPPage() {
           <section id="benefits" className="py-20 md:py-24">
             <div className="container mx-auto px-6">
                 <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">Beneficios Clave para tu Empresa</h2>
+                    <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">Beneficios Clave para su Empresa</h2>
                     <p className="text-lg text-muted-foreground mt-4 max-w-3xl mx-auto">
-                        Nuestro ERP está diseñado para generar un impacto medible en cada área de tu organización.
+                        Nuestro ERP está diseñado para generar un impacto medible en cada área de su organización.
                     </p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
@@ -192,7 +192,7 @@ export default function ERPPage() {
             <div className="container mx-auto px-6 text-center">
               <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">Módulos Integrados para una Gestión 360°</h2>
               <p className="text-lg text-muted-foreground mt-4 max-w-3xl mx-auto">
-                Una suite completa de herramientas para gestionar cada aspecto de tu operación desde una única plataforma.
+                Una suite completa de herramientas para gestionar cada aspecto de su operación desde una única plataforma.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-12 max-w-6xl mx-auto text-left">
                 {modules.map(module => (
@@ -209,7 +209,7 @@ export default function ERPPage() {
                     <div className="text-center mb-16">
                         <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">Lo que dicen nuestros clientes sobre el ERP</h2>
                         <p className="text-lg text-muted-foreground mt-4 max-w-3xl mx-auto">
-                           Descubre cómo empresas como la tuya han transformado sus operaciones.
+                           Descubra cómo empresas como la suya han transformado sus operaciones.
                         </p>
                     </div>
                     <Carousel
