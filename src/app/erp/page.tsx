@@ -59,10 +59,10 @@ export default function ERPPage() {
             <div className="container mx-auto px-6 py-20 md:py-28">
               <div className="grid md:grid-cols-2 gap-12 items-center">
                 <div className="space-y-6">
-                  <span className="text-primary font-semibold uppercase tracking-wider">ERP</span>
-                  <h1 className="text-4xl md:text-5xl font-extrabold text-foreground leading-tight">
-                    La Solución Integral para la Cadena de Valor de tu Negocio
+                  <h1 className="text-6xl md:text-7xl font-extrabold text-primary leading-tight">
+                    ERP
                   </h1>
+                  <h2 className="text-2xl md:text-3xl font-bold text-foreground">La Solución Integral para la Cadena de Valor de tu Negocio</h2>
                   <p className="text-lg text-muted-foreground">
                     Integra toda la cadena de valor de su organización hasta la generación de la información financiera, permitiendo a los administradores y analistas tomar decisiones precisas y oportunas.
                   </p>
