@@ -378,6 +378,7 @@ const SoftwareContent = () => (
         icon={<Users className="w-4 h-4" />}
         title="CRM"
         description="Relaciones con los clientes."
+        href="/crm"
       />
       <MenuItem
         icon={<Headphones className="w-4 h-4" />}
