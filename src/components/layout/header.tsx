@@ -13,6 +13,7 @@ import {
   Headphones,
   FileText,
   Shield,
+  BarChart3
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '@/components/logo';
@@ -345,6 +346,12 @@ const SoftwareContent = () => (
         icon={<FileText className="w-4 h-4" />}
         title="Planilla"
         description="Gestión de nóminas y empleados."
+      />
+       <MenuItem
+        icon={<BarChart3 className="w-4 h-4" />}
+        title="Reportes"
+        description="Inteligencia de negocios y analítica."
+        href="/reportes"
       />
     </div>
     <div className="space-y-2">
