@@ -16,6 +16,7 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '@/components/logo';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
 
 // Main Header Component
 const Header: React.FC = () => {
@@ -126,16 +127,8 @@ const Header: React.FC = () => {
 
 const Tabs = () => {
   const [selected, setSelected] = useState<number | null>(null);
-  const [dir, setDir] = useState<null | 'l' | 'r'>(null);
-
 
   const handleSetSelected = (val: number | null) => {
-    if (typeof selected === "number" && typeof val === "number") {
-      setDir(selected > val ? 'r' : 'l');
-    } else if (val === null) {
-      setDir(null);
-    }
-
     setSelected(val);
   };
 
@@ -156,7 +149,7 @@ const Tabs = () => {
       ))}
       <AnimatePresence>
         {selected && (
-          <Content dir={dir} selected={selected} />
+          <Content selected={selected} />
         )}
       </AnimatePresence>
     </div>
@@ -199,10 +192,8 @@ const Tab = ({
 
 const Content = ({
   selected,
-  dir,
 }: {
   selected: number;
-  dir: null | 'l' | 'r';
 }) => {
   const selectedTab = TABS_DATA.find((t) => t.id === selected);
 
@@ -221,6 +212,12 @@ const Content = ({
         opacity: 0,
         y: 8,
       }}
+      layout
+      transition={{
+        type: "spring",
+        damping: 20,
+        stiffness: 200,
+      }}
       style={{
         width: selectedTab ? selectedTab.width : 'auto',
       }}
@@ -228,25 +225,7 @@ const Content = ({
     >
       <Bridge />
       <Nub selected={selected} />
-
-      {TABS_DATA.map((t) => {
-        return (
-          <div className="overflow-hidden" key={t.id}>
-            {selected === t.id && (
-              <motion.div
-                initial={{
-                  opacity: 0,
-                  x: dir === 'l' ? 100 : dir === 'r' ? -100 : 0,
-                }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.25, ease: 'easeInOut' }}
-              >
-                <t.Component />
-              </motion.div>
-            )}
-          </div>
-        );
-      })}
+        {selectedTab && <selectedTab.Component />}
     </motion.div>
   );
 };
@@ -293,13 +272,15 @@ const MenuItem = ({
   icon,
   title,
   description,
+  href = '#',
 }: {
   icon: React.ReactNode;
   title: string;
   description: string;
+  href?: string;
 }) => (
-  <a
-    href="#"
+  <Link
+    href={href}
     className="flex items-start space-x-3 p-2.5 rounded-lg hover:bg-slate-50 transition-colors"
   >
     <div className="w-9 h-9 flex-shrink-0 bg-slate-100 rounded-md flex items-center justify-center text-primary">
@@ -309,7 +290,7 @@ const MenuItem = ({
       <h4 className="font-semibold text-slate-800 text-sm">{title}</h4>
       <p className="text-xs text-slate-600 leading-snug">{description}</p>
     </div>
-  </a>
+  </Link>
 );
 
 const SoftwareContent = () => (
@@ -322,6 +303,7 @@ const SoftwareContent = () => (
         icon={<Building className="w-4 h-4" />}
         title="ERP Core"
         description="Gestión de recursos empresariales."
+        href="/erp"
       />
       <MenuItem
         icon={<FileText className="w-4 h-4" />}
@@ -393,7 +375,7 @@ const TABS_DATA = [
     id: 1,
     title: 'Software',
     Component: SoftwareContent,
-    width: '56rem',
+    width: '40rem',
   },
   {
     id: 2,
