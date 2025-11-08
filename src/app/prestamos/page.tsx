@@ -40,21 +40,21 @@ export default function PrestamosPage() {
             <Header />
             <main className="flex-grow">
                 <FadeIn>
-                    <section className="relative bg-gray-900 text-white py-20 md:py-32">
+                    <section className="relative bg-gray-50 text-foreground py-20 md:py-32">
                          <div
-                            className="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-800 to-transparent opacity-80"
+                            className="absolute inset-0 bg-gradient-to-r from-gray-50 via-white to-transparent opacity-80"
                          />
                         <div className="container mx-auto px-6 relative z-10">
                             <div className="grid md:grid-cols-2 gap-12 items-center">
                                 <div className="space-y-6">
-                                    <h1 className="text-4xl md:text-6xl font-extrabold leading-tight tracking-tighter">
+                                    <h1 className="text-4xl md:text-6xl font-extrabold leading-tight tracking-tighter text-primary">
                                         Gestión de Préstamos
                                     </h1>
-                                    <p className="text-lg text-slate-300 max-w-xl">
-                                        Nuestra solución contempla desde la definición de las políticas o parámetros de uso hasta el proceso de aprobación del crédito.
+                                    <p className="text-lg text-muted-foreground max-w-xl">
+                                        Nuestra solución contempla desde la definición de las políticas o parámetros de uso hasta el proceso de aprobación del crédito, asegurando un flujo de trabajo controlado y eficiente.
                                     </p>
                                     <div className="flex space-x-4 pt-4">
-                                        <Button asChild size="lg" variant="secondary">
+                                        <Button asChild size="lg">
                                             <Link href="#contact">
                                                 Solicitar una Demo
                                                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -90,17 +90,17 @@ export default function PrestamosPage() {
                                 <ProcessStep
                                     icon={<FileCheck className="w-6 h-6" />}
                                     title="1. Cotización y Solicitud"
-                                    description="Genere cotizaciones precisas y permita que los clientes inicien solicitudes de crédito de forma sencilla."
+                                    description="Genere cotizaciones precisas y permita que los clientes inicien solicitudes de crédito de forma sencilla y digital."
                                 />
                                 <ProcessStep
                                     icon={<ClipboardSignature className="w-6 h-6" />}
                                     title="2. Aprobación de Crédito"
-                                    description="Defina flujos de aprobación multinivel basados en sus políticas, asegurando un análisis de riesgo riguroso."
+                                    description="Defina flujos de aprobación multinivel basados en sus políticas, asegurando un análisis de riesgo riguroso y documentado."
                                 />
                                 <ProcessStep
                                     icon={<HandCoins className="w-6 h-6" />}
                                     title="3. Generación del Desembolso"
-                                    description="Una vez aprobado, el sistema gestiona la creación del desembolso de manera automática y segura."
+                                    description="Una vez aprobado, el sistema gestiona la creación del desembolso de manera automática y segura, integrándose con sus sistemas contables."
                                     isLast={true}
                                 />
                             </div>
@@ -114,24 +114,24 @@ export default function PrestamosPage() {
                             <div className="text-center mb-16">
                                 <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">Interfaces Clave para una Gestión Completa</h2>
                                 <p className="text-lg text-muted-foreground mt-4 max-w-3xl mx-auto">
-                                    Nuestro sistema se integra de forma nativa con herramientas esenciales para una operación sin fisuras.
+                                    Nuestro sistema se integra de forma nativa con herramientas esenciales para una operación sin fisuras y en cumplimiento.
                                 </p>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
                                 <FeatureCard
                                     icon={<BookUser className="h-8 w-8" />}
                                     title="Debida Diligencia"
-                                    description="Una interfaz dedicada para el manejo de la debida diligencia, asegurando el cumplimiento normativo."
+                                    description="Una interfaz dedicada para el manejo de la debida diligencia, asegurando el cumplimiento normativo y la prevención de riesgos."
                                 />
                                 <FeatureCard
                                     icon={<Scale className="h-8 w-8" />}
                                     title="Contabilidad Integral"
-                                    description="Integración completa con el módulo de contabilidad para un registro financiero preciso y en tiempo real."
+                                    description="Integración completa con el módulo de contabilidad para un registro financiero preciso y en tiempo real de cada transacción."
                                 />
                                 <FeatureCard
                                     icon={<Banknote className="h-8 w-8" />}
                                     title="Gestión de Cobros"
-                                    description="Conexión directa con el sistema de gestión de cobros para automatizar y optimizar la recuperación de cartera."
+                                    description="Conexión directa con el sistema de gestión de cobros para automatizar y optimizar la recuperación de cartera y reducir la morosidad."
                                 />
                             </div>
                         </div>
