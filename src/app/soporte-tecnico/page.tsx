@@ -111,7 +111,7 @@ export default function SoporteTecnicoPage() {
                                     </CardHeader>
                                     <CardContent className="flex-grow">
                                         <ul className="space-y-4 text-muted-foreground">
-                                             <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-primary flex-shrink-0"/><span>Gestión integral de su infraestructura TI.</span></li>
+                                             <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-primary flex-shrink-0"/><span>Gestión integral de su infraestructura en la nube.</span></li>
                                              <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-primary flex-shrink-0"/><span>Mantenimiento preventivo y monitoreo.</span></li>
                                              <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-primary flex-shrink-0"/><span>Asesoría estratégica y optimización.</span></li>
                                         </ul>
@@ -143,7 +143,7 @@ export default function SoporteTecnicoPage() {
                                     icon={<Target className="h-8 w-8" />}
                                     title="Enfoque en su Negocio"
                                     description="Delegue las complejidades técnicas en nosotros y libere a su equipo para que pueda concentrarse en las actividades que generan valor."
-                                />
+                                 />
                             </div>
                         </div>
                     </section>
