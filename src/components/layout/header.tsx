@@ -127,8 +127,17 @@ const Header: React.FC = () => {
 
 const Tabs = () => {
   const [selected, setSelected] = useState<number | null>(null);
+  const [dir, setDir] = useState<null | 'l' | 'r'>(null);
+
+
 
   const handleSetSelected = (val: number | null) => {
+    if (typeof selected === "number" && typeof val === "number") {
+      setDir(selected > val ? 'r' : 'l');
+    } else if (val === null) {
+      setDir(null);
+    }
+
     setSelected(val);
   };
 
@@ -149,7 +158,7 @@ const Tabs = () => {
       ))}
       <AnimatePresence>
         {selected && (
-          <Content selected={selected} />
+          <Content dir={dir} selected={selected} />
         )}
       </AnimatePresence>
     </div>
@@ -192,8 +201,10 @@ const Tab = ({
 
 const Content = ({
   selected,
+  dir,
 }: {
   selected: number;
+  dir: null | 'l' | 'r';
 }) => {
   const selectedTab = TABS_DATA.find((t) => t.id === selected);
 
@@ -212,12 +223,6 @@ const Content = ({
         opacity: 0,
         y: 8,
       }}
-      layout
-      transition={{
-        type: "spring",
-        damping: 20,
-        stiffness: 200,
-      }}
       style={{
         width: selectedTab ? selectedTab.width : 'auto',
       }}
@@ -225,7 +230,25 @@ const Content = ({
     >
       <Bridge />
       <Nub selected={selected} />
-        {selectedTab && <selectedTab.Component />}
+
+      {TABS_DATA.map((t) => {
+        return (
+          <div className="overflow-hidden" key={t.id}>
+            {selected === t.id && (
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  x: dir === 'l' ? 100 : dir === 'r' ? -100 : 0,
+                }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.25, ease: 'easeInOut' }}
+              >
+                <t.Component />
+              </motion.div>
+            )}
+          </div>
+        );
+      })}
     </motion.div>
   );
 };
