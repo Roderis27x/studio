@@ -61,12 +61,12 @@ const Header: React.FC = () => {
           >
             Quienes Somos
           </Link>
-          <a
-            href="#contact"
+          <Link
+            href="/contacto"
             className="text-slate-600 hover:text-primary transition-colors px-3 py-1.5 rounded-md text-sm font-medium"
           >
             Contacto
-          </a>
+          </Link>
         </nav>
         <div className="hidden lg:flex items-center space-x-4">
           <a
@@ -119,12 +119,12 @@ const Header: React.FC = () => {
               >
                 Servicios
               </a>
-              <a
-                href="#contact"
+              <Link
+                href="/contacto"
                 className="py-2 text-slate-700 hover:text-primary font-semibold"
               >
                 Contacto
-              </a>
+              </Link>
               <div className="border-t border-slate-200 pt-4 mt-4">
                 <a
                   href="#"
