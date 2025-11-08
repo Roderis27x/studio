@@ -35,16 +35,14 @@ export default function AlquilerNubePage() {
             <Header />
             <main className="flex-grow">
                 <FadeIn>
-                    <section className="relative bg-slate-900 text-white py-20 md:py-32">
-                        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"></div>
-                         <div className="absolute inset-0 opacity-10 [background-image:radial-gradient(ellipse_at_center,rgba(255,255,255,0.4),transparent_70%)]"></div>
+                    <section className="relative bg-white py-20 md:py-32">
                         <div className="container mx-auto px-6 relative z-10">
                             <div className="grid md:grid-cols-2 gap-12 items-center">
                                 <div className="space-y-6">
-                                    <h1 className="text-4xl md:text-5xl font-extrabold leading-tight tracking-tight">
+                                    <h1 className="text-4xl md:text-5xl font-extrabold leading-tight tracking-tight text-foreground">
                                         Hosting en la Nube: Potencia, Seguridad y Escalabilidad
                                     </h1>
-                                    <p className="text-lg text-slate-300">
+                                    <p className="text-lg text-muted-foreground">
                                         Ofrecemos una infraestructura de nube robusta y segura, diseñada específicamente para nuestras aplicaciones. Elija entre configuraciones estándar o de alta disponibilidad para garantizar el rendimiento y la continuidad de su negocio.
                                     </p>
                                     <div className="flex space-x-4 pt-2">
