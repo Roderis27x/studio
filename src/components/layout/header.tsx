@@ -246,6 +246,7 @@ const Content = ({
         ease: 'easeInOut',
       }}
       className="absolute left-0 top-[calc(100%_+_24px)] rounded-lg border border-slate-200 bg-gradient-to-b from-white via-white to-slate-50 p-4 shadow-lg"
+      style={{ width: selectedTab?.width }}
     >
       <Bridge />
       <Nub selected={selected} />
@@ -421,7 +422,7 @@ const ServicesContent = () => (
       icon={<Code2 className="w-4 h-4" />}
       title="Desarrollos a la Medida"
       description="Soluciones adaptadas a sus procesos."
-      href="#"
+      href="/desarrollos-a-la-medida"
     />
     <MenuItem
       icon={<LifeBuoy className="w-4 h-4" />}
