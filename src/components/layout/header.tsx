@@ -354,6 +354,7 @@ const SoftwareContent = () => (
         icon={<CreditCard className="w-4 h-4" />}
         title="Préstamos"
         description="Gestión de préstamos y créditos."
+        href="/prestamos"
       />
       <MenuItem
         icon={<Briefcase className="w-4 h-4" />}
