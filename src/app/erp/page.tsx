@@ -1,3 +1,4 @@
+
 import { ArrowRight, CheckCircle, Database, BarChart2, Users, Settings, DollarSign, Briefcase } from 'lucide-react';
 import Image from 'next/image';
 import Header from '@/components/layout/header';
@@ -32,10 +33,10 @@ export default function ERPPage() {
           <section className="py-20 md:py-32">
             <div className="container mx-auto px-6 text-center">
               <span className="text-primary font-semibold uppercase tracking-wider">ERP Core</span>
-              <h1 className="text-4xl md:text-6xl font-extrabold text-dark leading-tight mt-2 mb-4">
+              <h1 className="text-4xl md:text-6xl font-extrabold text-foreground leading-tight mt-2 mb-4">
                 El Núcleo Digital de tu Empresa
               </h1>
-              <p className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto mb-8">
+              <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
                 Integra finanzas, inventario, cadena de suministro y más en una única plataforma poderosa. Obtén una visión 360° de tu operación y toma decisiones basadas en datos.
               </p>
               <Button asChild size="lg">
@@ -50,7 +51,7 @@ export default function ERPPage() {
 
         <FadeIn delay={0.4}>
             <div className="container mx-auto px-6 -mt-16">
-                <div className="max-w-5xl mx-auto p-4 bg-white rounded-xl shadow-2xl border border-slate-100">
+                <div className="max-w-5xl mx-auto p-4 bg-card rounded-xl shadow-2xl border">
                     <Image
                         src="https://picsum.photos/seed/erp-dashboard/1200/675"
                         alt="Panel de control del ERP"
@@ -64,7 +65,7 @@ export default function ERPPage() {
         </FadeIn>
 
         <FadeIn>
-          <section id="erp-features" className="py-20 bg-background">
+          <section id="erp-features" className="py-20">
             <div className="container mx-auto px-6">
               <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">Funcionalidades Integradas</h2>
@@ -85,7 +86,7 @@ export default function ERPPage() {
         </FadeIn>
         
         <FadeIn>
-            <section className="py-20 bg-white">
+            <section className="py-20 bg-card">
                 <div className="container mx-auto px-6">
                     <div className="grid md:grid-cols-2 gap-12 items-center">
                         <div>
