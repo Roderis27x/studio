@@ -7,6 +7,7 @@ import Footer from '@/components/layout/footer';
 import FadeIn from '@/components/fade-in';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { useEffect } from 'react';
 
 const FeatureCard = ({ icon, title, description }: { icon: React.ReactNode; title: string; description: string }) => (
     <div className="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 backdrop-blur-sm transition-all hover:border-primary hover:-translate-y-1">
@@ -33,6 +34,23 @@ const BenefitItem = ({ icon, title, description }: { icon: React.ReactNode, titl
 );
 
 export default function PerfilPage() {
+     useEffect(() => {
+        const css = `
+        .bg-grid-slate-800 {
+            background-image: linear-gradient(white 1px, transparent 1px), linear-gradient(to right, white 1px, transparent 1px);
+            background-size: 2rem 2rem;
+            background-color: transparent;
+            opacity: 0.1;
+        }`;
+        const style = document.createElement('style');
+        style.innerHTML = css;
+        document.head.appendChild(style);
+        
+        return () => {
+            document.head.removeChild(style);
+        };
+    }, []);
+
     return (
         <div className="flex flex-col min-h-screen bg-background">
             <Header />
@@ -169,15 +187,3 @@ export default function PerfilPage() {
         </div>
     );
 }
-
-// Helper for CSS grid background
-const css = `
-.bg-grid-slate-800 {
-    background-image: linear-gradient(white 1px, transparent 1px), linear-gradient(to right, white 1px, transparent 1px);
-    background-size: 2rem 2rem;
-    background-color: transparent;
-    opacity: 0.1;
-}`;
-const style = document.createElement('style');
-style.innerHTML = css;
-document.head.appendChild(style);
