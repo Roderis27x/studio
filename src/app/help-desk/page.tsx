@@ -1,7 +1,7 @@
 
 'use client';
 
-import { ArrowRight, Ticket, LifeBuoy, Bot, Timer, BarChartHorizontal, Smile, Zap, BrainCircuit } from 'lucide-react';
+import { ArrowRight, Ticket, LifeBuoy, Bot, Timer, BarChartHorizontal, Smile, Zap, Library } from 'lucide-react';
 import Image from 'next/image';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
@@ -108,7 +108,7 @@ export default function HelpDeskPage() {
                                     description="Identifique tendencias, problemas recurrentes y evalúe el rendimiento del equipo con dashboards y datos accionables en tiempo real."
                                 />
                                 <FeatureCard
-                                    icon={<BrainCircuit className="w-6 h-6"/>}
+                                    icon={<Library className="w-6 h-6"/>}
                                     title="Base de Conocimiento Integrada"
                                     description="Cree y gestione una base de conocimiento para que los agentes resuelvan problemas más rápido y los clientes encuentren respuestas por sí mismos."
                                 />
@@ -138,7 +138,7 @@ export default function HelpDeskPage() {
                                     description="La automatización de tareas repetitivas libera a sus agentes para que se concentren en resolver los problemas complejos."
                                 />
                                 <BenefitItem
-                                    icon={<BrainCircuit className="w-8 h-8" />}
+                                    icon={<BarChartHorizontal className="w-8 h-8" />}
                                     title="Decisiones Basadas en Datos"
                                     description="Deje de adivinar. Use los datos para entender los puntos débiles de sus clientes y mejorar sus productos o servicios."
                                 />
