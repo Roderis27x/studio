@@ -56,10 +56,10 @@ const Header: React.FC = () => {
           </Link>
           <Tabs />
           <a
-            href="#testimonials"
+            href="#about"
             className="text-slate-600 hover:text-primary transition-colors px-3 py-1.5 rounded-md text-sm font-medium"
           >
-            Testimonios
+            Quienes Somos
           </a>
           <a
             href="#contact"
@@ -108,10 +108,10 @@ const Header: React.FC = () => {
                 Software
               </a>
               <a
-                href="#testimonials"
+                href="#about"
                 className="py-2 text-slate-700 hover:text-primary font-semibold"
               >
-                Testimonios
+                Quienes Somos
               </a>
               <a
                 href="#"
@@ -244,7 +244,6 @@ const Content = ({
         ease: 'easeInOut',
       }}
       className="absolute left-0 top-[calc(100%_+_24px)] rounded-lg border border-slate-200 bg-gradient-to-b from-white via-white to-slate-50 p-4 shadow-lg"
-      style={{ width: selectedTab?.width }}
     >
       <Bridge />
       <Nub selected={selected} />
