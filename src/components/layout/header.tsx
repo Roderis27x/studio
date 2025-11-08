@@ -360,6 +360,7 @@ const SoftwareContent = () => (
         icon={<Briefcase className="w-4 h-4" />}
         title="Gestión de cobros"
         description="Seguimiento y gestión de cobros."
+        href="/gestion-de-cobros"
       />
     </div>
     <div className="space-y-2">
