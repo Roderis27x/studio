@@ -1,7 +1,7 @@
 
 'use client';
 
-import { ArrowRight, BrainCircuit, Code, Rocket, Handshake, Brush, Database, Server, Mobile, Layers } from 'lucide-react';
+import { ArrowRight, BrainCircuit, Code, Rocket, Handshake, Brush, Database, Server, Smartphone, Layers } from 'lucide-react';
 import Image from 'next/image';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
@@ -134,7 +134,7 @@ export default function DesarrollosMedidaPage() {
                             </div>
                             <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
                                 <TechCard icon={<Layers className="w-6 h-6" />} title="Aplicaciones Web" description="Desarrollamos aplicaciones web modernas y responsivas." />
-                                <TechCard icon={<Mobile className="w-6 h-6" />} title="Soluciones Móviles" description="Creamos apps nativas e híbridas para iOS y Android." />
+                                <TechCard icon={<Smartphone className="w-6 h-6" />} title="Soluciones Móviles" description="Creamos apps nativas e híbridas para iOS y Android." />
                                 <TechCard icon={<Database className="w-6 h-6" />} title="Bases de Datos" description="Diseñamos y optimizamos bases de datos relacionales y NoSQL." />
                                 <TechCard icon={<Server className="w-6 h-6" />} title="APIs e Integraciones" description="Conectamos sus sistemas para un flujo de datos unificado." />
                             </div>
