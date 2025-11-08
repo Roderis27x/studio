@@ -1,7 +1,7 @@
 
 'use client';
 
-import { ArrowRight, Users, Target, BarChart3, Mail, Calendar, FileText, ShoppingCart, Locate, Bot } from 'lucide-react';
+import { ArrowRight, Users, Target, BarChart3, Mail, Calendar, FileText, ShoppingCart, Locate, Bot, TrendingUp, Sparkles, Handshake } from 'lucide-react';
 import Image from 'next/image';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
@@ -33,6 +33,15 @@ const MaFeature = ({ icon, title, description }: { icon: React.ReactNode, title:
     </div>
 );
 
+const BenefitCard = ({ icon, title, description }: { icon: React.ReactNode; title: string; description: string; }) => (
+    <div className="bg-card p-8 rounded-xl shadow-sm border border-border/50 text-center">
+        <div className="flex-shrink-0 bg-primary/10 text-primary rounded-full h-12 w-12 flex items-center justify-center mx-auto mb-4">
+            {icon}
+        </div>
+        <h3 className="text-xl font-bold text-foreground mb-2">{title}</h3>
+        <p className="text-muted-foreground">{description}</p>
+    </div>
+);
 
 export default function CRMPage() {
     return (
@@ -46,10 +55,10 @@ export default function CRMPage() {
                             <div className="grid md:grid-cols-2 gap-12 items-center">
                                 <div className="space-y-6">
                                     <h1 className="text-4xl md:text-5xl font-extrabold text-primary leading-tight">
-                                        Una Visión 360° de sus Clientes
+                                        Unifique su Marketing y Ventas
                                     </h1>
                                     <p className="text-lg text-muted-foreground">
-                                        Conecte con sus clientes, automatice sus ventas y personalice su marketing desde una única plataforma. Nuestro CRM es el motor que impulsa relaciones duraderas y rentables.
+                                        La plataforma CRM que centraliza su marketing, ventas y servicio para construir relaciones que impulsan el crecimiento.
                                     </p>
                                     <div className="flex space-x-4 pt-2">
                                         <Button asChild size="lg">
@@ -74,13 +83,43 @@ export default function CRMPage() {
                         </div>
                     </section>
                 </FadeIn>
+                
+                <FadeIn>
+                    <section id="benefits-crm" className="py-20 md:py-24 bg-slate-50">
+                        <div className="container mx-auto px-6">
+                            <div className="text-center mb-16 max-w-3xl mx-auto">
+                                <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">Beneficios que Impulsan Resultados</h2>
+                                <p className="text-lg text-muted-foreground mt-4">
+                                    Nuestro CRM está diseñado para generar un impacto real y medible en su negocio.
+                                </p>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                <BenefitCard
+                                    icon={<TrendingUp className="h-8 w-8" />}
+                                    title="Aumento de Productividad"
+                                    description="Automatice tareas repetitivas y permita que su equipo de ventas se concentre en lo que mejor sabe hacer: vender."
+                                />
+                                <BenefitCard
+                                    icon={<Sparkles className="h-8 w-8" />}
+                                    title="Marketing más Inteligente"
+                                    description="Segmente su audiencia, personalice sus mensajes y mida el ROI de cada campaña con precisión."
+                                />
+                                 <BenefitCard
+                                    icon={<Handshake className="h-8 w-8" />}
+                                    title="Retención y Lealtad"
+                                    description="Ofrezca una experiencia de cliente consistente y memorable que convierte a los compradores en embajadores de su marca."
+                                />
+                            </div>
+                        </div>
+                    </section>
+                </FadeIn>
 
                 <FadeIn>
                     <section id="features-crm" className="py-20 md:py-24 bg-card">
                         <div className="container mx-auto px-6">
                              <Tabs defaultValue="sfa" className="w-full">
                                 <TabsList className="grid w-full grid-cols-2 max-w-lg mx-auto h-auto">
-                                    <TabsTrigger value="sfa" className="py-3 text-base">Fuerza de Ventas (SFA)</TabsTrigger>
+                                    <TabsTrigger value="sfa" className="py-3 text-base">Ventas (SFA)</TabsTrigger>
                                     <TabsTrigger value="ma" className="py-3 text-base">Marketing (MA)</TabsTrigger>
                                 </TabsList>
                                 <TabsContent value="sfa" className="mt-12">
@@ -94,23 +133,23 @@ export default function CRMPage() {
                                         <CardContent className="grid md:grid-cols-2 gap-8 mt-6">
                                             <SfaFeature 
                                                 icon={<Users className="w-5 h-5"/>}
-                                                title="Gestión de Leads (Prospectos)"
-                                                description="Capture, califique y asigne nuevos prospectos automáticamente para asegurar que ninguna oportunidad se pierda."
+                                                title="Gestión de Leads y Prospectos"
+                                                description="Capture, califique y asigne nuevos prospectos automáticamente para asegurar que ninguna oportunidad se pierda en el camino."
                                             />
                                             <SfaFeature 
                                                 icon={<BarChart3 className="w-5 h-5"/>}
-                                                title="Gestión del Pipeline/Oportunidades"
-                                                description="Visualice todo su embudo de ventas en tiempo real, desde el primer contacto hasta el cierre, con un sistema de arrastrar y soltar."
+                                                title="Gestión de Oportunidades y Pipeline"
+                                                description="Visualice todo su embudo de ventas, desde el primer contacto hasta el cierre, con un sistema intuitivo de arrastrar y soltar."
                                             />
                                             <SfaFeature 
                                                 icon={<Calendar className="w-5 h-5"/>}
-                                                title="Email y Calendario Integrados"
-                                                description="Envíe correos, agende reuniones y registre actividades automáticamente en el perfil del cliente, sin salir del CRM."
+                                                title="Integración de Email y Calendario"
+                                                description="Sincronice su correo y calendario para registrar actividades, agendar reuniones y dar seguimiento sin salir del CRM."
                                             />
                                             <SfaFeature 
                                                 icon={<FileText className="w-5 h-5"/>}
                                                 title="Gestión de Cotizaciones"
-                                                description="Cree, envíe y dé seguimiento a cotizaciones profesionales directamente desde el sistema, asegurando precios consistentes."
+                                                description="Cree, envíe y dé seguimiento a cotizaciones profesionales directamente desde la oportunidad, agilizando el ciclo de venta."
                                             />
                                         </CardContent>
                                     </Card>
@@ -127,17 +166,17 @@ export default function CRMPage() {
                                             <MaFeature
                                                 icon={<ShoppingCart className="w-6 h-6" />}
                                                 title="Análisis del Comportamiento"
-                                                description="Registre automáticamente el historial de compras, visitas a la web y interacciones para segmentar a su audiencia con precisión."
+                                                description="Registre el historial de compras, visitas web e interacciones para segmentar su audiencia con una precisión sin precedentes."
                                              />
                                              <MaFeature
                                                 icon={<Bot className="w-6 h-6" />}
-                                                title="Diseño y Ejecución de Campañas"
-                                                description="Cree campañas de email, SMS y redes sociales con herramientas intuitivas y flujos de trabajo automatizados (nutrición de leads)."
+                                                title="Campañas y Nutrición de Leads"
+                                                description="Cree campañas de email y SMS con flujos de trabajo automatizados (lead nurturing) para guiar a sus prospectos hacia la compra."
                                              />
                                              <MaFeature
                                                 icon={<Locate className="w-6 h-6" />}
                                                 title="Trazabilidad y Atribución"
-                                                description="Rastree el origen de cada lead y su recorrido completo, desde la primera interacción hasta la venta, para entender qué canales funcionan."
+                                                description="Rastree el origen de cada lead y su recorrido completo para entender qué canales de marketing realmente funcionan."
                                              />
                                         </CardContent>
                                     </Card>
@@ -146,9 +185,48 @@ export default function CRMPage() {
                         </div>
                     </section>
                 </FadeIn>
+                
+                 <FadeIn>
+                    <section id="unified-view" className="py-20 md:py-24 bg-white">
+                        <div className="container mx-auto px-6">
+                            <div className="grid md:grid-cols-2 gap-16 items-center">
+                                 <div className="bg-slate-50 p-4 rounded-lg">
+                                    <Image
+                                        src="https://picsum.photos/seed/crm-dashboard/800/600"
+                                        alt="Dashboard de CRM"
+                                        width={800}
+                                        height={600}
+                                        className="rounded-lg shadow-xl"
+                                        data-ai-hint="crm dashboard interface"
+                                    />
+                                </div>
+                                <div className="space-y-6">
+                                    <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">La Verdadera Visión 360°</h2>
+                                    <p className="text-lg text-muted-foreground">
+                                        Nuestro CRM no es solo un software; es su única fuente de verdad. Centralice cada interacción, desde el primer clic en una campaña de marketing hasta el soporte postventa.
+                                    </p>
+                                    <ul className="space-y-4 text-muted-foreground">
+                                        <li className="flex items-start gap-3">
+                                            <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0"/>
+                                            <span>Unifique los datos de marketing, ventas y servicio en un solo perfil de cliente.</span>
+                                        </li>
+                                        <li className="flex items-start gap-3">
+                                            <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0"/>
+                                            <span>Obtenga informes consolidados que le brinden una visión completa del ciclo de vida del cliente.</span>
+                                        </li>
+                                        <li className="flex items-start gap-3">
+                                            <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0"/>
+                                            <span>Mejore la colaboración entre sus equipos y elimine los silos de información.</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </FadeIn>
 
                  <FadeIn>
-                    <section id="contact" className="py-20 bg-white">
+                    <section id="contact" className="py-20 bg-card">
                         <div className="container mx-auto px-6 text-center">
                              <h2 className="text-3xl font-extrabold text-foreground mb-4">Empiece a Construir Mejores Relaciones</h2>
                             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
@@ -169,3 +247,6 @@ export default function CRMPage() {
         </div>
     );
 }
+
+// Add CheckCircle icon to the imports
+import { CheckCircle } from 'lucide-react';
