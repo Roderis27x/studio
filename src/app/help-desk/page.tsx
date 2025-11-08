@@ -140,7 +140,7 @@ export default function HelpDeskPage() {
                                 <BenefitItem
                                     icon={<BarChartHorizontal className="w-8 h-8" />}
                                     title="Decisiones Basadas en Datos"
-                                    description="Deje de adivinar. Use los datos para entender los puntos débiles de sus clientes y mejorar sus productos o servicios."
+                                    description="Use los datos para entender los puntos débiles de sus clientes y mejorar sus productos o servicios."
                                 />
                             </div>
                         </div>
