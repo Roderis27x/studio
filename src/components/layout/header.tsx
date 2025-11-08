@@ -42,6 +42,12 @@ const Header: React.FC = () => {
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         <Logo />
         <nav className="hidden lg:flex items-center gap-4">
+           <Link
+            href="/"
+            className="text-slate-600 hover:text-primary transition-colors px-3 py-1.5 rounded-md text-sm font-medium"
+          >
+            Inicio
+          </Link>
           <Tabs />
           <a
             href="#testimonials"
@@ -83,6 +89,12 @@ const Header: React.FC = () => {
             className="lg:hidden bg-white border-t border-slate-200 overflow-hidden"
           >
             <div className="container mx-auto px-6 py-4 flex flex-col">
+              <a
+                href="/"
+                className="py-2 text-slate-700 hover:text-primary font-semibold"
+              >
+                Inicio
+              </a>
               <a
                 href="#"
                 className="py-2 text-slate-700 hover:text-primary font-semibold"
