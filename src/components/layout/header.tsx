@@ -12,6 +12,7 @@ import {
   CreditCard,
   Headphones,
   FileText,
+  Shield,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '@/components/logo';
@@ -361,6 +362,12 @@ const SoftwareContent = () => (
         title="Gestión de cobros"
         description="Seguimiento y gestión de cobros."
         href="/gestion-de-cobros"
+      />
+        <MenuItem
+        icon={<Shield className="w-4 h-4" />}
+        title="Perfil"
+        description="Gestión de Riesgo y Cumplimiento."
+        href="/perfil"
       />
     </div>
     <div className="space-y-2">
