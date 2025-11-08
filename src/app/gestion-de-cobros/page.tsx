@@ -1,3 +1,4 @@
+
 'use client';
 
 import { ArrowRight, Zap, Target, BarChart3, History, GitMerge, TrendingDown, Users, Shield } from 'lucide-react';
