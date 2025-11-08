@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect, ReactNode } from 'react';
@@ -230,16 +231,13 @@ const Content = ({
       id="overlay-content"
       initial={{
         opacity: 0,
-        y: 8,
       }}
       animate={{
         opacity: 1,
-        y: 0,
         width: selectedTab?.width,
       }}
       exit={{
         opacity: 0,
-        y: 8,
       }}
       transition={{
         duration: 0.25,
@@ -258,9 +256,8 @@ const Content = ({
               <motion.div
                 initial={{
                   opacity: 0,
-                  x: dir === 'l' ? 100 : dir === 'r' ? -100 : 0,
                 }}
-                animate={{ opacity: 1, x: 0 }}
+                animate={{ opacity: 1 }}
                 transition={{ duration: 0.25, ease: 'easeInOut' }}
               >
                 <t.Component />
@@ -428,7 +425,7 @@ const ServicesContent = () => (
       icon={<LifeBuoy className="w-4 h-4" />}
       title="Soporte Técnico"
       description="Asistencia experta cuando la necesite."
-      href="#"
+      href="/soporte-tecnico"
     />
   </div>
 );
