@@ -3,7 +3,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'Synergy Solutions Hub',
+  title: 'CPT-SOFT',
   description: 'Empowering Your Business with Integrated Software Solutions',
 };
 
