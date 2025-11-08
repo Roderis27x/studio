@@ -384,6 +384,7 @@ const SoftwareContent = () => (
         icon={<Headphones className="w-4 h-4" />}
         title="Help Desk"
         description="Soporte y tickets de ayuda."
+        href="/help-desk"
       />
     </div>
   </div>
