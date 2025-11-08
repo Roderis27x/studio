@@ -13,8 +13,10 @@ import {
   Headphones,
   FileText,
   Shield,
-  BarChart3,
   Database,
+  Cloud,
+  Code2,
+  LifeBuoy
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '@/components/logo';
@@ -399,28 +401,32 @@ const SoftwareContent = () => (
   </div>
 );
 
-const ResourcesContent = () => (
-  <div className="p-2">
-    <ul className="space-y-1">
-      <li className="p-2 rounded-md hover:bg-slate-50">
-        <a href="#" className="flex items-center space-x-3">
-          <BookOpen className="w-5 h-5 text-slate-500" />
-          <span className="text-slate-800 font-medium">Blog</span>
-        </a>
-      </li>
-      <li className="p-2 rounded-md hover:bg-slate-50">
-        <a href="#" className="flex items-center space-x-3">
-          <Users className="w-5 h-5 text-slate-500" />
-          <span className="text-slate-800 font-medium">Casos de Éxito</span>
-        </a>
-      </li>
-      <li className="p-2 rounded-md hover:bg-slate-50">
-        <a href="#" className="flex items-center space-x-3">
-          <FileText className="w-5 h-5 text-slate-500" />
-          <span className="text-slate-800 font-medium">Documentación</span>
-        </a>
-      </li>
-    </ul>
+const ServicesContent = () => (
+  <div className="grid grid-cols-2 gap-4">
+    <MenuItem
+      icon={<Cloud className="w-4 h-4" />}
+      title="Alquiler de Nube"
+      description="Hosting seguro y escalable."
+      href="#"
+    />
+    <MenuItem
+      icon={<Users className="w-4 h-4" />}
+      title="Consultoría de Implementación"
+      description="Expertos para asegurar su éxito."
+      href="#"
+    />
+    <MenuItem
+      icon={<Code2 className="w-4 h-4" />}
+      title="Desarrollos a la Medida"
+      description="Soluciones adaptadas a sus procesos."
+      href="#"
+    />
+    <MenuItem
+      icon={<LifeBuoy className="w-4 h-4" />}
+      title="Soporte Técnico"
+      description="Asistencia experta cuando la necesite."
+      href="#"
+    />
   </div>
 );
 
@@ -435,8 +441,8 @@ const TABS_DATA = [
   {
     id: 2,
     title: 'Servicios',
-    Component: ResourcesContent,
-    width: '16rem',
+    Component: ServicesContent,
+    width: '28rem',
   },
 ];
 
