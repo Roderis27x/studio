@@ -135,7 +135,7 @@ export default function DesarrollosMedidaPage() {
                             <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
                                 <TechCard icon={<Layers className="w-6 h-6" />} title="Aplicaciones Web" description="Desarrollamos aplicaciones web modernas y responsivas." />
                                 <TechCard icon={<Smartphone className="w-6 h-6" />} title="Soluciones Móviles" description="Creamos apps nativas e híbridas." />
-                                <TechCard icon={<Database className="w-6 h-6" />} title="Bases de Datos" description="Diseñamos y optimizamos bases de datos relacionales y NoSQL." />
+                                <TechCard icon={<Database className="w-6 h-6" />} title="Bases de Datos" description="Diseñamos y optimizamos bases de datos relacionales." />
                                 <TechCard icon={<Server className="w-6 h-6" />} title="APIs e Integraciones" description="Conectamos sus sistemas para un flujo de datos unificado." />
                             </div>
                         </div>

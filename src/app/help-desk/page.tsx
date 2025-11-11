@@ -95,7 +95,7 @@ export default function HelpDeskPage() {
                                 <FeatureCard
                                     icon={<Bot className="w-6 h-6"/>}
                                     title="Automatización Inteligente"
-                                    description="Enrute tickets, envíe notificaciones de estado y cierre incidencias inactivas automáticamente para que su equipo se centre en lo importante."
+                                    description="Enrute tickets, envíe notificaciones de estado y cierre incidencias para que su equipo se centre en lo importante."
                                 />
                                 <FeatureCard
                                     icon={<Timer className="w-6 h-6"/>}
@@ -106,11 +106,6 @@ export default function HelpDeskPage() {
                                     icon={<BarChartHorizontal className="w-6 h-6"/>}
                                     title="Analítica y Reportes"
                                     description="Identifique tendencias, problemas recurrentes y evalúe el rendimiento del equipo con dashboards y datos accionables en tiempo real."
-                                />
-                                <FeatureCard
-                                    icon={<Library className="w-6 h-6"/>}
-                                    title="Base de Conocimiento Integrada"
-                                    description="Cree y gestione una base de conocimiento para que los agentes resuelvan problemas más rápido y los clientes encuentren respuestas por sí mismos."
                                 />
                             </div>
                         </div>

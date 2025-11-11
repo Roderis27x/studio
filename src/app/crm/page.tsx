@@ -170,8 +170,8 @@ export default function CRMPage() {
                                              />
                                              <MaFeature
                                                 icon={<Bot className="w-6 h-6" />}
-                                                title="Campañas y Nutrición de Leads"
-                                                description="Cree campañas de email y SMS con flujos de trabajo automatizados (lead nurturing) para guiar a sus prospectos hacia la compra."
+                                                title="Campañas"
+                                                description="Cree campañas con flujos de trabajo automatizados para guiar a sus prospectos hacia la compra."
                                              />
                                              <MaFeature
                                                 icon={<Locate className="w-6 h-6" />}

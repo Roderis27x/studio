@@ -111,8 +111,8 @@ export default function PerfilPage() {
                                 />
                                 <FeatureCard
                                     icon={<BarChart className="w-6 h-6" />}
-                                    title="Dashboards e Informes"
-                                    description="Genere dashboards interactivos e informes regulatorios listos para presentar, facilitando la auditoría y la toma de decisiones."
+                                    title="Informes"
+                                    description="Genere informes listos para presentar, facilitando la auditoría y la toma de decisiones."
                                 />
                                 <FeatureCard
                                     icon={<ShieldCheck className="w-6 h-6" />}

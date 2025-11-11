@@ -146,14 +146,14 @@ export default function ERPPage() {
                   </div>
                 </div>
                  <div className="bg-slate-50 p-4 rounded-lg">
-                    <Image
-                        src="https://picsum.photos/seed/erp-dashboard/800/600"
-                        alt="Dashboard de CPT-SOFT ERP"
-                        width={800}
-                        height={600}
-                        className="rounded-lg shadow-xl"
-                        data-ai-hint="erp dashboard"
-                    />
+                  <Image
+                    src="/img/erp.png"
+                    alt="Dashboard de CPT-SOFT ERP"
+                    width={800}
+                    height={600}
+                    className="rounded-lg shadow-xl"
+                    data-ai-hint="erp dashboard"
+                  />
                 </div>
               </div>
             </div>

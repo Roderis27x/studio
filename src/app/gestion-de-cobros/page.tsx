@@ -101,8 +101,8 @@ export default function GestionCobrosPage() {
                          <div className="container mx-auto px-6">
                              <FeatureHighlight
                                 icon={<BarChart3 className="w-5 h-5" />}
-                                title="Panel de Control y Analíticas (BI)"
-                                description="Ofrece una visión en tiempo real del desempeño (KPIs como DSO, Tasa de Contacto Efectivo, Promesas de Pago) para la toma de decisiones informada y el ajuste continuo de estrategias."
+                                title="Panel de Control y Analíticas"
+                                description="Ofrece una visión en tiempo real del desempeño para la toma de decisiones informada y el ajuste continuo de estrategias."
                                 imageUrl="https://picsum.photos/seed/bi-dashboard/800/600"
                                 imageHint="business intelligence dashboard"
                             />
