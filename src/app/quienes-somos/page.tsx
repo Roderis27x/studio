@@ -65,7 +65,7 @@ export default function QuienesSomosPage() {
                     Más de 20 Años Creando Ventaja Competitiva
                   </h1>
                   <p className="text-lg text-muted-foreground">
-                    CPT-SOFT es una empresa de Consultoría de Negocios y tecnología dedicada al desarrollo, distribución e implementación de aplicaciones, con clientes a nivel nacional e internacional. Nuestro principal objetivo es proveer servicios y productos de innovación tecnológica, sustentados en la calidad y el aprendizaje continuo para generar a nuestros clientes una ventaja competitiva sostenible y escalable.
+                    CPT-SOFT es una empresa de Consultoría de Negocios y tecnología dedicada al desarrollo e implementación de aplicaciones, con clientes a nivel nacional e internacional. Nuestro principal objetivo es proveer servicios y productos de innovación tecnológica, sustentados en la calidad y el aprendizaje continuo para generar a nuestros clientes una ventaja competitiva sostenible y escalable.
                   </p>
                 </div>
                 <div>
