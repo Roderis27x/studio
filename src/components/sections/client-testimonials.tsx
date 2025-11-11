@@ -69,7 +69,7 @@ const Testimonials: React.FC = () => {
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">Con la Confianza de Empresas en Crecimiento</h2>
           <p className="text-lg text-muted-foreground mt-4 max-w-2xl mx-auto">
-            Escucha lo que nuestros clientes tienen que decir sobre la transformación de sus operaciones con CPT-SOFT.
+            Escuche lo que nuestros clientes tienen que decir sobre la transformación de sus operaciones con CPT-SOFT.
           </p>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
