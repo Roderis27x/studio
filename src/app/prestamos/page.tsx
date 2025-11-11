@@ -171,7 +171,7 @@ export default function PrestamosPage() {
                                         <AnalyticsFeature 
                                             icon={<TrendingUp className="w-5 h-5" />}
                                             title="Gestión y Contabilidad Integrada"
-                                            description="Cuenta con el proceso integral de la gestión de un prestamo hasta la generación contable del mismo."
+                                            description="Cuenta con el proceso integral de la gestión de un préstamo hasta la generación contable del mismo."
                                         />
                                         <AnalyticsFeature 
                                             icon={<FileTextIcon className="w-5 h-5" />}
