@@ -20,7 +20,7 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-8">
           <div className="col-span-1 lg:col-span-2">
             <Logo className="text-3xl" />
-            <p className="mt-4 text-muted-foreground max-w-xs">La única fuente de verdad para toda la operación de tu negocio.</p>
+            <p className="mt-4 text-muted-foreground max-w-xs">Es la solución que optimiza e integra su negocio.</p>
             <div className="flex space-x-4 mt-6">
               <SocialIcon href="#">
                 <Twitter className="h-5 w-5" />
@@ -50,7 +50,7 @@ const Footer: React.FC = () => {
           ))}
         </div>
         <div className="mt-12 border-t border-border pt-8 text-center text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} CPT-SOFT Solutions Inc. Todos los derechos reservados.</p>
+          <p>&copy; {new Date().getFullYear()} CPT-SOFT. Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>
