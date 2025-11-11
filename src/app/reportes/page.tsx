@@ -79,7 +79,7 @@ export default function ReportesPage() {
                                 </div>
                                 <div className="relative">
                                     <Image
-                                        src="https://picsum.photos/seed/bi-visualization/800/600"
+                                        src="/img/report.png"
                                         alt="Visualización de Business Intelligence"
                                         width={800}
                                         height={600}
@@ -129,11 +129,6 @@ export default function ReportesPage() {
                                     title="Exportación Versátil"
                                     description="Exporte sus reportes e insights a formatos estándar como PDF y Excel para compartir y analizar fuera de la plataforma."
                                 />
-                                <FeatureCard
-                                    icon={<Share2 className="w-6 h-6" />}
-                                    title="Comparta sus Hallazgos"
-                                    description="Distribuya dashboards interactivos y reportes programados automáticamente para mantener a todo su equipo informado."
-                                />
                             </div>
                         </div>
                     </section>
@@ -155,8 +150,8 @@ export default function ReportesPage() {
                                 <ProcessStep 
                                     number="2"
                                     icon={<SlidersHorizontal className="h-8 w-8"/>}
-                                    title="Diseñe sus Vistas"
-                                    description="Arrastre y suelte para crear dashboards personalizados y reportes que respondan a sus preguntas de negocio."
+                                    title="Diseñe sus consultas"
+                                    description="Cree sus reportes que respondan a las necesidades de su negocio."
                                 />
                                 <ProcessStep 
                                     number="3"
@@ -179,7 +174,7 @@ export default function ReportesPage() {
                                 <BenefitItem 
                                     icon={<CheckCircle className="w-6 h-6" />}
                                     title="Visibilidad Total"
-                                    description="Obtenga una visión 360° del rendimiento de su empresa con dashboards que consolidan la información clave."
+                                    description="Obtenga una visión 360° del rendimiento de su empresa con reportes que consolidan la información clave."
                                 />
                                 <BenefitItem 
                                     icon={<Lightbulb className="w-6 h-6" />}
@@ -201,7 +196,7 @@ export default function ReportesPage() {
                         <div className="container mx-auto px-6 text-center">
                              <h2 className="text-3xl font-extrabold text-foreground mb-4">Descubra el Poder Oculto en sus Datos</h2>
                             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-                                ¿Listo para ver cómo nuestra plataforma de BI puede transformar su negocio? Solicite una demostración personalizada hoy mismo.
+                                ¿Listo para ver cómo nuestra plataforma de reportería puede transformar su negocio? Solicite una demostración personalizada hoy mismo.
                             </p>
                             <Button asChild size="lg">
                                 <a href="#">

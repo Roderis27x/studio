@@ -61,7 +61,7 @@ export default function PlanillaPage() {
                                 </div>
                                 <div className="bg-slate-50 p-4 rounded-lg">
                                     <Image
-                                        src="https://picsum.photos/seed/payroll-management/800/600"
+                                        src="/img/planilla.png"
                                         alt="Gestión de Planilla"
                                         width={800}
                                         height={600}
