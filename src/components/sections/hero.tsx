@@ -13,13 +13,13 @@ const Hero: React.FC = () => {
           <span className="text-primary">
             <TypeAnimation
               sequence={[
-                'Optimizar sus Negocio',
+                'Optimizar su Negocio',
                 2000,
-                'Automatizar sus Ventas',
+                'Automatizar su Ventas',
                 2000,
-                'Gestionar sus Finanzas',
+                'Gestionar su Finanzas',
                 2000,
-                'Controlar sus Inventario',
+                'Controlar su Inventario',
                 2000,
               ]}
               wrapper="span"
