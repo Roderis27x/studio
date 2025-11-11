@@ -38,9 +38,13 @@ const Hero: React.FC = () => {
           </a>
         </div>
         <div className="mt-16 max-w-5xl mx-auto p-4 bg-white rounded-xl shadow-2xl border border-slate-100">
-          <div className="aspect-video bg-slate-100 rounded-lg flex items-center justify-center">
-            <p className="text-slate-400">Maqueta de tu Panel ERP</p>
-          </div>
+            <div className="aspect-video bg-slate-100 rounded-lg flex items-center justify-center">
+              <img
+                src="/img/imagen.png"
+                alt="Maqueta de tu Panel ERP"
+                className="object-contain h-full w-full rounded-lg"
+              />
+            </div>
         </div>
       </div>
     </section>
