@@ -22,32 +22,32 @@ const Features: React.FC = () => {
     {
       icon: <BarChart3 className="h-6 w-6" />,
       title: 'Gestión Financiera',
-      description: 'Automatiza la contabilidad, facturación y reportes para obtener una visión en tiempo real de tu salud financiera.',
+      description: 'Automatiza sus procesos contables y obtenga una vision en tiempo real de su estado financiero.',
     },
     {
       icon: <Briefcase className="h-6 w-6" />,
       title: 'Cadena de Suministro e Inventario',
-      description: 'Optimiza tus niveles de inventario, gestiona las adquisiciones y agiliza las operaciones de tu almacén.',
+      description: 'Gestione oportunamente sus compras optimizando los niveles de inventario y agilizando las operaciones del almacén.',
     },
     {
       icon: <Users className="h-6 w-6" />,
       title: 'CRM y Ventas',
-      description: 'Gestiona las relaciones con los clientes, sigue los pipelines de ventas y mejora el rendimiento de tus ventas.',
+      description: 'Obten una vision 360 de sus clientes y gestione sus procesos de ventas efectivamente.',
     },
     {
         icon: <DollarSign className="h-6 w-6" />,
         title: 'Recursos Humanos',
-        description: 'Simplifica la nómina, gestiona los datos de los empleados y agiliza los procesos de RRHH desde un único panel.',
+        description: 'Simplifique la nómina, gestiona los datos de los colaboradores y agilice sus procesos de planilla desde una solución integral.',
     },
     {
         icon: <Settings className="h-6 w-6" />,
         title: 'Módulos Personalizables',
-        description: 'Adapta el ERP a tus necesidades exactas con módulos flexibles y potentes opciones de integración.',
+        description: 'Adapte el ERP a sus necesidades exactas con módulos flexibles y potentes opciones de integración.',
     },
     {
         icon: <Shield className="h-6 w-6" />,
         title: 'Seguridad de Nivel Empresarial',
-        description: 'Protege los datos sensibles de tu negocio con sólidas funciones de seguridad y estándares de cumplimiento.',
+        description: 'Protege los datos sensibles de su negocio con sólidas funciones de seguridad y estándares de cumplimiento.',
     },
   ];
 
