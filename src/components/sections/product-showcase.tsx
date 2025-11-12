@@ -41,7 +41,7 @@ const Features: React.FC = () => {
     {
       icon: <Users className="h-6 w-6" />,
       title: 'CRM y Ventas',
-      description: 'Obten una vision 360 de sus clientes y gestione sus procesos de ventas efectivamente.',
+      description: 'Obten una vision 360° de sus clientes y gestione sus procesos de ventas efectivamente.',
     },
     {
         icon: <User className="h-6 w-6" />,
@@ -71,7 +71,7 @@ const Features: React.FC = () => {
             Funcionalidades Potentes para Cada Departamento
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            CPT-SOFT proporciona un conjunto completo de herramientas para gestionar y hacer crecer todo tu negocio.
+            CPT-SOFT proporciona un conjunto completo de herramientas para gestionar y hacer crecer todo su negocio.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
