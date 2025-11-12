@@ -9,91 +9,18 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
-
-interface BlogPost {
-  id: string;
-  title: string;
-  excerpt: string;
-  category: string;
-  author: string;
-  date: string;
-  readTime: string;
-  image: string;
-  featured?: boolean;
-}
-
-const blogPosts: BlogPost[] = [
-  {
-    id: '1',
-    title: 'Cómo un ERP puede transformar la gestión de tu empresa',
-    excerpt: 'Descubre las ventajas de implementar un sistema ERP integral para optimizar tus procesos de negocio y aumentar la productividad.',
-    category: 'ERP',
-    author: 'Roderis Ortega',
-    date: '2025-11-10',
-    readTime: '5 min',
-    image: '/img/blog/erp-transformation.jpg',
-    featured: true,
-  },
-  {
-    id: '2',
-    title: '10 beneficios del CRM para empresas en crecimiento',
-    excerpt: 'Un CRM efectivo puede revolucionar tu relación con los clientes. Conoce los principales beneficios que puede aportar a tu negocio.',
-    category: 'CRM',
-    author: 'Olmedo Pinto',
-    date: '2025-11-08',
-    readTime: '4 min',
-    image: '/img/blog/crm-benefits.jpg',
-  },
-  {
-    id: '3',
-    title: 'Automatización de procesos: el futuro de las empresas',
-    excerpt: 'La automatización no es el futuro, es el presente. Aprende cómo automatizar tus procesos puede reducir costos y mejorar la eficiencia.',
-    category: 'Automatización',
-    author: 'Luis Marquez',
-    date: '2025-11-05',
-    readTime: '6 min',
-    image: '/img/blog/automation.jpg',
-  },
-  {
-    id: '4',
-    title: 'Gestión de inventario inteligente: reduce costos y optimiza stock',
-    excerpt: 'Una gestión de inventario eficiente puede marcar la diferencia entre pérdidas y ganancias. Descubre las mejores prácticas.',
-    category: 'Inventario',
-    author: 'Dionisio Rivera',
-    date: '2025-11-03',
-    readTime: '5 min',
-    image: '/img/blog/inventory.jpg',
-  },
-  {
-    id: '5',
-    title: 'Seguridad de datos empresariales: protege tu información',
-    excerpt: 'La seguridad de datos es crítica en la era digital. Conoce las mejores prácticas para proteger la información de tu empresa.',
-    category: 'Seguridad',
-    author: 'Manuel Vergara',
-    date: '2025-11-01',
-    readTime: '7 min',
-    image: '/img/blog/security.jpg',
-  },
-  {
-    id: '6',
-    title: 'Inteligencia de negocios: toma decisiones basadas en datos',
-    excerpt: 'El Business Intelligence te permite tomar decisiones informadas. Aprende cómo implementarlo en tu organización.',
-    category: 'BI',
-    author: 'Roderis Ortega',
-    date: '2025-10-28',
-    readTime: '6 min',
-    image: '/img/blog/business-intelligence.jpg',
-  },
-];
+import { blogPosts, type BlogPost } from '@/lib/blog-data';
 
 const FeaturedPost = ({ post }: { post: BlogPost }) => (
   <Card className="overflow-hidden border-0 shadow-2xl hover:shadow-3xl transition-all duration-300 group">
     <div className="grid md:grid-cols-2 gap-0">
       <div className="relative h-64 md:h-full bg-slate-200">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20"></div>
-        <div className="absolute inset-0 flex items-center justify-center text-slate-400">
-          <span className="text-sm">Imagen destacada</span>
-        </div>
+        <Image
+          src={post.image}
+          alt={post.title}
+          fill
+          className="object-cover group-hover:scale-105 transition-transform duration-500"
+        />
       </div>
       <CardContent className="p-8 md:p-12 flex flex-col justify-center">
         <div className="flex items-center gap-3 mb-4">
@@ -138,10 +65,12 @@ const FeaturedPost = ({ post }: { post: BlogPost }) => (
 const BlogCard = ({ post }: { post: BlogPost }) => (
   <Card className="overflow-hidden border-slate-200 hover:shadow-xl transition-all duration-300 group h-full flex flex-col">
     <div className="relative h-48 bg-slate-200">
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10"></div>
-      <div className="absolute inset-0 flex items-center justify-center text-slate-400">
-        <span className="text-sm">Imagen del artículo</span>
-      </div>
+      <Image
+        src={post.image}
+        alt={post.title}
+        fill
+        className="object-cover group-hover:scale-110 transition-transform duration-500"
+      />
       <div className="absolute top-4 left-4">
         <Badge className="bg-primary/10 text-primary hover:bg-primary/20 border-primary/20 backdrop-blur-sm">
           {post.category}
@@ -172,10 +101,10 @@ const BlogCard = ({ post }: { post: BlogPost }) => (
         </div>
       </div>
       <Link href={`/blog/${post.id}`}>
-        <Button variant="ghost" className="w-full justify-between group-hover:bg-slate-50">
-          Leer más
+        <div className="flex items-center justify-between text-primary font-medium text-sm hover:gap-2 transition-all cursor-pointer no-underline">
+          <span>Leer más</span>
           <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
-        </Button>
+        </div>
       </Link>
     </CardContent>
   </Card>
