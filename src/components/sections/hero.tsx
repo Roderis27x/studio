@@ -48,13 +48,9 @@ const Hero: React.FC = () => {
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-16">
-          <Button size="lg" className="bg-primary hover:bg-primary/90 text-white px-8 py-6 text-lg h-auto rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
-            Solicitar Demo
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
-            <a href="#caracteristicas" className="px-8 py-6 text-lg h-auto rounded-xl border-2 text-slate-600 hover:text-slate-900 hover:border-slate-300 transition-colors duration-300 flex items-center justify-center font-medium bg-white">
-              Ver Características
-            </a>
+          <a href="#caracteristicas" className="px-8 py-6 text-lg h-auto rounded-xl border-2 text-slate-600 hover:text-slate-900 hover:border-slate-300 transition-colors duration-300 flex items-center justify-center font-medium bg-white">
+            Ver Características
+          </a>
         </div>
 
         {/* Image Container */}
@@ -64,7 +60,8 @@ const Hero: React.FC = () => {
             <div className="bg-gradient-to-br from-slate-100 to-slate-50 rounded-xl overflow-hidden">
               <img
                 src="/img/imagen.png"
-                alt="Dashboard de CPT-SOFT ERP"
+                alt="Dashboard de CPT-SOFT ERP
+                "
                 className="rounded-lg w-full h-auto"
                 loading="lazy"
               />
