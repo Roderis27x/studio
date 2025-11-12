@@ -1,4 +1,3 @@
-
 'use client';
 
 import { ArrowRight, CheckCircle, Scale, PiggyBank, Briefcase, Boxes, Factory, Gem, FileText, HandCoins, Users, BarChart, Banknote, Building } from 'lucide-react';
@@ -76,6 +75,12 @@ export default function ERPPage() {
     { name: 'Cuentas por Cobrar - Caja', icon: <HandCoins className="w-5 h-5"/> },
     { name: 'Planilla', icon: <Users className="w-5 h-5"/> },
     { name: 'Reportes y Dashboards', icon: <BarChart className="w-5 h-5"/> },
+    { name: 'Carga de datos', icon: <FileText className="w-5 h-5"/> },
+    { name: 'Globales', icon: <Building className="w-5 h-5"/> },
+    { name: 'Portal', icon: <Briefcase className="w-5 h-5"/> },
+    { name: 'Mensajería', icon: <FileText className="w-5 h-5"/> },
+    { name: 'Actividades', icon: <CheckCircle className="w-5 h-5"/> },
+    { name: 'Sala de Mando', icon: <BarChart className="w-5 h-5"/> },
   ]
   
   const testimonials = [
