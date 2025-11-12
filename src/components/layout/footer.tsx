@@ -1,5 +1,5 @@
 import Logo from '@/components/logo';
-import { Twitter, Linkedin, Facebook } from 'lucide-react';
+import { Instagram, Linkedin, Facebook } from 'lucide-react';
 
 const SocialIcon = ({ href, children }: { href: string; children: React.ReactNode }) => (
   <a href={href} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
@@ -9,9 +9,18 @@ const SocialIcon = ({ href, children }: { href: string; children: React.ReactNod
 
 const Footer: React.FC = () => {
   const footerLinks = {
-    'Software': ['Características', 'Precios', 'Integraciones', 'Actualizaciones'],
-    'Compañía': ['Sobre Nosotros', 'Carreras', 'Contacto', 'Blog'],
-    'Legal': ['Política de Privacidad', 'Términos de Servicio', 'Seguridad'],
+    'Software': [
+      'ERP Core',
+      'Planilla',
+      'Reportes',
+      'Préstamos',
+      'Gestión de cobros',
+      'Perfil',
+      'CRM',
+      'Help Desk',
+    ],
+  'Compañía': ['Quiénes Somos', 'Carreras', 'Contacto', 'Blog'],
+    'Legal': ['Política de Privacidad', 'Términos de Servicio'],
   };
 
   return (
@@ -22,15 +31,15 @@ const Footer: React.FC = () => {
             <Logo className="text-3xl" />
             <p className="mt-4 text-muted-foreground max-w-xs">Es la solución que optimiza e integra su negocio.</p>
             <div className="flex space-x-4 mt-6">
-              <SocialIcon href="#">
-                <Twitter className="h-5 w-5" />
-                <span className="sr-only">Twitter</span>
+              <SocialIcon href="https://www.instagram.com/cptsoft507/">
+                <Instagram className="h-5 w-5" />
+                <span className="sr-only">Instagram</span>
               </SocialIcon>
-              <SocialIcon href="#">
+              <SocialIcon href="https://pa.linkedin.com/company/cpt-soft">
                 <Linkedin className="h-5 w-5" />
                 <span className="sr-only">LinkedIn</span>
               </SocialIcon>
-              <SocialIcon href="#">
+              <SocialIcon href="https://www.facebook.com/people/Cpt-Soft/100065572566401/#">
                 <Facebook className="h-5 w-5" />
                 <span className="sr-only">Facebook</span>
               </SocialIcon>
@@ -42,7 +51,19 @@ const Footer: React.FC = () => {
               <ul className="mt-4 space-y-2">
                 {links.map(link => (
                   <li key={link}>
-                    <a href="#" className="text-muted-foreground hover:text-primary transition-colors">{link}</a>
+                    <a
+                      href={
+                        link === 'Quiénes Somos' ? '/quienes-somos'
+                        : link === 'Carreras' ? '/carreras'
+                        : link === 'Contacto' ? '/contacto'
+                        : link === 'Política de Privacidad' ? '/politica-privacidad'
+                        : link === 'Términos de Servicio' ? '/terminos-condiciones'
+                        : '#'
+                      }
+                      className="text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      {link}
+                    </a>
                   </li>
                 ))}
               </ul>

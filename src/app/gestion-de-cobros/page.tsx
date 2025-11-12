@@ -21,15 +21,20 @@ const FeatureHighlight = ({ icon, title, description, imageUrl, imageHint, rever
             </div>
             <p className="text-muted-foreground text-lg">{description}</p>
         </div>
-        <div className="bg-slate-50 p-4 rounded-lg">
-            <Image
-                src={imageUrl}
-                alt={title}
-                width={800}
-                height={600}
-                className="rounded-lg shadow-xl"
-                data-ai-hint={imageHint}
-            />
+        <div className="p-4 rounded-2xl flex items-center justify-center group">
+            <div className="relative">
+                <Image
+                    src={imageUrl}
+                    alt={title}
+                    width={384}
+                    height={288}
+                    className="rounded-xl max-w-full h-auto group-hover:scale-105 transition-transform duration-300"
+                    quality={90}
+                    priority
+                    data-ai-hint={imageHint}
+                />
+                <div className="absolute -inset-4 bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+            </div>
         </div>
     </div>
 );
@@ -84,8 +89,8 @@ export default function GestionCobrosPage() {
                                 icon={<Zap className="w-5 h-5" />}
                                 title="Automatización de Flujos de Cobro"
                                 description="Diseñe y ejecute secuencias de contacto programadas (emails, SMS, WhatsApp) que se disparan automáticamente en fechas clave (antes, en y después del vencimiento), asegurando una gestión a tiempo y constante."
-                                imageUrl="https://picsum.photos/seed/automation-flow/800/600"
-                                imageHint="automation workflow"
+                                imageUrl="/img/dinero.png"
+                                imageHint="dinero automatización"
                             />
                         </div>
                          <div className="container mx-auto px-6">
@@ -93,8 +98,8 @@ export default function GestionCobrosPage() {
                                 icon={<Target className="w-5 h-5" />}
                                 title="Segmentación Inteligente de Cartera"
                                 description="Clasifique a los deudores en grupos (por antigüedad de mora, sucursal, tipo de cliente, etc.) para aplicar la estrategia de contacto más efectiva y menos costosa a cada segmento."
-                                imageUrl="https://picsum.photos/seed/customer-segmentation/800/600"
-                                imageHint="customer segmentation chart"
+                                imageUrl="/img/cartera.png"
+                                imageHint="segmentación cartera"
                                 reverse={true}
                             />
                         </div>
@@ -103,8 +108,8 @@ export default function GestionCobrosPage() {
                                 icon={<BarChart3 className="w-5 h-5" />}
                                 title="Panel de Control y Analíticas"
                                 description="Ofrece una visión en tiempo real del desempeño para la toma de decisiones informada y el ajuste continuo de estrategias."
-                                imageUrl="https://picsum.photos/seed/bi-dashboard/800/600"
-                                imageHint="business intelligence dashboard"
+                                imageUrl="/img/panel.png"
+                                imageHint="panel de control analíticas"
                             />
                         </div>
                          <div className="container mx-auto px-6">
@@ -112,8 +117,8 @@ export default function GestionCobrosPage() {
                                 icon={<History className="w-5 h-5" />}
                                 title="Historial de Interacciones (Visión 360°)"
                                 description="Mantiene un registro cronológico de cada comunicación, lo cual es vital para el seguimiento y en caso de escalamiento legal, proporcionando un contexto completo de cada caso."
-                                imageUrl="https://picsum.photos/seed/customer-history/800/600"
-                                imageHint="customer journey map"
+                                imageUrl="/img/historial-de-transacciones.png"
+                                imageHint="historial de transacciones"
                                 reverse={true}
                             />
                         </div>
@@ -122,8 +127,8 @@ export default function GestionCobrosPage() {
                                 icon={<GitMerge className="w-5 h-5" />}
                                 title="Integración con Sistemas (ERP)"
                                 description="Se conecta de forma nativa con sistemas contables para obtener datos actualizados de facturas y pagos, evitando errores de duplicidad o contacto por deudas ya saldadas."
-                                imageUrl="https://picsum.photos/seed/api-integration/800/600"
-                                imageHint="api integration abstract"
+                                imageUrl="/img/sistema-informatico.png"
+                                imageHint="sistema informático integración"
                             />
                         </div>
                     </section>
