@@ -17,7 +17,8 @@ import {
   Database,
   Cloud,
   Code2,
-  LifeBuoy
+  LifeBuoy,
+  LogIn
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '@/components/logo';
@@ -30,6 +31,7 @@ const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
   const { openChatbot } = useChatbot();
 
   useEffect(() => {
@@ -78,6 +80,42 @@ const Header: React.FC = () => {
           </Link>
         </nav>
         <div className="hidden lg:flex items-center space-x-4">
+          <div className="relative w-fit">
+            <button
+              onClick={() => setIsLoginOpen(!isLoginOpen)}
+              className="text-slate-600 hover:text-primary px-4 py-2 rounded-lg font-semibold transition-all duration-300 flex items-center gap-2 text-sm w-full"
+            >
+              <LogIn className="w-4 h-4" />
+              Iniciar Sesión
+              <ChevronDown className={cn("w-4 h-4 transition-transform", isLoginOpen ? "rotate-180" : "")} />
+            </button>
+            <AnimatePresence>
+              {isLoginOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute right-0 mt-2 bg-white rounded-lg shadow-lg border border-slate-200 overflow-hidden z-50 w-full min-w-max"
+                  onMouseLeave={() => setIsLoginOpen(false)}
+                >
+                  <a
+                    href="/login/distribuidora"
+                    className="block px-3 py-2 hover:bg-slate-50 transition-colors text-sm font-medium text-slate-700 hover:text-primary border-b border-slate-100 text-center"
+                  >
+                    Distribuidora
+                  </a>
+                  <a
+                    href="/login/financiera"
+                    className="block px-3 py-2 hover:bg-slate-50 transition-colors text-sm font-medium text-slate-700 hover:text-primary text-center"
+                    style={{ borderBottom: 'none' }}
+                  >
+                    Financiera
+                  </a>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
           <button
             onClick={() => openChatbot()}
             className="bg-primary text-white px-5 py-2.5 rounded-lg font-semibold hover:bg-primary/90 transition-all duration-300 shadow-sm text-sm"
@@ -285,7 +323,48 @@ const Header: React.FC = () => {
               >
                 Carreras
               </Link>
-              <div className="border-t border-slate-200 pt-4 mt-4">
+              <div className="border-t border-slate-200 pt-4 mt-4 space-y-2">
+                <div
+                  onClick={() => setExpandedMenu(expandedMenu === 'login' ? null : 'login')}
+                  className="py-2 text-slate-700 hover:text-primary font-semibold flex items-center justify-between cursor-pointer"
+                >
+                  <span className="flex items-center gap-2">
+                    <LogIn className="w-4 h-4" />
+                    Iniciar Sesión
+                  </span>
+                  <ChevronDown
+                    size={18}
+                    className={cn(
+                      'transition-transform',
+                      expandedMenu === 'login' ? 'rotate-180' : ''
+                    )}
+                  />
+                </div>
+                <AnimatePresence>
+                  {expandedMenu === 'login' && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="bg-slate-50 rounded-lg p-2 space-y-2"
+                    >
+                      <Link
+                        href="/login/distribuidora"
+                        className="block py-1 px-2 text-slate-600 hover:text-primary text-sm rounded hover:bg-slate-100"
+                        onClick={() => { setExpandedMenu(null); setIsMobileMenuOpen(false); }}
+                      >
+                        Distribuidora
+                      </Link>
+                      <Link
+                        href="/login/financiera"
+                        className="block py-1 px-2 text-slate-600 hover:text-primary text-sm rounded hover:bg-slate-100"
+                        onClick={() => { setExpandedMenu(null); setIsMobileMenuOpen(false); }}
+                      >
+                        Financiera
+                      </Link>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
                 <button
                   onClick={() => { openChatbot(); setIsMobileMenuOpen(false); }}
                   className="bg-primary text-white text-center block w-full px-5 py-2.5 rounded-lg font-semibold hover:bg-primary/90 transition-all duration-300 shadow-sm"

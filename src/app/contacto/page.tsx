@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useForm } from 'react-hook-form';
@@ -78,7 +77,7 @@ export default function ContactoPage() {
                                     Estamos para Ayudarle
                                 </h1>
                                 <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto">
-                                    Contáctenos para conocer más sobre nuestras soluciones ERP y cómo podemos transformar su negocio.
+                                    Contáctenos para conocer más sobre nuestras soluciones y cómo podemos transformar su negocio.
                                 </p>
                             </div>
                         </div>
@@ -98,7 +97,7 @@ export default function ContactoPage() {
                                         <ContactInfo 
                                             icon={<MapPin className="w-6 h-6"/>}
                                             title="Nuestra Oficina"
-                                            value="Panama Business Center, Piso 16"
+                                            value="Calle Samuel Lewis, Panama Business Center, Piso 16"
                                         />
                                         <div className="flex items-start gap-4 p-6 rounded-xl bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/10 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 group">
                                             <div className="flex-shrink-0 bg-gradient-to-br from-primary to-primary/80 text-white rounded-full h-14 w-14 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
@@ -123,6 +122,12 @@ export default function ContactoPage() {
                                             title="Email"
                                             value="info@cpt-soft.com"
                                             href="mailto:info@cpt-soft.com"
+                                        />
+                                        <ContactInfo 
+                                            icon={<Mail className="w-6 h-6"/>}
+                                            title="Email Ventas"
+                                            value="ventas@cpt-soft.com"
+                                            href="mailto:ventas@cpt-soft.com"
                                         />
                                     </div>
                                     <div className="rounded-2xl overflow-hidden border border-primary/10 shadow-xl h-96 mt-8 flex flex-col">
