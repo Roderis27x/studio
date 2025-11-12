@@ -23,6 +23,20 @@ const Footer: React.FC = () => {
     'Legal': ['Política de Privacidad', 'Términos de Servicio'],
   };
 
+  const getSoftwareLink = (link: string): string => {
+    const linkMap: Record<string, string> = {
+      'ERP Core': '/erp',
+      'Planilla': '/planilla',
+      'Reportes': '/reportes',
+      'Préstamos': '/prestamos',
+      'Gestión de cobros': '/gestion-de-cobros',
+      'Perfil': '/perfil',
+      'CRM': '/crm',
+      'Help Desk': '/help-desk',
+    };
+    return linkMap[link] || '#';
+  };
+
   return (
     <footer className="bg-card text-foreground border-t">
       <div className="container mx-auto px-6 py-12">
@@ -53,9 +67,11 @@ const Footer: React.FC = () => {
                   <li key={link}>
                     <a
                       href={
-                        link === 'Quiénes Somos' ? '/quienes-somos'
+                        title === 'Software' ? getSoftwareLink(link)
+                        : link === 'Quiénes Somos' ? '/quienes-somos'
                         : link === 'Carreras' ? '/carreras'
                         : link === 'Contacto' ? '/contacto'
+                        : link === 'Blog' ? '/blog'
                         : link === 'Política de Privacidad' ? '/politica-privacidad'
                         : link === 'Términos de Servicio' ? '/terminos-condiciones'
                         : '#'
