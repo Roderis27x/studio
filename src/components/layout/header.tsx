@@ -56,6 +56,12 @@ const Header: React.FC = () => {
           </Link>
           <Tabs />
           <Link
+            href="/blog"
+            className="text-slate-600 hover:text-primary transition-colors px-3 py-1.5 rounded-md text-sm font-medium"
+          >
+            Blog
+          </Link>
+          <Link
             href="/quienes-somos"
             className="text-slate-600 hover:text-primary transition-colors px-3 py-1.5 rounded-md text-sm font-medium"
           >
@@ -107,18 +113,24 @@ const Header: React.FC = () => {
               >
                 Software
               </a>
-              <Link
-                href="/quienes-somos"
-                className="py-2 text-slate-700 hover:text-primary font-semibold"
-              >
-                Quienes Somos
-              </Link>
               <a
                 href="#"
                 className="py-2 text-slate-700 hover:text-primary font-semibold"
               >
                 Servicios
               </a>
+              <Link
+                href="/blog"
+                className="py-2 text-slate-700 hover:text-primary font-semibold"
+              >
+                Blog
+              </Link>
+              <Link
+                href="/quienes-somos"
+                className="py-2 text-slate-700 hover:text-primary font-semibold"
+              >
+                Quienes Somos
+              </Link>
               <Link
                 href="/contacto"
                 className="py-2 text-slate-700 hover:text-primary font-semibold"

@@ -1,5 +1,6 @@
 import React from 'react';
-import { BarChart3, Users, Briefcase, DollarSign, Settings, Shield } from 'lucide-react';
+import { BarChart3, Users, Briefcase, DollarSign, Settings, User, Banknote } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface FeatureCardProps {
   icon: React.ReactNode;
@@ -8,13 +9,21 @@ interface FeatureCardProps {
 }
 
 const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description }) => (
-  <div className="bg-card p-6 rounded-lg border transform transition-transform duration-300 hover:-translate-y-2 hover:shadow-xl">
-    <div className="bg-primary text-primary-foreground rounded-full p-3 w-12 h-12 mb-4">
-      {icon}
-    </div>
-    <h3 className="text-xl font-bold text-foreground mb-2">{title}</h3>
-    <p className="text-muted-foreground">{description}</p>
-  </div>
+  <Card className="border-slate-200 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group">
+    <CardHeader className="pb-3">
+      <div className="flex items-start justify-between">
+        <div className="p-2.5 rounded-lg bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
+          {icon}
+        </div>
+      </div>
+      <CardTitle className="text-xl mt-4">{title}</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <CardDescription className="text-base text-muted-foreground leading-relaxed">
+        {description}
+      </CardDescription>
+    </CardContent>
+  </Card>
 );
 
 const Features: React.FC = () => {
@@ -35,7 +44,7 @@ const Features: React.FC = () => {
       description: 'Obten una vision 360 de sus clientes y gestione sus procesos de ventas efectivamente.',
     },
     {
-        icon: <DollarSign className="h-6 w-6" />,
+        icon: <User className="h-6 w-6" />,
         title: 'Recursos Humanos',
         description: 'Simplifique la nómina, gestiona los datos de los colaboradores y agilice sus procesos de planilla desde una solución integral.',
     },
@@ -45,22 +54,27 @@ const Features: React.FC = () => {
         description: 'Adapte el ERP a sus necesidades exactas con módulos flexibles y potentes opciones de integración.',
     },
     {
-        icon: <Shield className="h-6 w-6" />,
-        title: 'Seguridad de Nivel Empresarial',
-        description: 'Protege los datos sensibles de su negocio con sólidas funciones de seguridad y estándares de cumplimiento.',
+        icon: <Banknote className="h-6 w-6" />,
+        title: 'Préstamos y Financiamiento',
+        description: 'Gestione solicitudes de préstamos, monitoreo de plazos y financiamiento con control integral de créditos.',
     },
   ];
 
   return (
-    <section id="features" className="py-20 bg-background">
+    <section id="features" className="py-24 md:py-32 bg-white">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">Funcionalidades Potentes para Cada Departamento</h2>
-          <p className="text-lg text-muted-foreground mt-4 max-w-2xl mx-auto">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary mb-6 text-sm font-semibold border border-primary/20">
+            Características
+          </div>
+          <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mb-4">
+            Funcionalidades Potentes para Cada Departamento
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             CPT-SOFT proporciona un conjunto completo de herramientas para gestionar y hacer crecer todo tu negocio.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {features.map((feature) => (
             <FeatureCard key={feature.title} {...feature} />
           ))}
