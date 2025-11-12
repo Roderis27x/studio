@@ -8,6 +8,7 @@ import Footer from '@/components/layout/footer';
 import FadeIn from '@/components/fade-in';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { DemoButton } from '@/components/demo-button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 
 const PlanFeature = ({ children }: { children: React.ReactNode }) => (
@@ -46,12 +47,10 @@ export default function AlquilerNubePage() {
                                         Ofrecemos una infraestructura de nube robusta y segura, diseñada específicamente para nuestras aplicaciones. Elija entre configuraciones estándar o de alta disponibilidad para garantizar el rendimiento y la continuidad de su negocio.
                                     </p>
                                     <div className="flex space-x-4 pt-2">
-                                        <Button asChild size="lg">
-                                            <Link href="#contact">
-                                                Contactar a un Especialista
-                                                <ArrowRight className="ml-2 h-5 w-5" />
-                                            </Link>
-                                        </Button>
+                                        <DemoButton size="lg">
+                                            Contactar a un Especialista
+                                            <ArrowRight className="ml-2 h-5 w-5" />
+                                        </DemoButton>
                                     </div>
                                 </div>
                                 <div className="p-4 flex items-center justify-center group">
@@ -172,12 +171,10 @@ export default function AlquilerNubePage() {
                             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
                                 Hable con uno de nuestros especialistas en infraestructura para encontrar la configuración perfecta que se adapte a sus necesidades y presupuesto.
                             </p>
-                            <Button asChild size="lg">
-                                <a href="#">
-                                    Contactar a un Especialista
-                                    <ArrowRight className="ml-2 h-5 w-5" />
-                                </a>
-                            </Button>
+                            <DemoButton size="lg">
+                                Contactar a un Especialista
+                                <ArrowRight className="ml-2 h-5 w-5" />
+                            </DemoButton>
                         </div>
                     </section>
                 </FadeIn>

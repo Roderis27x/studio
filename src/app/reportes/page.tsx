@@ -8,6 +8,7 @@ import Footer from '@/components/layout/footer';
 import FadeIn from '@/components/fade-in';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { DemoButton } from '@/components/demo-button';
 
 const FeatureCard = ({ icon, title, description }: { icon: React.ReactNode, title: string, description: string }) => (
     <div className="bg-gradient-to-br from-white to-slate-50 p-8 rounded-2xl border border-slate-200 shadow-sm transition-all hover:border-primary hover:shadow-lg hover:-translate-y-1">
@@ -73,12 +74,10 @@ export default function ReportesPage() {
                                        Nuestra plataforma de Business Intelligence le permite conectar, visualizar y analizar toda su información en un solo lugar. Convierta datos crudos en insights claros y accionables.
                                     </p>
                                     <div className="mt-8 flex gap-4">
-                                        <Button asChild size="lg" className="bg-primary hover:bg-primary/90 shadow-lg hover:shadow-primary/50 transition-all">
-                                            <Link href="#contact">
-                                                Solicitar una Demostración
-                                                <ArrowRight className="ml-2 h-5 w-5" />
-                                            </Link>
-                                        </Button>
+                                        <DemoButton size="lg" className="bg-primary hover:bg-primary/90 shadow-lg hover:shadow-primary/50 transition-all">
+                                            Solicitar una Demostración
+                                            <ArrowRight className="ml-2 h-5 w-5" />
+                                        </DemoButton>
                                         <Button asChild size="lg" variant="outline" className="border-slate-300 hover:bg-slate-200 hover:text-primary">
                                             <Link href="#features">
                                                 Conocer Más
@@ -210,12 +209,10 @@ export default function ReportesPage() {
                             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
                                 ¿Listo para ver cómo nuestra plataforma de reportería puede transformar su negocio? Solicite una demostración personalizada hoy mismo.
                             </p>
-                            <Button asChild size="lg">
-                                <a href="#">
-                                    Solicitar una Demo
-                                    <ArrowRight className="ml-2 h-5 w-5" />
-                                </a>
-                            </Button>
+                            <DemoButton size="lg">
+                                Solicitar una Demo
+                                <ArrowRight className="ml-2 h-5 w-5" />
+                            </DemoButton>
                         </div>
                     </section>
                 </FadeIn>

@@ -8,6 +8,7 @@ import Footer from '@/components/layout/footer';
 import FadeIn from '@/components/fade-in';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { DemoButton } from '@/components/demo-button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const FeatureCard = ({ icon, title, description }: { icon: React.ReactNode, title: string, description: string }) => (
@@ -67,12 +68,10 @@ export default function PrestamosPage() {
                                         Nuestra solución contempla desde la definición de las políticas o parámetros de uso hasta el proceso de aprobación del crédito, asegurando un flujo de trabajo controlado y eficiente.
                                     </p>
                                     <div className="flex space-x-4 pt-4">
-                                        <Button asChild size="lg">
-                                            <Link href="#contact">
-                                                Solicitar una Demo
-                                                <ArrowRight className="ml-2 h-5 w-5" />
-                                            </Link>
-                                        </Button>
+                                        <DemoButton size="lg">
+                                            Solicitar una Demo
+                                            <ArrowRight className="ml-2 h-5 w-5" />
+                                        </DemoButton>
                                     </div>
                                 </div>
                                 <div className="p-4 rounded-2xl flex items-center justify-center group">
@@ -212,12 +211,10 @@ export default function PrestamosPage() {
                             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
                                 Descubra cómo nuestra solución puede adaptarse a las necesidades específicas de su institución financiera.
                             </p>
-                            <Button asChild size="lg">
-                                <a href="#">
-                                    Solicitar una Demo
-                                    <ArrowRight className="ml-2 h-5 w-5" />
-                                </a>
-                            </Button>
+                            <DemoButton size="lg">
+                                Solicitar una Demo
+                                <ArrowRight className="ml-2 h-5 w-5" />
+                            </DemoButton>
                         </div>
                     </section>
                 </FadeIn>

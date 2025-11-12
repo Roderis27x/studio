@@ -7,6 +7,7 @@ import Footer from '@/components/layout/footer';
 import FadeIn from '@/components/fade-in';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { DemoButton } from '@/components/demo-button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 
@@ -241,12 +242,10 @@ export default function CRMPage() {
                             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
                                 Descubra cómo nuestro CRM puede unificar sus equipos de ventas y marketing para impulsar el crecimiento.
                             </p>
-                            <Button asChild size="lg">
-                                <Link href="#">
-                                    Solicitar una Demo
-                                    <ArrowRight className="ml-2 h-5 w-5" />
-                                </Link>
-                            </Button>
+                            <DemoButton size="lg">
+                                Solicitar una Demo
+                                <ArrowRight className="ml-2 h-5 w-5" />
+                            </DemoButton>
                         </div>
                     </section>
                 </FadeIn>

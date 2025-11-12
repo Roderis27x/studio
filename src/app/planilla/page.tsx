@@ -8,6 +8,7 @@ import Footer from '@/components/layout/footer';
 import FadeIn from '@/components/fade-in';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { DemoButton } from '@/components/demo-button';
 
 const BenefitCard = ({ icon, title, description }: { icon: React.ReactNode; title: string; description: string }) => (
     <div className="bg-card p-8 rounded-xl shadow-sm border border-border/50 text-center">
@@ -51,12 +52,10 @@ export default function PlanillaPage() {
                                         Nuestra solución automatiza el ciclo de vida de la planilla, desde el cálculo hasta el pago, asegurando el cumplimiento con las regulaciones locales y optimizando sus procesos de RR.HH.
                                     </p>
                                     <div className="flex space-x-4 pt-2">
-                                        <Button asChild size="lg">
-                                            <Link href="#contact">
-                                                Solicitar Demo
-                                                <ArrowRight className="ml-2 h-5 w-5" />
-                                            </Link>
-                                        </Button>
+                                        <DemoButton size="lg">
+                                            Solicitar Demo
+                                            <ArrowRight className="ml-2 h-5 w-5" />
+                                        </DemoButton>
                                     </div>
                                 </div>
                                 <div className="p-4 rounded-lg flex items-center justify-center">
@@ -171,12 +170,10 @@ export default function PlanillaPage() {
                             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
                                 Descubra cómo podemos simplificar y potenciar la gestión de su recurso más valioso.
                             </p>
-                            <Button asChild size="lg">
-                                <Link href="#">
-                                    Solicitar una Demo
-                                    <ArrowRight className="ml-2 h-5 w-5" />
-                                </Link>
-                            </Button>
+                            <DemoButton size="lg">
+                                Solicitar una Demo
+                                <ArrowRight className="ml-2 h-5 w-5" />
+                            </DemoButton>
                         </div>
                     </section>
                 </FadeIn>

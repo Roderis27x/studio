@@ -8,6 +8,7 @@ import Footer from '@/components/layout/footer';
 import FadeIn from '@/components/fade-in';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { DemoButton } from '@/components/demo-button';
 
 const StepCard = ({ number, icon, title, description }: { number: number; icon: React.ReactNode; title: string; description: string; }) => (
     <div className="relative flex items-start space-x-6">
@@ -181,12 +182,10 @@ export default function ConsultoriaImplementacionPage() {
                             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
                                 Hable con nuestros consultores para diseñar un plan de implementación adaptado a sus objetivos y cronograma.
                             </p>
-                            <Button asChild size="lg">
-                                <Link href="#">
-                                    Contactar Ahora
-                                    <ArrowRight className="ml-2 h-5 w-5" />
-                                </Link>
-                            </Button>
+                            <DemoButton size="lg">
+                                Contactar Ahora
+                                <ArrowRight className="ml-2 h-5 w-5" />
+                            </DemoButton>
                         </div>
                     </section>
                 </FadeIn>

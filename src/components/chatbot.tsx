@@ -10,6 +10,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { DatePicker } from '@/components/ui/date-picker';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+import { useChatbot } from '@/context/ChatbotContext';
 
 interface Message {
   id: string;
@@ -17,11 +18,11 @@ interface Message {
   sender: 'user' | 'bot';
   timestamp: Date;
   type?: 'text' | 'demo-confirmation';
-  data?: { nombre?: string; correo?: string; empresa?: string; fecha?: string };
+  data?: { nombre?: string; correo?: string; empresa?: string; celular?: string; fecha?: string };
 }
 
 const Chatbot: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, openChatbot, closeChatbot, toggleChatbot } = useChatbot();
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -37,7 +38,7 @@ const Chatbot: React.FC = () => {
 
   // Estados para el flujo de demo
   const [demoStep, setDemoStep] = useState<null | number>(null);
-  const [demoData, setDemoData] = useState<{ nombre?: string; correo?: string; empresa?: string; fecha?: string }>({});
+  const [demoData, setDemoData] = useState<{ nombre?: string; correo?: string; empresa?: string; celular?: string; fecha?: string }>({});
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
 
   const scrollToBottom = () => {
@@ -91,7 +92,7 @@ const Chatbot: React.FC = () => {
         setDemoStep(1);
         setMessages((prev) => [...prev, {
           id: (Date.now() + 2).toString(),
-          text: '¿Cuál es tu correo electrónico?',
+          text: '¿Cuál es su correo electrónico?',
           sender: 'bot',
           timestamp: new Date(),
         }]);
@@ -111,26 +112,46 @@ const Chatbot: React.FC = () => {
         setDemoStep(2);
         setMessages((prev) => [...prev, {
           id: (Date.now() + 3).toString(),
-          text: '¿Cuál es el nombre de tu empresa?',
+          text: '¿Cuál es el nombre de su empresa?',
           sender: 'bot',
           timestamp: new Date(),
         }]);
       } else if (demoStep === 2) {
         setDemoData((prev) => ({ ...prev, empresa: inputValue }));
         setDemoStep(3);
-        setSelectedDate(undefined);
         setMessages((prev) => [...prev, {
           id: (Date.now() + 4).toString(),
-          text: '¿Qué fecha prefieres para la demo?',
+          text: '¿Cuál es su número celular?',
           sender: 'bot',
           timestamp: new Date(),
         }]);
       } else if (demoStep === 3) {
+        // Validar número celular (solo dígitos, al menos 8 caracteres)
+        const celularValido = /^\d{8,}$/.test(inputValue.replace(/[\s\-\+\(\)]/g, ''));
+        if (!celularValido) {
+          setMessages((prev) => [...prev, {
+            id: (Date.now() + 2).toString(),
+            text: 'Por favor ingresa un número celular válido.',
+            sender: 'bot',
+            timestamp: new Date(),
+          }]);
+          return setInputValue('');
+        }
+        setDemoData((prev) => ({ ...prev, celular: inputValue }));
+        setDemoStep(4);
+        setSelectedDate(undefined);
+        setMessages((prev) => [...prev, {
+          id: (Date.now() + 5).toString(),
+          text: '¿Qué fecha prefiere para la demo?',
+          sender: 'bot',
+          timestamp: new Date(),
+        }]);
+      } else if (demoStep === 4) {
         setDemoData((prev) => ({ ...prev, fecha: inputValue }));
         setDemoStep(null);
         setMessages((prev) => [...prev, {
-          id: (Date.now() + 5).toString(),
-          text: `¡Gracias! Tu demo ha sido agendada.\n\nDatos recibidos:\n- Nombre: ${demoData.nombre}\n- Correo: ${demoData.correo}\n- Empresa: ${demoData.empresa}\n- Fecha: ${inputValue}\n\nPronto te contactaremos para confirmar la cita.`,
+          id: (Date.now() + 6).toString(),
+          text: `¡Gracias! Su demo ha sido agendada.\n\nDatos recibidos:\n- Nombre: ${demoData.nombre}\n- Correo: ${demoData.correo}\n- Empresa: ${demoData.empresa}\n- Celular: ${demoData.celular}\n- Fecha: ${inputValue}\n\nPronto nos pondremos en contacto para confirmar la cita.`,
           sender: 'bot',
           timestamp: new Date(),
         }]);
@@ -147,7 +168,7 @@ const Chatbot: React.FC = () => {
       setDemoStep(0);
       setMessages((prev) => [...prev, {
         id: (Date.now() + 2).toString(),
-        text: '¡Perfecto! Para agendar tu demo, ¿puedes decirme tu nombre?',
+        text: '¡Perfecto! Para agendar su demo, ¿puede decirme su nombre?',
         sender: 'bot',
         timestamp: new Date(),
       }]);
@@ -235,12 +256,13 @@ const Chatbot: React.FC = () => {
       nombre: demoData.nombre,
       correo: demoData.correo,
       empresa: demoData.empresa,
+      celular: demoData.celular,
       fecha: formattedDate,
     };
     
     setMessages((prev) => [...prev, {
       id: (Date.now() + 1).toString(),
-      text: `¡Gracias! Tu demo ha sido agendada.`,
+      text: `¡Gracias! Su demo ha sido agendada.`,
       sender: 'bot',
       timestamp: new Date(),
       type: 'demo-confirmation',
@@ -273,7 +295,7 @@ const Chatbot: React.FC = () => {
                 </div>
               </div>
               <button
-                onClick={() => setIsOpen(false)}
+                onClick={() => closeChatbot()}
                 className="hover:bg-white/20 p-2 rounded-lg transition-colors"
               >
                 <X className="w-5 h-5" />
@@ -341,6 +363,17 @@ const Chatbot: React.FC = () => {
                             </div>
                           </div>
 
+                          {/* Celular */}
+                          <div className="flex items-start gap-3">
+                            <div className="w-6 h-6 rounded-lg bg-cyan-100 flex items-center justify-center text-cyan-600 text-xs font-bold flex-shrink-0 mt-1">
+                              📱
+                            </div>
+                            <div className="flex-1">
+                              <p className="text-xs text-slate-500 font-medium">Celular</p>
+                              <p className="text-sm font-semibold text-slate-900">{message.data.celular}</p>
+                            </div>
+                          </div>
+
                           {/* Fecha y Hora */}
                           <div className="flex items-start gap-3 pt-2 border-t border-green-200">
                             <div className="w-6 h-6 rounded-lg bg-green-100 flex items-center justify-center text-green-600 text-xs font-bold flex-shrink-0 mt-1">
@@ -402,7 +435,7 @@ const Chatbot: React.FC = () => {
 
             {/* Input Area */}
             <div className="border-t border-slate-200 p-4 bg-white">
-              {demoStep === 3 ? (
+              {demoStep === 4 ? (
                 <div className="w-full">
                   <DatePicker 
                     value={selectedDate}
@@ -443,7 +476,7 @@ const Chatbot: React.FC = () => {
       <motion.button
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => toggleChatbot()}
         className="bg-gradient-to-r from-primary to-accent text-white w-14 h-14 md:w-16 md:h-16 rounded-full shadow-2xl flex items-center justify-center border-4 border-white hover:shadow-3xl transition-all duration-300 pointer-events-auto"
       >
         <AnimatePresence mode="wait">

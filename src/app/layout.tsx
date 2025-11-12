@@ -2,6 +2,7 @@ import type {Metadata, Viewport} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import Chatbot from "@/components/chatbot";
+import { ChatbotProvider } from "@/context/ChatbotContext";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://cpt-soft-pagina-demo.vercel.app'),
@@ -60,9 +61,11 @@ export default function RootLayout({
         <meta name="theme-color" content="#2563eb" />
       </head>
       <body className="font-body antialiased">
-        {children}
-        <Toaster />
-        <Chatbot />
+        <ChatbotProvider>
+          {children}
+          <Toaster />
+          <Chatbot />
+        </ChatbotProvider>
       </body>
     </html>
   );

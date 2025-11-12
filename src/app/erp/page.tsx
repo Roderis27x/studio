@@ -7,6 +7,7 @@ import Footer from '@/components/layout/footer';
 import FadeIn from '@/components/fade-in';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { DemoButton } from '@/components/demo-button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -138,12 +139,10 @@ export default function ERPPage() {
                     Integra toda la cadena de valor de su organización hasta la generación de la información financiera, permitiendo a los administradores y analistas tomar decisiones precisas y oportunas.
                   </p>
                   <div className="flex space-x-4 pt-4">
-                    <Button asChild size="lg">
-                      <Link href="#contact">
+                    <DemoButton size="lg">
                         Solicitar una Demo
                         <ArrowRight className="ml-2 h-5 w-5" />
-                      </Link>
-                    </Button>
+                    </DemoButton>
                      <Button asChild size="lg" variant="outline">
                       <Link href="#modules">
                         Ver Módulos

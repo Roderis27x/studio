@@ -8,6 +8,7 @@ import Footer from '@/components/layout/footer';
 import FadeIn from '@/components/fade-in';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { DemoButton } from '@/components/demo-button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const FeatureHighlight = ({ icon, title, description, imageUrl, imageHint, reverse = false }: { icon: React.ReactNode, title: string, description: string, imageUrl: string, imageHint: string, reverse?: boolean }) => (
@@ -171,12 +172,10 @@ export default function GestionCobrosPage() {
                             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
                                 Descubra cómo nuestra solución puede adaptarse a las necesidades específicas de su empresa y mejorar sus resultados financieros.
                             </p>
-                            <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
-                                <a href="#">
-                                    Solicitar una Demo
-                                    <ArrowRight className="ml-2 h-5 w-5" />
-                                </a>
-                            </Button>
+                            <DemoButton size="lg" className="bg-primary hover:bg-primary/90">
+                                Solicitar una Demo
+                                <ArrowRight className="ml-2 h-5 w-5" />
+                            </DemoButton>
                         </div>
                     </section>
                 </FadeIn>
