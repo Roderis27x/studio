@@ -235,6 +235,33 @@ export default function CRMPage() {
                     </section>
                 </FadeIn>
 
+                <FadeIn>
+                    <section id="video" className="py-20 md:py-24 bg-gradient-to-b from-white to-slate-50">
+                        <div className="container mx-auto px-6">
+                            <div className="text-center max-w-3xl mx-auto mb-16">
+                                <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-4">
+                                    Vea en Acción Cómo Funciona
+                                </h2>
+                                <p className="text-lg text-muted-foreground">
+                                    Descubra en menos de 5 minutos cómo nuestro CRM unifica marketing, ventas y servicio para impulsar el crecimiento de su negocio.
+                                </p>
+                            </div>
+                            
+                            <Card className="overflow-hidden border-border/50 shadow-lg">
+                                <div className="relative bg-black aspect-video">
+                                    <iframe
+                                        className="absolute inset-0 w-full h-full"
+                                        src="https://www.youtube.com/embed/sDjVNyY8pSk"
+                                        title="Demo CRM"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                    ></iframe>
+                                </div>
+                            </Card>
+                        </div>
+                    </section>
+                </FadeIn>
+
                  <FadeIn>
                     <section id="contact" className="py-20 bg-card">
                         <div className="container mx-auto px-6 text-center">
