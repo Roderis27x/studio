@@ -72,6 +72,7 @@ export default function ERPPage() {
     { name: 'Manufactura', icon: <Factory className="w-5 h-5"/> },
     { name: 'Control de Calidad', icon: <Gem className="w-5 h-5"/> },
     { name: 'Facturación Electrónica', icon: <FileText className="w-5 h-5"/> },
+    { name: 'Facturacion', icon: <FileText className="w-5 h-5"/> },
     { name: 'Cuentas por Cobrar - Caja', icon: <HandCoins className="w-5 h-5"/> },
     { name: 'Planilla', icon: <Users className="w-5 h-5"/> },
     { name: 'Reportes y Dashboards', icon: <BarChart className="w-5 h-5"/> },
