@@ -23,12 +23,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '@/components/logo';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import { useChatbot } from '@/context/ChatbotContext';
 
 // Main Header Component
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
+  const { openChatbot } = useChatbot();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -76,12 +78,12 @@ const Header: React.FC = () => {
           </Link>
         </nav>
         <div className="hidden lg:flex items-center space-x-4">
-          <a
-            href="#"
+          <button
+            onClick={() => openChatbot()}
             className="bg-primary text-white px-5 py-2.5 rounded-lg font-semibold hover:bg-primary/90 transition-all duration-300 shadow-sm text-sm"
           >
             Solicitar una Demo
-          </a>
+          </button>
         </div>
         <div className="lg:hidden">
           <button
@@ -284,12 +286,12 @@ const Header: React.FC = () => {
                 Carreras
               </Link>
               <div className="border-t border-slate-200 pt-4 mt-4">
-                <a
-                  href="#"
+                <button
+                  onClick={() => { openChatbot(); setIsMobileMenuOpen(false); }}
                   className="bg-primary text-white text-center block w-full px-5 py-2.5 rounded-lg font-semibold hover:bg-primary/90 transition-all duration-300 shadow-sm"
                 >
                   Solicitar una Demo
-                </a>
+                </button>
               </div>
             </div>
           </motion.div>

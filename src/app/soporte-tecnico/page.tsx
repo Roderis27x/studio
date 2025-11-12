@@ -8,6 +8,7 @@ import Footer from '@/components/layout/footer';
 import FadeIn from '@/components/fade-in';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { DemoButton } from '@/components/demo-button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 const FeatureCard = ({ icon, title, description }: { icon: React.ReactNode; title: string; description: string; }) => (
@@ -51,12 +52,10 @@ export default function SoporteTecnicoPage() {
                                         Ofrecemos planes de soporte flexibles para nuestros aplicativos y para empresas que necesitan un departamento técnico de confianza.
                                     </p>
                                     <div className="flex space-x-4 pt-2">
-                                        <Button asChild size="lg">
-                                            <Link href="#contact">
-                                                Conocer los Planes
-                                                <ArrowRight className="ml-2 h-5 w-5" />
-                                            </Link>
-                                        </Button>
+                                        <DemoButton size="lg">
+                                            Conocer los Planes
+                                            <ArrowRight className="ml-2 h-5 w-5" />
+                                        </DemoButton>
                                     </div>
                                 </div>
                                 <div className="p-4 flex items-center justify-center group">
@@ -161,12 +160,10 @@ export default function SoporteTecnicoPage() {
                             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
                                 Hable con nuestros especialistas para diseñar un plan que se ajuste a sus requerimientos técnicos y presupuesto.
                             </p>
-                            <Button asChild size="lg">
-                                <Link href="#">
-                                    Contactar a un Experto
-                                    <ArrowRight className="ml-2 h-5 w-5" />
-                                </Link>
-                            </Button>
+                            <DemoButton size="lg">
+                                Contactar a un Experto
+                                <ArrowRight className="ml-2 h-5 w-5" />
+                            </DemoButton>
                         </div>
                     </section>
                 </FadeIn>

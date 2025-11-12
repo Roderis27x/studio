@@ -8,6 +8,7 @@ import Footer from '@/components/layout/footer';
 import FadeIn from '@/components/fade-in';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { DemoButton } from '@/components/demo-button';
 
 const FeatureCard = ({ icon, title, description }: { icon: React.ReactNode; title: string; description: string }) => (
     <div className="bg-card p-6 rounded-xl shadow-sm border border-border/50 transition-all duration-300 hover:shadow-lg hover:border-primary/50">
@@ -49,12 +50,10 @@ export default function HelpDeskPage() {
                                         Nuestra plataforma Help Desk organiza, automatiza y resuelve las solicitudes de sus clientes con una eficiencia y empatía sin precedentes.
                                     </p>
                                     <div className="flex space-x-4 pt-2">
-                                        <Button asChild size="lg">
-                                            <Link href="#contact">
-                                                Ver en Acción
-                                                <ArrowRight className="ml-2 h-5 w-5" />
-                                            </Link>
-                                        </Button>
+                                        <DemoButton size="lg">
+                                            Ver en Acción
+                                            <ArrowRight className="ml-2 h-5 w-5" />
+                                        </DemoButton>
                                     </div>
                                 </div>
                                 <div className="p-4 flex items-center justify-center group">
@@ -154,12 +153,10 @@ export default function HelpDeskPage() {
                             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
                                 Descubra cómo nuestro Help Desk puede transformar la experiencia de sus clientes y la eficiencia de su equipo.
                             </p>
-                            <Button asChild size="lg">
-                                <Link href="#">
-                                    Solicitar una Demo
-                                    <ArrowRight className="ml-2 h-5 w-5" />
-                                </Link>
-                            </Button>
+                            <DemoButton size="lg">
+                                Solicitar una Demo
+                                <ArrowRight className="ml-2 h-5 w-5" />
+                            </DemoButton>
                         </div>
                     </section>
                 </FadeIn>

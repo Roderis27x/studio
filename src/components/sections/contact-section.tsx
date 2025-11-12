@@ -1,6 +1,6 @@
 import { ArrowRight, Zap } from 'lucide-react';
-import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { ContactSectionClient } from './contact-section.client';
 
 const CTA: React.FC = () => {
   return (
@@ -24,14 +24,7 @@ const CTA: React.FC = () => {
               Hable con un experto y descubra cómo CPT-SOFT puede optimizar sus operaciones y aumentar la rentabilidad.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link href="/contacto">
-                <Button size="lg" className="bg-white text-primary hover:bg-slate-100 px-8 py-6 text-lg h-auto rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
-                  Ponerse en Contacto
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
-            </div>
+            <ContactSectionClient />
           </div>
         </div>
       </div>
