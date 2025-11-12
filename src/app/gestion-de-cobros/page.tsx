@@ -166,6 +166,33 @@ export default function GestionCobrosPage() {
                 </FadeIn>
 
                 <FadeIn>
+                    <section id="video" className="py-20 md:py-24 bg-gradient-to-b from-white to-slate-50">
+                        <div className="container mx-auto px-6">
+                            <div className="text-center max-w-3xl mx-auto mb-16">
+                                <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-4">
+                                    Vea en Acción Cómo Funciona
+                                </h2>
+                                <p className="text-lg text-muted-foreground">
+                                    Descubra en menos de 5 minutos cómo nuestra plataforma transforma la gestión de cobros y maximiza la recuperación de cartera.
+                                </p>
+                            </div>
+                            
+                            <Card className="overflow-hidden border-border/50 shadow-lg">
+                                <div className="relative bg-black aspect-video">
+                                    <iframe
+                                        className="absolute inset-0 w-full h-full"
+                                        src="https://www.youtube.com/embed/RaUOOQfbzlI"
+                                        title="Demo Gestión de Cobros"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                    ></iframe>
+                                </div>
+                            </Card>
+                        </div>
+                    </section>
+                </FadeIn>
+
+                <FadeIn>
                     <section id="contact" className="py-20 bg-white">
                         <div className="container mx-auto px-6 text-center">
                              <h2 className="text-3xl font-extrabold text-foreground mb-4">Transforme su Proceso de Cobranza Hoy</h2>

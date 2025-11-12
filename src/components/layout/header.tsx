@@ -100,13 +100,13 @@ const Header: React.FC = () => {
                   onMouseLeave={() => setIsLoginOpen(false)}
                 >
                   <a
-                    href="/login/distribuidora"
+                    href="https://demo.cpt-soft.com:9443/cptsoft-erp/index.jsp"
                     className="block px-3 py-2 hover:bg-slate-50 transition-colors text-sm font-medium text-slate-700 hover:text-primary border-b border-slate-100 text-center"
                   >
                     Distribuidora
                   </a>
                   <a
-                    href="/login/financiera"
+                    href="https://demo.cpt-soft.com:9443/cptsoft-erp-fi/index.jsp"
                     className="block px-3 py-2 hover:bg-slate-50 transition-colors text-sm font-medium text-slate-700 hover:text-primary text-center"
                     style={{ borderBottom: 'none' }}
                   >
@@ -348,20 +348,20 @@ const Header: React.FC = () => {
                       exit={{ opacity: 0, height: 0 }}
                       className="bg-slate-50 rounded-lg p-2 space-y-2"
                     >
-                      <Link
-                        href="/login/distribuidora"
+                      <a
+                        href="https://demo.cpt-soft.com:9443/cptsoft-erp/index.jsp"
                         className="block py-1 px-2 text-slate-600 hover:text-primary text-sm rounded hover:bg-slate-100"
                         onClick={() => { setExpandedMenu(null); setIsMobileMenuOpen(false); }}
                       >
                         Distribuidora
-                      </Link>
-                      <Link
-                        href="/login/financiera"
+                      </a>
+                      <a
+                        href="https://demo.cpt-soft.com:9443/cptsoft-erp-fi/index.jsp"
                         className="block py-1 px-2 text-slate-600 hover:text-primary text-sm rounded hover:bg-slate-100"
                         onClick={() => { setExpandedMenu(null); setIsMobileMenuOpen(false); }}
                       >
                         Financiera
-                      </Link>
+                      </a>
                     </motion.div>
                   )}
                 </AnimatePresence>
