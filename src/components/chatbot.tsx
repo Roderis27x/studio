@@ -127,7 +127,7 @@ const Chatbot: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-6 right-6 z-50 pointer-events-none">
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -135,7 +135,7 @@ const Chatbot: React.FC = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: 'spring', damping: 20, stiffness: 300 }}
-            className="fixed bottom-24 right-6 w-96 max-w-[calc(100vw-2rem)] bg-white rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden"
+            className="fixed bottom-28 right-4 left-4 md:left-auto md:bottom-24 md:right-6 md:w-96 h-[70vh] md:h-auto md:max-h-96 bg-white rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden pointer-events-auto"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-primary to-accent text-white p-6 flex items-center justify-between">
@@ -159,7 +159,7 @@ const Chatbot: React.FC = () => {
             {/* Messages Container */}
             <div 
               ref={messagesContainerRef}
-              className="flex-1 overflow-y-auto max-h-96 p-4 space-y-4 bg-gradient-to-b from-slate-50 to-white scrollbar-thin scrollbar-thumb-primary/40 scrollbar-track-slate-100"
+              className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-slate-50 to-white scrollbar-thin scrollbar-thumb-primary/40 scrollbar-track-slate-100"
             >
               {messages.map((message) => (
                 <motion.div
@@ -235,7 +235,7 @@ const Chatbot: React.FC = () => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="bg-gradient-to-r from-primary to-accent text-white w-16 h-16 rounded-full shadow-2xl flex items-center justify-center border-4 border-white hover:shadow-3xl transition-all duration-300"
+        className="bg-gradient-to-r from-primary to-accent text-white w-14 h-14 md:w-16 md:h-16 rounded-full shadow-2xl flex items-center justify-center border-4 border-white hover:shadow-3xl transition-all duration-300 pointer-events-auto"
       >
         <AnimatePresence mode="wait">
           {isOpen ? (
