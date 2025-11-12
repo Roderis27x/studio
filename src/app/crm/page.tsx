@@ -1,4 +1,3 @@
-
 'use client';
 
 import { ArrowRight, Users, Target, BarChart3, Mail, Calendar, FileText, ShoppingCart, Locate, Bot, TrendingUp, Sparkles, Handshake } from 'lucide-react';
@@ -69,15 +68,20 @@ export default function CRMPage() {
                                         </Button>
                                     </div>
                                 </div>
-                                <div className="bg-slate-50 p-4 rounded-lg">
-                                     <Image
-                                        src="https://picsum.photos/seed/crm-network/800/600"
-                                        alt="Red de conexiones de clientes"
-                                        width={800}
-                                        height={600}
-                                        className="rounded-lg shadow-xl"
-                                        data-ai-hint="customer network connections"
-                                    />
+                                <div className="p-4 rounded-2xl flex items-center justify-center group">
+                                    <div className="relative">
+                                        <Image
+                                            src="/img/crm.png"
+                                            alt="CRM plataforma"
+                                            width={384}
+                                            height={288}
+                                            className="rounded-xl max-w-full h-auto group-hover:scale-105 transition-transform duration-300"
+                                            quality={90}
+                                            priority
+                                            data-ai-hint="crm plataforma"
+                                        />
+                                        <div className="absolute -inset-4 bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -190,16 +194,21 @@ export default function CRMPage() {
                     <section id="unified-view" className="py-20 md:py-24 bg-white">
                         <div className="container mx-auto px-6">
                             <div className="grid md:grid-cols-2 gap-16 items-center">
-                                 <div className="bg-slate-50 p-4 rounded-lg">
-                                    <Image
-                                        src="https://picsum.photos/seed/crm-dashboard/800/600"
-                                        alt="Dashboard de CRM"
-                                        width={800}
-                                        height={600}
-                                        className="rounded-lg shadow-xl"
-                                        data-ai-hint="crm dashboard interface"
-                                    />
-                                </div>
+                                     <div className="p-4 flex items-center justify-center group">
+                                        <div className="relative">
+                                            <Image
+                                                src="/img/software.png"
+                                                alt="Dashboard de CRM"
+                                                width={384}
+                                                height={288}
+                                                className="rounded-xl max-w-full h-auto group-hover:scale-105 transition-transform duration-300"
+                                                quality={90}
+                                                priority
+                                                data-ai-hint="crm dashboard interface"
+                                            />
+                                            <div className="absolute -inset-4 bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+                                        </div>
+                                    </div>
                                 <div className="space-y-6">
                                     <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">La Verdadera Visión 360°</h2>
                                     <p className="text-lg text-muted-foreground">

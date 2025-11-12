@@ -59,13 +59,15 @@ export default function PlanillaPage() {
                                         </Button>
                                     </div>
                                 </div>
-                                <div className="bg-slate-50 p-4 rounded-lg">
+                                <div className="p-4 rounded-lg flex items-center justify-center">
                                     <Image
                                         src="/img/planilla.png"
                                         alt="Gestión de Planilla"
-                                        width={800}
-                                        height={600}
-                                        className="rounded-lg shadow-xl"
+                                        width={512}
+                                        height={384}
+                                        className="rounded-lg max-w-full h-auto"
+                                        quality={90}
+                                        priority
                                         data-ai-hint="payroll management interface"
                                     />
                                 </div>

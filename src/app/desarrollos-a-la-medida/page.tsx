@@ -71,15 +71,20 @@ export default function DesarrollosMedidaPage() {
                                         </Button>
                                     </div>
                                 </div>
-                                <div className="bg-slate-50 p-4 rounded-lg">
-                                    <Image
-                                        src="https://picsum.photos/seed/custom-development/800/600"
-                                        alt="Equipo de desarrollo trabajando en una solución a medida"
-                                        width={800}
-                                        height={600}
-                                        className="rounded-lg shadow-xl"
-                                        data-ai-hint="software development team"
-                                    />
+                                <div className="p-4 flex items-center justify-center group">
+                                    <div className="relative">
+                                        <Image
+                                            src="/img/codigo.png"
+                                            alt="Equipo de desarrollo trabajando en una solución a medida"
+                                            width={384}
+                                            height={288}
+                                            className="rounded-xl max-w-full h-auto group-hover:scale-105 transition-transform duration-300"
+                                            quality={90}
+                                            priority
+                                            data-ai-hint="software development team"
+                                        />
+                                        <div className="absolute -inset-4 bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

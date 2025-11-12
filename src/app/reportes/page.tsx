@@ -10,14 +10,14 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
 const FeatureCard = ({ icon, title, description }: { icon: React.ReactNode, title: string, description: string }) => (
-    <div className="bg-white/5 p-8 rounded-2xl border border-white/10 backdrop-blur-sm transition-all hover:border-primary hover:-translate-y-1 shadow-lg">
+    <div className="bg-gradient-to-br from-white to-slate-50 p-8 rounded-2xl border border-slate-200 shadow-sm transition-all hover:border-primary hover:shadow-lg hover:-translate-y-1">
         <div className="flex items-center gap-4 mb-4">
-            <div className="flex-shrink-0 bg-primary text-primary-foreground rounded-lg h-12 w-12 flex items-center justify-center">
+            <div className="flex-shrink-0 bg-primary/10 text-primary rounded-lg h-12 w-12 flex items-center justify-center">
                 {icon}
             </div>
-            <h3 className="text-xl font-bold text-white">{title}</h3>
+            <h3 className="text-xl font-bold text-foreground">{title}</h3>
         </div>
-        <p className="text-slate-400">{description}</p>
+        <p className="text-muted-foreground">{description}</p>
     </div>
 );
 
@@ -52,42 +52,54 @@ const BenefitItem = ({ icon, title, description }: { icon: React.ReactNode, titl
 
 export default function ReportesPage() {
     return (
-        <div className="flex flex-col min-h-screen bg-background">
+        <div className="flex flex-col min-h-screen bg-white">
             <Header />
             <main className="flex-grow">
                 <FadeIn>
-                    <section className="relative bg-slate-900 text-white py-20 md:py-32 overflow-hidden">
-                         <div className="absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary/20 rounded-full blur-3xl opacity-50"></div>
-                        <div className="absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2 w-96 h-96 bg-accent/20 rounded-full blur-3xl opacity-50"></div>
+                    <section className="relative bg-gradient-to-br from-white via-slate-50 to-slate-100 text-foreground py-20 md:py-32 overflow-hidden">
+                         <div className="absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary/10 rounded-full blur-3xl opacity-40"></div>
+                        <div className="absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2 w-96 h-96 bg-accent/10 rounded-full blur-3xl opacity-40"></div>
+                        <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl opacity-30"></div>
                         <div className="container mx-auto px-6 relative z-10">
                             <div className="grid md:grid-cols-2 gap-12 items-center">
                                 <div className="space-y-6">
-                                    <h1 className="text-4xl md:text-5xl font-extrabold leading-tight tracking-tighter">
+                                    <div className="inline-block mb-4 px-4 py-2 bg-primary/10 rounded-full border border-primary/20 backdrop-blur-sm">
+                                    <p className="text-primary font-semibold text-sm">Inteligencia de Negocios</p>
+                                    </div>
+                                    <h1 className="text-5xl md:text-6xl font-extrabold leading-tight tracking-tight text-foreground">
                                         Transforme Datos en Decisiones Estratégicas
                                     </h1>
-                                    <p className="text-lg md:text-xl text-slate-300">
+                                    <p className="text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed">
                                        Nuestra plataforma de Business Intelligence le permite conectar, visualizar y analizar toda su información en un solo lugar. Convierta datos crudos en insights claros y accionables.
                                     </p>
-                                    <div className="mt-8">
-                                        <Button asChild size="lg">
+                                    <div className="mt-8 flex gap-4">
+                                        <Button asChild size="lg" className="bg-primary hover:bg-primary/90 shadow-lg hover:shadow-primary/50 transition-all">
                                             <Link href="#contact">
-                                                Ver una Demo
+                                                Solicitar una Demostración
                                                 <ArrowRight className="ml-2 h-5 w-5" />
+                                            </Link>
+                                        </Button>
+                                        <Button asChild size="lg" variant="outline" className="border-slate-300 hover:bg-slate-200 hover:text-primary">
+                                            <Link href="#features">
+                                                Conocer Más
                                             </Link>
                                         </Button>
                                     </div>
                                 </div>
-                                <div className="relative">
-                                    <Image
-                                        src="/img/report.png"
-                                        alt="Visualización de Business Intelligence"
-                                        width={800}
-                                        height={600}
-                                        className="rounded-lg shadow-2xl"
-                                        data-ai-hint="data visualization business intelligence"
-                                    />
-                                    <div className="absolute -bottom-4 -right-4 w-40 h-40 bg-white/10 rounded-lg backdrop-blur-sm border border-white/20"></div>
-                                    <div className="absolute -top-4 -left-4 w-32 h-32 bg-white/10 rounded-lg backdrop-blur-sm border border-white/20"></div>
+                                <div className="p-4 rounded-2xl flex items-center justify-center group">
+                                    <div className="relative">
+                                        <Image
+                                            src="/img/report.png"
+                                            alt="Visualización de Business Intelligence"
+                                            width={512}
+                                            height={384}
+                                            className="rounded-xl max-w-full h-auto group-hover:scale-105 transition-transform duration-300"
+                                            quality={90}
+                                            priority
+                                            data-ai-hint="data visualization business intelligence"
+                                        />
+                                        <div className="absolute -inset-4 bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -95,11 +107,11 @@ export default function ReportesPage() {
                 </FadeIn>
 
                 <FadeIn>
-                    <section id="features" className="py-20 md:py-28 bg-slate-900">
+                    <section id="features" className="py-20 md:py-28 bg-slate-50">
                         <div className="container mx-auto px-6">
                             <div className="text-center mb-16">
-                                <h2 className="text-3xl md:text-4xl font-extrabold text-white">Capacidades de Análisis sin Límites</h2>
-                                <p className="text-lg text-slate-400 mt-4 max-w-3xl mx-auto">
+                                <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">Capacidades de Análisis sin Límites</h2>
+                                <p className="text-lg text-muted-foreground mt-4 max-w-3xl mx-auto">
                                     Herramientas flexibles y potentes para explorar sus datos desde cualquier ángulo.
                                 </p>
                             </div>
@@ -135,7 +147,7 @@ export default function ReportesPage() {
                 </FadeIn>
 
                 <FadeIn>
-                    <section id="process" className="py-20 md:py-24">
+                    <section id="process" className="py-20 md:py-24 bg-white">
                         <div className="container mx-auto px-6">
                             <div className="text-center mb-16">
                                 <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">Su Viaje de los Datos a la Decisión en 3 Pasos</h2>
@@ -165,7 +177,7 @@ export default function ReportesPage() {
                 </FadeIn>
 
                 <FadeIn>
-                    <section id="benefits" className="py-20 md:py-24 bg-card/50">
+                    <section id="benefits" className="py-20 md:py-24 bg-slate-50">
                          <div className="container mx-auto px-6">
                              <div className="text-center mb-16">
                                 <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">Beneficios que Impulsan el Crecimiento</h2>
@@ -192,7 +204,7 @@ export default function ReportesPage() {
                 </FadeIn>
 
                 <FadeIn>
-                    <section id="contact" className="py-20">
+                    <section id="contact" className="py-20 bg-slate-50">
                         <div className="container mx-auto px-6 text-center">
                              <h2 className="text-3xl font-extrabold text-foreground mb-4">Descubra el Poder Oculto en sus Datos</h2>
                             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">

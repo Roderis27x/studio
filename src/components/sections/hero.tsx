@@ -38,11 +38,12 @@ const Hero: React.FC = () => {
           </a>
         </div>
         <div className="mt-16 max-w-5xl mx-auto p-4 bg-white rounded-xl shadow-2xl border border-slate-100">
-            <div className="aspect-video bg-slate-100 rounded-lg flex items-center justify-center">
+            <div className="bg-slate-100 rounded-lg flex items-center justify-center">
               <img
                 src="/img/imagen.png"
                 alt="Maqueta de tu Panel ERP"
-                className="object-contain h-full w-full rounded-lg"
+                className="rounded-lg"
+                style={{ maxWidth: '100%', height: 'auto', display: 'block' }}
               />
             </div>
         </div>

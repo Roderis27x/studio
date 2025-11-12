@@ -75,15 +75,20 @@ export default function PrestamosPage() {
                                         </Button>
                                     </div>
                                 </div>
-                                <div className="relative h-64 md:h-auto">
-                                    <Image
-                                        src="https://picsum.photos/seed/finance-growth/800/600"
-                                        alt="Gráficos de crecimiento financiero"
-                                        width={800}
-                                        height={600}
-                                        className="rounded-lg shadow-2xl object-cover w-full h-full"
-                                        data-ai-hint="finance growth"
-                                    />
+                                <div className="p-4 rounded-2xl flex items-center justify-center group">
+                                    <div className="relative">
+                                        <Image
+                                            src="/img/prestamo.png"
+                                            alt="Gestión de préstamos"
+                                            width={512}
+                                            height={384}
+                                            className="rounded-xl max-w-full h-auto group-hover:scale-105 transition-transform duration-300"
+                                            quality={90}
+                                            priority
+                                            data-ai-hint="gestión préstamos"
+                                        />
+                                        <div className="absolute -inset-4 bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -180,15 +185,20 @@ export default function PrestamosPage() {
                                         />
                                     </ul>
                                 </div>
-                                <div className="bg-slate-50 p-4 rounded-lg">
-                                    <Image
-                                        src="https://picsum.photos/seed/financial-dashboard/800/600"
-                                        alt="Dashboard de analítica financiera"
-                                        width={800}
-                                        height={600}
-                                        className="rounded-lg shadow-xl"
-                                        data-ai-hint="financial dashboard"
-                                    />
+                                <div className="p-4 rounded-2xl flex items-center justify-center group">
+                                    <div className="relative">
+                                        <Image
+                                            src="/img/base-de-datos-financiera.png"
+                                            alt="Base de datos financiera"
+                                            width={512}
+                                            height={384}
+                                            className="rounded-xl max-w-full h-auto group-hover:scale-105 transition-transform duration-300"
+                                            quality={90}
+                                            priority
+                                            data-ai-hint="base de datos financiera"
+                                        />
+                                        <div className="absolute -inset-4 bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -4,7 +4,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, ArrowRight } from 'lucide-react';
 
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
@@ -23,16 +23,19 @@ const formSchema = z.object({
 });
 
 const ContactInfo = ({ icon, title, value, href }: { icon: React.ReactNode, title: string, value: string, href?: string }) => (
-    <div className="flex items-start gap-4">
-        <div className="flex-shrink-0 bg-primary/10 text-primary rounded-full h-12 w-12 flex items-center justify-center">
+    <div className="flex items-start gap-4 p-6 rounded-xl bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/10 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 group">
+        <div className="flex-shrink-0 bg-gradient-to-br from-primary to-primary/80 text-white rounded-full h-14 w-14 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
             {icon}
         </div>
-        <div>
-            <h4 className="font-bold text-foreground">{title}</h4>
+        <div className="flex-grow">
+            <h4 className="font-bold text-foreground text-lg">{title}</h4>
             {href ? (
-                 <a href={href} className="text-muted-foreground hover:text-primary transition-colors">{value}</a>
+                 <a href={href} className="text-muted-foreground hover:text-primary transition-colors font-medium flex items-center gap-1 group/link">
+                    {value}
+                    <ArrowRight className="w-4 h-4 opacity-0 group-hover/link:opacity-100 transition-opacity" />
+                 </a>
             ) : (
-                <p className="text-muted-foreground">{value}</p>
+                <p className="text-muted-foreground font-medium">{value}</p>
             )}
         </div>
     </div>
@@ -64,14 +67,17 @@ export default function ContactoPage() {
             <Header />
             <main className="flex-grow">
                 <FadeIn>
-                    <section className="bg-white py-20 md:py-28">
+                    <section className="bg-gradient-to-br from-primary/5 via-white to-primary/5 py-20 md:py-28">
                         <div className="container mx-auto px-6">
                             <div className="text-center max-w-3xl mx-auto">
-                                <h1 className="text-4xl md:text-5xl font-extrabold text-primary leading-tight">
-                                    Contáctenos
+                                <div className="inline-block mb-4 px-4 py-2 bg-primary/10 rounded-full border border-primary/20">
+                                    <p className="text-primary font-semibold text-sm">¿Necesita Ayuda?</p>
+                                </div>
+                                <h1 className="text-4xl md:text-6xl font-extrabold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent leading-tight">
+                                    Estamos para Ayudarle
                                 </h1>
-                                <p className="mt-4 text-lg text-muted-foreground">
-                                    Estamos aquí para ayudarle. Envíenos un mensaje o visítenos.
+                                <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto">
+                                    Contáctenos para conocer más sobre nuestras soluciones ERP y cómo podemos transformar su negocio.
                                 </p>
                             </div>
                         </div>
@@ -79,23 +85,38 @@ export default function ContactoPage() {
                 </FadeIn>
 
                 <FadeIn>
-                    <section className="pb-20 md:pb-28">
+                    <section className="py-20 md:py-28 bg-background">
                         <div className="container mx-auto px-6">
-                            <div className="grid lg:grid-cols-2 gap-16">
+                            <div className="grid lg:grid-cols-2 gap-12 items-start">
                                 <div className="space-y-8">
-                                    <h2 className="text-3xl font-bold text-foreground">Información de Contacto</h2>
-                                    <div className="space-y-6">
+                                    <div>
+                                        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2">Información de Contacto</h2>
+                                        <div className="w-12 h-1 bg-gradient-to-r from-primary to-primary/50 rounded-full"></div>
+                                    </div>
+                                    <div className="space-y-4">
                                         <ContactInfo 
                                             icon={<MapPin className="w-6 h-6"/>}
                                             title="Nuestra Oficina"
-                                            value="C. 50, Panamá, Panama"
+                                            value="Panama Business Center, Piso 16"
                                         />
-                                        <ContactInfo 
-                                            icon={<Phone className="w-6 h-6"/>}
-                                            title="Teléfono"
-                                            value="+507 263-6363"
-                                            href="tel:+5072636363"
-                                        />
+                                        <div className="flex items-start gap-4 p-6 rounded-xl bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/10 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 group">
+                                            <div className="flex-shrink-0 bg-gradient-to-br from-primary to-primary/80 text-white rounded-full h-14 w-14 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                                                <Phone className="w-6 h-6"/>
+                                            </div>
+                                            <div className="flex-grow">
+                                                <h4 className="font-bold text-foreground text-lg">Teléfonos</h4>
+                                                <div className="flex flex-col gap-1">
+                                                    <a href="tel:+5073992613" className="text-muted-foreground hover:text-primary transition-colors font-medium flex items-center gap-1 group/link">
+                                                        +507 399-2613
+                                                        <ArrowRight className="w-4 h-4 opacity-0 group-hover/link:opacity-100 transition-opacity" />
+                                                    </a>
+                                                    <a href="tel:+5073992614" className="text-muted-foreground hover:text-primary transition-colors font-medium flex items-center gap-1 group/link">
+                                                        +507 399-2614
+                                                        <ArrowRight className="w-4 h-4 opacity-0 group-hover/link:opacity-100 transition-opacity" />
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <ContactInfo 
                                             icon={<Mail className="w-6 h-6"/>}
                                             title="Email"
@@ -103,9 +124,9 @@ export default function ContactoPage() {
                                             href="mailto:info@cpt-soft.com"
                                         />
                                     </div>
-                                    <div className="rounded-lg overflow-hidden border shadow-lg h-96">
+                                    <div className="rounded-2xl overflow-hidden border border-primary/10 shadow-xl h-96 mt-8">
                                         <iframe
-                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.648174488334!2d-79.5160888852136!3d8.99428579357497!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8faca918a2e5b7cb%3A0x2ad210b42c4b5c77!2sCalle%2050%2C%20Panam%C3%A1!5e0!3m2!1sen!2spa!4v1628886938944!5m2!1sen!2spa"
+                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.82494084715!2d-79.51903132537288!3d8.988250889626286!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8faca8fd97fe0b21%3A0xe7f21e417c2eea01!2sPanama%20Business%20Tower%20-%20Obarrio!5e0!3m2!1ses-419!2spa!4v1762876300413!5m2!1ses-419!2spa"
                                             width="100%"
                                             height="100%"
                                             style={{ border: 0 }}
@@ -116,8 +137,11 @@ export default function ContactoPage() {
                                     </div>
                                 </div>
 
-                                <div className="bg-card p-8 rounded-2xl shadow-xl border">
-                                    <h2 className="text-3xl font-bold text-foreground mb-6">Envíenos un Mensaje</h2>
+                                <div className="bg-gradient-to-br from-card to-card/50 p-8 md:p-10 rounded-2xl shadow-2xl border border-primary/10 backdrop-blur-sm">
+                                    <div className="mb-8">
+                                        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2">Envíenos un Mensaje</h2>
+                                        <p className="text-muted-foreground">Responderemos en breve</p>
+                                    </div>
                                     <Form {...form}>
                                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                                             <FormField
@@ -125,9 +149,13 @@ export default function ContactoPage() {
                                                 name="name"
                                                 render={({ field }) => (
                                                     <FormItem>
-                                                        <FormLabel>Nombre Completo</FormLabel>
+                                                        <FormLabel className="text-foreground font-semibold">Nombre Completo</FormLabel>
                                                         <FormControl>
-                                                            <Input placeholder="John Doe" {...field} />
+                                                            <Input 
+                                                                placeholder="John Doe" 
+                                                                className="bg-background/50 border-primary/20 focus:border-primary focus:bg-background transition-all"
+                                                                {...field} 
+                                                            />
                                                         </FormControl>
                                                         <FormMessage />
                                                     </FormItem>
@@ -138,9 +166,13 @@ export default function ContactoPage() {
                                                 name="email"
                                                 render={({ field }) => (
                                                     <FormItem>
-                                                        <FormLabel>Correo Electrónico</FormLabel>
+                                                        <FormLabel className="text-foreground font-semibold">Correo Electrónico</FormLabel>
                                                         <FormControl>
-                                                            <Input placeholder="su@email.com" {...field} />
+                                                            <Input 
+                                                                placeholder="su@email.com" 
+                                                                className="bg-background/50 border-primary/20 focus:border-primary focus:bg-background transition-all"
+                                                                {...field} 
+                                                            />
                                                         </FormControl>
                                                         <FormMessage />
                                                     </FormItem>
@@ -151,9 +183,13 @@ export default function ContactoPage() {
                                                 name="subject"
                                                 render={({ field }) => (
                                                     <FormItem>
-                                                        <FormLabel>Asunto</FormLabel>
+                                                        <FormLabel className="text-foreground font-semibold">Asunto</FormLabel>
                                                         <FormControl>
-                                                            <Input placeholder="Ej: Consulta sobre ERP" {...field} />
+                                                            <Input 
+                                                                placeholder="Ej: Consulta sobre ERP" 
+                                                                className="bg-background/50 border-primary/20 focus:border-primary focus:bg-background transition-all"
+                                                                {...field} 
+                                                            />
                                                         </FormControl>
                                                         <FormMessage />
                                                     </FormItem>
@@ -164,15 +200,23 @@ export default function ContactoPage() {
                                                 name="message"
                                                 render={({ field }) => (
                                                     <FormItem>
-                                                        <FormLabel>Mensaje</FormLabel>
+                                                        <FormLabel className="text-foreground font-semibold">Mensaje</FormLabel>
                                                         <FormControl>
-                                                            <Textarea placeholder="Escriba su mensaje aquí..." className="min-h-[150px]" {...field} />
+                                                            <Textarea 
+                                                                placeholder="Escriba su mensaje aquí..." 
+                                                                className="min-h-[150px] bg-background/50 border-primary/20 focus:border-primary focus:bg-background transition-all"
+                                                                {...field} 
+                                                            />
                                                         </FormControl>
                                                         <FormMessage />
                                                     </FormItem>
                                                 )}
                                             />
-                                            <Button type="submit" size="lg" className="w-full">
+                                            <Button 
+                                                type="submit" 
+                                                size="lg" 
+                                                className="w-full bg-gradient-to-r from-primary to-primary/90 hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 font-semibold"
+                                            >
                                                 Enviar Mensaje
                                                 <Send className="ml-2 h-5 w-5" />
                                             </Button>
