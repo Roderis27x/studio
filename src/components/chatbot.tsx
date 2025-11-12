@@ -2,16 +2,22 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { MessageCircle, Send, X, Loader2 } from 'lucide-react';
+import { MessageCircle, Send, X, Loader2, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardHeader, CardFooter } from '@/components/ui/card';
 import { motion, AnimatePresence } from 'framer-motion';
+import { DatePicker } from '@/components/ui/date-picker';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 
 interface Message {
   id: string;
   text: string;
   sender: 'user' | 'bot';
   timestamp: Date;
+  type?: 'text' | 'demo-confirmation';
+  data?: { nombre?: string; correo?: string; empresa?: string; fecha?: string };
 }
 
 const Chatbot: React.FC = () => {
@@ -28,6 +34,11 @@ const Chatbot: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
+
+  // Estados para el flujo de demo
+  const [demoStep, setDemoStep] = useState<null | number>(null);
+  const [demoData, setDemoData] = useState<{ nombre?: string; correo?: string; empresa?: string; fecha?: string }>({});
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
 
   const scrollToBottom = () => {
     // Intentar scroll múltiples veces para asegurar que funciona
@@ -70,19 +81,92 @@ const Chatbot: React.FC = () => {
       sender: 'user',
       timestamp: new Date(),
     };
+    setMessages((prev) => [...prev, userMessage]);
 
+    // FLUJO DE SOLICITUD DE DEMO
+    // Si estamos en el flujo de demo, pedir datos uno por uno
+    if (demoStep !== null) {
+      if (demoStep === 0) {
+        setDemoData((prev) => ({ ...prev, nombre: inputValue }));
+        setDemoStep(1);
+        setMessages((prev) => [...prev, {
+          id: (Date.now() + 2).toString(),
+          text: '¿Cuál es tu correo electrónico?',
+          sender: 'bot',
+          timestamp: new Date(),
+        }]);
+      } else if (demoStep === 1) {
+        // Validar correo
+        const correoValido = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(inputValue);
+        if (!correoValido) {
+          setMessages((prev) => [...prev, {
+            id: (Date.now() + 2).toString(),
+            text: 'Por favor ingresa un correo electrónico válido.',
+            sender: 'bot',
+            timestamp: new Date(),
+          }]);
+          return setInputValue('');
+        }
+        setDemoData((prev) => ({ ...prev, correo: inputValue }));
+        setDemoStep(2);
+        setMessages((prev) => [...prev, {
+          id: (Date.now() + 3).toString(),
+          text: '¿Cuál es el nombre de tu empresa?',
+          sender: 'bot',
+          timestamp: new Date(),
+        }]);
+      } else if (demoStep === 2) {
+        setDemoData((prev) => ({ ...prev, empresa: inputValue }));
+        setDemoStep(3);
+        setSelectedDate(undefined);
+        setMessages((prev) => [...prev, {
+          id: (Date.now() + 4).toString(),
+          text: '¿Qué fecha prefieres para la demo?',
+          sender: 'bot',
+          timestamp: new Date(),
+        }]);
+      } else if (demoStep === 3) {
+        setDemoData((prev) => ({ ...prev, fecha: inputValue }));
+        setDemoStep(null);
+        setMessages((prev) => [...prev, {
+          id: (Date.now() + 5).toString(),
+          text: `¡Gracias! Tu demo ha sido agendada.\n\nDatos recibidos:\n- Nombre: ${demoData.nombre}\n- Correo: ${demoData.correo}\n- Empresa: ${demoData.empresa}\n- Fecha: ${inputValue}\n\nPronto te contactaremos para confirmar la cita.`,
+          sender: 'bot',
+          timestamp: new Date(),
+        }]);
+        setDemoData({});
+        setSelectedDate(undefined);
+      }
+      setInputValue('');
+      return;
+    }
+
+    // Detectar intención de demo
+    const demoRegex = /(solicitar demo|quiero una demo|agendar demo|demo|ver demo)/i;
+    if (demoRegex.test(inputValue)) {
+      setDemoStep(0);
+      setMessages((prev) => [...prev, {
+        id: (Date.now() + 2).toString(),
+        text: '¡Perfecto! Para agendar tu demo, ¿puedes decirme tu nombre?',
+        sender: 'bot',
+        timestamp: new Date(),
+      }]);
+      setInputValue('');
+      return;
+    }
+
+    // Si no es demo, continuar con el flujo normal
     // Serializar todo el historial (sin el saludo inicial)
     const conversationHistory = [...messages.slice(1), userMessage]
       .map((msg) => `${msg.sender === 'user' ? 'Usuario' : 'Atenea'}: ${msg.text}`)
       .join('\n');
 
-    setMessages((prev) => [...prev, userMessage]);
     setInputValue('');
     setIsLoading(true);
 
     // Get bot response from API
     try {
-  const botReply = await getBotResponse(conversationHistory);
+      const botReply = await getBotResponse(conversationHistory);
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
         text: botReply,
@@ -126,6 +210,46 @@ const Chatbot: React.FC = () => {
     }
   };
 
+  const handleDateSelect = (date: Date) => {
+    // Formatear fecha en español y hora en 12h
+    const dateStr = format(date, 'dd/MM/yyyy', { locale: es });
+    const hours24 = date.getHours();
+    const hours12 = hours24 % 12 || 12;
+    const period = hours24 >= 12 ? 'PM' : 'AM';
+    const formattedDate = `${dateStr} - ${hours12.toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')} ${period}`;
+    
+    setSelectedDate(date);
+    setDemoData((prev) => ({ ...prev, fecha: formattedDate }));
+    
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      text: formattedDate,
+      sender: 'user',
+      timestamp: new Date(),
+    };
+    setMessages((prev) => [...prev, userMessage]);
+    
+    // Confirmar cita con mensaje moderno
+    setDemoStep(null);
+    const confirmationData = {
+      nombre: demoData.nombre,
+      correo: demoData.correo,
+      empresa: demoData.empresa,
+      fecha: formattedDate,
+    };
+    
+    setMessages((prev) => [...prev, {
+      id: (Date.now() + 1).toString(),
+      text: `¡Gracias! Tu demo ha sido agendada.`,
+      sender: 'bot',
+      timestamp: new Date(),
+      type: 'demo-confirmation',
+      data: confirmationData,
+    }]);
+    setDemoData({});
+    setSelectedDate(undefined);
+  };
+
   return (
     <div className="fixed bottom-6 right-6 z-50 pointer-events-none">
       <AnimatePresence>
@@ -135,7 +259,7 @@ const Chatbot: React.FC = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: 'spring', damping: 20, stiffness: 300 }}
-            className="fixed bottom-28 right-4 left-4 md:left-auto md:bottom-24 md:right-6 md:w-96 h-[70vh] md:h-auto md:max-h-96 bg-white rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden pointer-events-auto"
+            className="fixed bottom-28 right-4 left-4 md:left-auto md:bottom-24 md:right-6 md:w-96 h-[80vh] md:h-auto md:max-h-[600px] bg-white rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden pointer-events-auto"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-primary to-accent text-white p-6 flex items-center justify-between">
@@ -169,24 +293,94 @@ const Chatbot: React.FC = () => {
                   transition={{ duration: 0.3 }}
                   className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
-                  <div
-                    className={`max-w-xs px-4 py-3 rounded-2xl ${
-                      message.sender === 'user'
-                        ? 'bg-primary text-white rounded-br-none'
-                        : 'bg-slate-100 text-slate-900 rounded-bl-none'
-                    } shadow-sm`}
-                  >
-                    {message.sender === 'bot' ? (
-                      <div className="text-sm leading-relaxed">
-                        <ReactMarkdown>{message.text}</ReactMarkdown>
-                      </div>
-                    ) : (
-                      <p className="text-sm leading-relaxed">{message.text}</p>
-                    )}
-                    <span className={`text-xs mt-1 block ${message.sender === 'user' ? 'text-white/70' : 'text-slate-500'}`}>
-                      {message.timestamp.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}
-                    </span>
-                  </div>
+                  {message.type === 'demo-confirmation' && message.data ? (
+                    // Mensaje de confirmación de demo con Card de shadcn
+                    <div className="w-full max-w-sm">
+                      <Card className="border-2 border-green-200 bg-gradient-to-br from-green-50 to-emerald-50">
+                        <CardHeader className="bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-t-lg pb-4">
+                          <div className="flex items-center gap-2">
+                            <CheckCircle2 className="w-6 h-6" />
+                            <div>
+                              <h3 className="font-bold text-base">¡Demo Agendada!</h3>
+                              <p className="text-xs text-white/80">Confirmación de cita</p>
+                            </div>
+                          </div>
+                        </CardHeader>
+
+                        <CardContent className="space-y-3 pt-4">
+                          {/* Nombre */}
+                          <div className="flex items-start gap-3">
+                            <div className="w-6 h-6 rounded-lg bg-blue-100 flex items-center justify-center text-blue-600 text-xs font-bold flex-shrink-0 mt-1">
+                              👤
+                            </div>
+                            <div className="flex-1">
+                              <p className="text-xs text-slate-500 font-medium">Nombre</p>
+                              <p className="text-sm font-semibold text-slate-900">{message.data.nombre}</p>
+                            </div>
+                          </div>
+
+                          {/* Correo */}
+                          <div className="flex items-start gap-3">
+                            <div className="w-6 h-6 rounded-lg bg-purple-100 flex items-center justify-center text-purple-600 text-xs font-bold flex-shrink-0 mt-1">
+                              ✉
+                            </div>
+                            <div className="flex-1">
+                              <p className="text-xs text-slate-500 font-medium">Correo</p>
+                              <p className="text-sm font-semibold text-slate-900">{message.data.correo}</p>
+                            </div>
+                          </div>
+
+                          {/* Empresa */}
+                          <div className="flex items-start gap-3">
+                            <div className="w-6 h-6 rounded-lg bg-orange-100 flex items-center justify-center text-orange-600 text-xs font-bold flex-shrink-0 mt-1">
+                              🏢
+                            </div>
+                            <div className="flex-1">
+                              <p className="text-xs text-slate-500 font-medium">Empresa</p>
+                              <p className="text-sm font-semibold text-slate-900">{message.data.empresa}</p>
+                            </div>
+                          </div>
+
+                          {/* Fecha y Hora */}
+                          <div className="flex items-start gap-3 pt-2 border-t border-green-200">
+                            <div className="w-6 h-6 rounded-lg bg-green-100 flex items-center justify-center text-green-600 text-xs font-bold flex-shrink-0 mt-1">
+                              🕐
+                            </div>
+                            <div className="flex-1">
+                              <p className="text-xs text-slate-500 font-medium">Fecha y Hora</p>
+                              <p className="text-sm font-bold text-green-600">{message.data.fecha}</p>
+                            </div>
+                          </div>
+                        </CardContent>
+
+                        <CardFooter className="border-t border-green-200 bg-white pt-3 pb-3 rounded-b-lg">
+                          <p className="text-xs text-slate-600 text-center w-full">
+                            Pronto te contactaremos para confirmar la cita
+                          </p>
+                        </CardFooter>
+                      </Card>
+                    </div>
+                  ) : (
+                    // Mensaje normal
+                    <div
+                      className={`max-w-xs px-4 py-3 rounded-2xl ${
+                        message.sender === 'user'
+                          ? 'bg-primary text-white rounded-br-none'
+                          : 'bg-slate-100 text-slate-900 rounded-bl-none'
+                      } shadow-sm`}
+                    >
+                      {message.sender === 'bot' ? (
+                        <div className="text-sm leading-relaxed">
+                          <ReactMarkdown>{message.text}</ReactMarkdown>
+                        </div>
+                      ) : (
+                        <p className="text-sm leading-relaxed">{message.text}</p>
+                      )}
+                      <span className={`text-xs mt-1 block ${message.sender === 'user' ? 'text-white/70' : 'text-slate-500'}`}>
+                        {message.timestamp.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}
+                      </span>
+                    </div>
+                  )}
                 </motion.div>
               ))}
 
@@ -208,23 +402,38 @@ const Chatbot: React.FC = () => {
 
             {/* Input Area */}
             <div className="border-t border-slate-200 p-4 bg-white">
-              <form onSubmit={handleSendMessage} className="flex gap-2">
-                <Input
-                  type="text"
-                  placeholder="Escribe tu mensaje..."
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  disabled={isLoading}
-                  className="rounded-full border-slate-300"
-                />
-                <Button
-                  type="submit"
-                  disabled={isLoading || !inputValue.trim()}
-                  className="aspect-square w-10 h-10 p-0 rounded-full bg-primary hover:bg-primary/90 flex items-center justify-center"
-                >
-                  <Send className="w-4 h-4" />
-                </Button>
-              </form>
+              {demoStep === 3 ? (
+                <div className="w-full">
+                  <DatePicker 
+                    value={selectedDate}
+                    onChange={handleDateSelect}
+                    placeholder="Selecciona una fecha"
+                    disabled={(date) => {
+                      const today = new Date();
+                      today.setHours(0, 0, 0, 0);
+                      return date < today;
+                    }}
+                  />
+                </div>
+              ) : (
+                <form onSubmit={handleSendMessage} className="flex gap-2">
+                  <Input
+                    type="text"
+                    placeholder="Escribe tu mensaje..."
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    disabled={isLoading}
+                    className="rounded-full border-slate-300"
+                  />
+                  <Button
+                    type="submit"
+                    disabled={isLoading || !inputValue.trim()}
+                    className="aspect-square w-10 h-10 p-0 rounded-full bg-primary hover:bg-primary/90 flex items-center justify-center"
+                  >
+                    <Send className="w-4 h-4" />
+                  </Button>
+                </form>
+              )}
             </div>
           </motion.div>
         )}
