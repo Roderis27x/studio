@@ -253,8 +253,8 @@ export default function CarrerasPage() {
         <FadeIn>
           <section className="py-20 md:py-24 bg-white">
             <div className="container mx-auto px-6">
-              <div className="max-w-4xl mx-auto">
-                <div className="text-center mb-12">
+              <div className="max-w-6xl mx-auto">
+                <div className="text-center mb-16">
                   <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-4">
                     Proceso de Selección
                   </h2>
@@ -262,36 +262,60 @@ export default function CarrerasPage() {
                 </div>
 
                 <div className="grid md:grid-cols-4 gap-8">
-                  <div className="text-center">
-                    <div className="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                      1
+                  {/* Paso 1 */}
+                  <div className="flex flex-col items-center">
+                    <div className="relative mb-8 group">
+                      <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary to-primary/90 text-white flex items-center justify-center shadow-lg group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110">
+                        <Mail className="h-12 w-12" />
+                      </div>
+                      <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-accent text-white rounded-full flex items-center justify-center text-sm font-bold">
+                        1
+                      </div>
                     </div>
-                    <h3 className="font-bold text-foreground mb-2">Aplicación</h3>
-                    <p className="text-sm text-muted-foreground">Envía tu CV y carta de presentación</p>
+                    <h3 className="font-bold text-lg text-foreground mb-3 text-center">Aplicación</h3>
+                    <p className="text-sm text-muted-foreground text-center leading-relaxed">Envía tu CV y carta de presentación</p>
                   </div>
                   
-                  <div className="text-center">
-                    <div className="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                      2
+                  {/* Paso 2 */}
+                  <div className="flex flex-col items-center">
+                    <div className="relative mb-8 group">
+                      <div className="w-24 h-24 rounded-full bg-gradient-to-br from-accent to-accent/90 text-white flex items-center justify-center shadow-lg group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110">
+                        <CheckCircle className="h-12 w-12" />
+                      </div>
+                      <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold">
+                        2
+                      </div>
                     </div>
-                    <h3 className="font-bold text-foreground mb-2">Revisión</h3>
-                    <p className="text-sm text-muted-foreground">Nuestro equipo evalúa tu perfil</p>
+                    <h3 className="font-bold text-lg text-foreground mb-3 text-center">Revisión</h3>
+                    <p className="text-sm text-muted-foreground text-center leading-relaxed">Nuestro equipo evalúa tu perfil</p>
                   </div>
                   
-                  <div className="text-center">
-                    <div className="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                      3
+                  {/* Paso 3 */}
+                  <div className="flex flex-col items-center">
+                    <div className="relative mb-8 group">
+                      <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary to-primary/90 text-white flex items-center justify-center shadow-lg group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110">
+                        <Users className="h-12 w-12" />
+                      </div>
+                      <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-accent text-white rounded-full flex items-center justify-center text-sm font-bold">
+                        3
+                      </div>
                     </div>
-                    <h3 className="font-bold text-foreground mb-2">Entrevista</h3>
-                    <p className="text-sm text-muted-foreground">Conversamos sobre tu experiencia</p>
+                    <h3 className="font-bold text-lg text-foreground mb-3 text-center">Entrevista</h3>
+                    <p className="text-sm text-muted-foreground text-center leading-relaxed">Conversamos sobre tu experiencia</p>
                   </div>
                   
-                  <div className="text-center">
-                    <div className="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                      4
+                  {/* Paso 4 */}
+                  <div className="flex flex-col items-center">
+                    <div className="relative mb-8 group">
+                      <div className="w-24 h-24 rounded-full bg-gradient-to-br from-accent to-accent/90 text-white flex items-center justify-center shadow-lg group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110">
+                        <Rocket className="h-12 w-12" />
+                      </div>
+                      <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold">
+                        4
+                      </div>
                     </div>
-                    <h3 className="font-bold text-foreground mb-2">Bienvenida</h3>
-                    <p className="text-sm text-muted-foreground">¡Únete al equipo CPT-SOFT!</p>
+                    <h3 className="font-bold text-lg text-foreground mb-3 text-center">Bienvenida</h3>
+                    <p className="text-sm text-muted-foreground text-center leading-relaxed">¡Únete al equipo CPT-SOFT!</p>
                   </div>
                 </div>
               </div>
@@ -301,23 +325,23 @@ export default function CarrerasPage() {
 
         <FadeIn>
           <section className="py-24 bg-primary text-white relative overflow-hidden">
-            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjA1IiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-40"></div>
+            <div className="absolute inset-0 decorative-grid opacity-10"></div>
             <div className="container mx-auto px-6 text-center relative z-10">
               <h2 className="text-4xl md:text-5xl font-extrabold mb-6">
                 ¿Tienes Preguntas?
               </h2>
               <p className="text-xl text-white/90 max-w-3xl mx-auto mb-10 leading-relaxed">
-                Estamos aquí para ayudarte. Contáctanos y resolveremos todas tus dudas sobre el proceso de selección.
+                Estamos aquí para ayudarle. Contáctenos y resolveremos todas sus dudas sobre el proceso de selección.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="mailto:info@cptsoft.com" className="inline-flex items-center justify-center px-8 py-4 bg-white text-primary rounded-xl font-semibold shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105">
-                  <Mail className="mr-2 h-5 w-5" />
-                  info@cptsoft.com
-                </a>
-                <a href="tel:+50769823777" className="inline-flex items-center justify-center px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-xl font-semibold border-2 border-white/20 hover:bg-white/20 transition-all duration-300">
-                  <Phone className="mr-2 h-5 w-5" />
-                  +507 6982-3777
-                </a>
+              <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
+                <div className="bg-white text-primary rounded-2xl shadow-lg px-8 py-6 flex items-center gap-3 min-w-[260px] mb-2 md:mb-0">
+                  <Mail className="h-6 w-6" />
+                  <span className="font-semibold text-lg">info@cpt-soft.com</span>
+                </div>
+                <div className="bg-white/10 border border-white/30 rounded-2xl px-8 py-6 flex items-center gap-3 min-w-[260px] justify-center shadow-lg">
+                  <Phone className="h-6 w-6 text-white" />
+                  <span className="font-semibold text-lg text-white">+507 399-2613 / +507 399-2614</span>
+                </div>
               </div>
             </div>
           </section>
