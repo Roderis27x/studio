@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Mail, Phone, MapPin, Send, ArrowRight } from 'lucide-react';
+import { WazeIcon } from '@/components/icons/waze-icon';
 
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
@@ -124,7 +125,7 @@ export default function ContactoPage() {
                                             href="mailto:info@cpt-soft.com"
                                         />
                                     </div>
-                                    <div className="rounded-2xl overflow-hidden border border-primary/10 shadow-xl h-96 mt-8">
+                                    <div className="rounded-2xl overflow-hidden border border-primary/10 shadow-xl h-96 mt-8 flex flex-col">
                                         <iframe
                                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.82494084715!2d-79.51903132537288!3d8.988250889626286!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8faca8fd97fe0b21%3A0xe7f21e417c2eea01!2sPanama%20Business%20Tower%20-%20Obarrio!5e0!3m2!1ses-419!2spa!4v1762876300413!5m2!1ses-419!2spa"
                                             width="100%"
@@ -133,7 +134,28 @@ export default function ContactoPage() {
                                             allowFullScreen={false}
                                             loading="lazy"
                                             title="Ubicación de CPT-SOFT"
+                                            className="flex-grow"
                                         ></iframe>
+                                        <div className="bg-gradient-to-r from-primary/10 to-primary/5 p-3 border-t border-primary/10 flex gap-2">
+                                            <a
+                                                href="https://maps.google.com/?q=8.988250889626286,-79.51903132537288"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex-1 bg-white hover:bg-primary hover:text-white text-primary border border-primary/20 px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center justify-center gap-2 group"
+                                            >
+                                                <MapPin className="w-4 h-4" />
+                                                Google Maps
+                                            </a>
+                                            <a
+                                                href="https://waze.com/ul?ll=8.988250889626286,-79.51903132537288&navigate=yes"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex-1 bg-white hover:bg-blue-500 hover:text-white text-blue-500 border border-blue-500/20 px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center justify-center gap-2 group"
+                                            >
+                                                <WazeIcon className="w-4 h-4" />
+                                                Waze
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
 
