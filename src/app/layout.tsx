@@ -1,9 +1,10 @@
-import type {Metadata} from 'next';
+import type {Metadata, Viewport} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import Chatbot from "@/components/chatbot";
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://cpt-soft-pagina-demo.vercel.app'),
   title: 'CPT-SOFT | Solución ERP Empresarial Integral',
   description: 'CPT-SOFT es la solución ERP todo en uno que integra ventas, finanzas, operaciones y recursos humanos. Optimiza tu negocio con nuestra plataforma inteligente.',
   keywords: 'ERP, gestión empresarial, software, solución integral, planilla, reportes, CRM',
@@ -35,8 +36,12 @@ export const metadata: Metadata = {
     description: 'CPT-SOFT es la solución ERP todo en uno que integra ventas, finanzas, operaciones y recursos humanos.',
     images: ['/img/logo_icono.svg'],
   },
-  viewport: 'width=device-width, initial-scale=1',
   robots: 'index, follow',
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
 };
 
 export default function RootLayout({
@@ -48,7 +53,6 @@ export default function RootLayout({
     <html lang="es" className="scroll-smooth">
       <head>
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
