@@ -27,14 +27,37 @@ const Chatbot: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    // Intentar scroll múltiples veces para asegurar que funciona
+    const attemptScroll = () => {
+      if (messagesContainerRef.current) {
+        messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+      }
+    };
+
+    // Intentar inmediatamente
+    attemptScroll();
+    
+    // Intentar con requestAnimationFrame
+    requestAnimationFrame(attemptScroll);
+    
+    // Intentar con pequeño delay
+    setTimeout(attemptScroll, 50);
+    setTimeout(attemptScroll, 100);
   };
 
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // Ejecutar scroll cuando el chat se abre
+  useEffect(() => {
+    if (isOpen) {
+      scrollToBottom();
+    }
+  }, [isOpen]);
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -134,7 +157,10 @@ const Chatbot: React.FC = () => {
             </div>
 
             {/* Messages Container */}
-            <div className="flex-1 overflow-y-auto max-h-96 p-4 space-y-4 bg-gradient-to-b from-slate-50 to-white scrollbar-thin scrollbar-thumb-primary/40 scrollbar-track-slate-100">
+            <div 
+              ref={messagesContainerRef}
+              className="flex-1 overflow-y-auto max-h-96 p-4 space-y-4 bg-gradient-to-b from-slate-50 to-white scrollbar-thin scrollbar-thumb-primary/40 scrollbar-track-slate-100"
+            >
               {messages.map((message) => (
                 <motion.div
                   key={message.id}
