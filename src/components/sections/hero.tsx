@@ -21,7 +21,7 @@ const Hero: React.FC = () => {
           Solución Empresarial Integral
         </div>
 
-        <h1 className="text-5xl md:text-7xl font-extrabold text-foreground leading-tight mb-6 h-24 md:h-32">
+        <h1 className="text-3xl sm:text-4xl md:text-7xl font-extrabold text-foreground leading-tight mb-6 min-h-20 sm:min-h-24 md:min-h-32">
           El ERP Todo en Uno para{' '}
           <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
             <TypeAnimation
@@ -52,13 +52,9 @@ const Hero: React.FC = () => {
             Solicitar Demo
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
-          <Button 
-            variant="outline" 
-            size="lg" 
-            className="px-8 py-6 text-lg h-auto rounded-xl border-2 text-slate-600 hover:text-slate-900 hover:border-slate-300 transition-colors duration-300"
-          >
-            Ver Características
-          </Button>
+            <a href="#caracteristicas" className="px-8 py-6 text-lg h-auto rounded-xl border-2 text-slate-600 hover:text-slate-900 hover:border-slate-300 transition-colors duration-300 flex items-center justify-center font-medium bg-white">
+              Ver Características
+            </a>
         </div>
 
         {/* Image Container */}

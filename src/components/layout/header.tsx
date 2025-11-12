@@ -28,6 +28,7 @@ import Link from 'next/link';
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -101,41 +102,186 @@ const Header: React.FC = () => {
             className="lg:hidden bg-white border-t border-slate-200 overflow-hidden"
           >
             <div className="container mx-auto px-6 py-4 flex flex-col">
-              <a
+              <Link
                 href="/"
                 className="py-2 text-slate-700 hover:text-primary font-semibold"
+                onClick={() => setIsMobileMenuOpen(false)}
               >
                 Inicio
-              </a>
-              <a
-                href="#"
-                className="py-2 text-slate-700 hover:text-primary font-semibold"
+              </Link>
+
+              {/* Software Menu Item */}
+              <button
+                onClick={() => setExpandedMenu(expandedMenu === 'software' ? null : 'software')}
+                className="py-2 text-slate-700 hover:text-primary font-semibold flex items-center justify-between"
               >
-                Software
-              </a>
-              <a
-                href="#"
-                className="py-2 text-slate-700 hover:text-primary font-semibold"
+                <span>Software</span>
+                <ChevronDown
+                  size={18}
+                  className={cn(
+                    'transition-transform',
+                    expandedMenu === 'software' ? 'rotate-180' : ''
+                  )}
+                />
+              </button>
+              <AnimatePresence>
+                {expandedMenu === 'software' && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="bg-slate-50 rounded-lg p-3 my-2 space-y-3"
+                  >
+                    <div className="space-y-2">
+                      <h4 className="text-xs font-semibold text-slate-600 uppercase tracking-wider">ERP</h4>
+                      <Link
+                        href="/erp"
+                        className="block py-1 text-slate-600 hover:text-primary text-sm"
+                        onClick={() => { setExpandedMenu(null); setIsMobileMenuOpen(false); }}
+                      >
+                        ERP Core
+                      </Link>
+                      <Link
+                        href="/planilla"
+                        className="block py-1 text-slate-600 hover:text-primary text-sm"
+                        onClick={() => { setExpandedMenu(null); setIsMobileMenuOpen(false); }}
+                      >
+                        Planilla
+                      </Link>
+                      <Link
+                        href="/reportes"
+                        className="block py-1 text-slate-600 hover:text-primary text-sm"
+                        onClick={() => { setExpandedMenu(null); setIsMobileMenuOpen(false); }}
+                      >
+                        Reportes
+                      </Link>
+                    </div>
+                    <div className="border-t border-slate-200 pt-2 space-y-2">
+                      <h4 className="text-xs font-semibold text-slate-600 uppercase tracking-wider">Financiero</h4>
+                      <Link
+                        href="/prestamos"
+                        className="block py-1 text-slate-600 hover:text-primary text-sm"
+                        onClick={() => { setExpandedMenu(null); setIsMobileMenuOpen(false); }}
+                      >
+                        Préstamos
+                      </Link>
+                      <Link
+                        href="/gestion-de-cobros"
+                        className="block py-1 text-slate-600 hover:text-primary text-sm"
+                        onClick={() => { setExpandedMenu(null); setIsMobileMenuOpen(false); }}
+                      >
+                        Gestión de cobros
+                      </Link>
+                      <Link
+                        href="/perfil"
+                        className="block py-1 text-slate-600 hover:text-primary text-sm"
+                        onClick={() => { setExpandedMenu(null); setIsMobileMenuOpen(false); }}
+                      >
+                        Perfil
+                      </Link>
+                    </div>
+                    <div className="border-t border-slate-200 pt-2 space-y-2">
+                      <h4 className="text-xs font-semibold text-slate-600 uppercase tracking-wider">Clientes</h4>
+                      <Link
+                        href="/crm"
+                        className="block py-1 text-slate-600 hover:text-primary text-sm"
+                        onClick={() => { setExpandedMenu(null); setIsMobileMenuOpen(false); }}
+                      >
+                        CRM
+                      </Link>
+                      <Link
+                        href="/help-desk"
+                        className="block py-1 text-slate-600 hover:text-primary text-sm"
+                        onClick={() => { setExpandedMenu(null); setIsMobileMenuOpen(false); }}
+                      >
+                        Help Desk
+                      </Link>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Servicios Menu Item */}
+              <button
+                onClick={() => setExpandedMenu(expandedMenu === 'servicios' ? null : 'servicios')}
+                className="py-2 text-slate-700 hover:text-primary font-semibold flex items-center justify-between"
               >
-                Servicios
-              </a>
+                <span>Servicios</span>
+                <ChevronDown
+                  size={18}
+                  className={cn(
+                    'transition-transform',
+                    expandedMenu === 'servicios' ? 'rotate-180' : ''
+                  )}
+                />
+              </button>
+              <AnimatePresence>
+                {expandedMenu === 'servicios' && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="bg-slate-50 rounded-lg p-3 my-2 space-y-2"
+                  >
+                    <Link
+                      href="/alquiler-de-nube"
+                      className="block py-1 text-slate-600 hover:text-primary text-sm"
+                      onClick={() => { setExpandedMenu(null); setIsMobileMenuOpen(false); }}
+                    >
+                      Alquiler de Nube
+                    </Link>
+                    <Link
+                      href="/consultoria-implementacion"
+                      className="block py-1 text-slate-600 hover:text-primary text-sm"
+                      onClick={() => { setExpandedMenu(null); setIsMobileMenuOpen(false); }}
+                    >
+                      Consultoría de Implementación
+                    </Link>
+                    <Link
+                      href="/desarrollos-a-la-medida"
+                      className="block py-1 text-slate-600 hover:text-primary text-sm"
+                      onClick={() => { setExpandedMenu(null); setIsMobileMenuOpen(false); }}
+                    >
+                      Desarrollos a la Medida
+                    </Link>
+                    <Link
+                      href="/soporte-tecnico"
+                      className="block py-1 text-slate-600 hover:text-primary text-sm"
+                      onClick={() => { setExpandedMenu(null); setIsMobileMenuOpen(false); }}
+                    >
+                      Soporte Técnico
+                    </Link>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
               <Link
                 href="/blog"
                 className="py-2 text-slate-700 hover:text-primary font-semibold"
+                onClick={() => setIsMobileMenuOpen(false)}
               >
                 Blog
               </Link>
               <Link
                 href="/quienes-somos"
                 className="py-2 text-slate-700 hover:text-primary font-semibold"
+                onClick={() => setIsMobileMenuOpen(false)}
               >
                 Quienes Somos
               </Link>
               <Link
                 href="/contacto"
                 className="py-2 text-slate-700 hover:text-primary font-semibold"
+                onClick={() => setIsMobileMenuOpen(false)}
               >
                 Contacto
+              </Link>
+              <Link
+                href="/carreras"
+                className="py-2 text-slate-700 hover:text-primary font-semibold"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Carreras
               </Link>
               <div className="border-t border-slate-200 pt-4 mt-4">
                 <a
