@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Star } from 'lucide-react';
+import { Star, User } from 'lucide-react';
 
 interface TestimonialCardProps {
   quote: string;
@@ -28,7 +28,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ quote, author, title,
       </blockquote>
 
       <figcaption className="flex items-center pt-4 border-t border-slate-100">
-        {avatarUrl && (
+        {avatarUrl ? (
           <Image
             className="h-12 w-12 rounded-full object-cover"
             src={avatarUrl}
@@ -37,6 +37,10 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ quote, author, title,
             height={48}
             data-ai-hint={avatarHint}
           />
+        ) : (
+          <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+            <User className="h-6 w-6 text-primary" />
+          </div>
         )}
         <div className="ml-4">
           <div className="font-bold text-foreground">{author}</div>
@@ -51,24 +55,10 @@ const Testimonials: React.FC = () => {
   const testimonials = [
     {
       id: 'testimonial-1',
-      quote: "CPT-SOFT ha revolucionado nuestra gestión de inventario. Hemos reducido los costos de mantenimiento en un 20% y nuestro equipo es más eficiente que nunca.",
-      author: 'Sarah Johnson',
-      title: 'Directora de Operaciones, Innovate Solutions',
-      image: PlaceHolderImages.find(p => p.id === 'testimonial-1'),
-    },
-    {
-      id: 'testimonial-2',
-      quote: "Las herramientas de informes financieros son revolucionarias. Puedo obtener una instantánea clara de nuestras pérdidas y ganancias en segundos, lo que antes llevaba horas de trabajo en hojas de cálculo.",
-      author: 'David Chen',
-      title: 'Director General, Quantum Dynamics',
-      image: PlaceHolderImages.find(p => p.id === 'testimonial-2'),
-    },
-    {
-      id: 'testimonial-3',
-      quote: "Como fundador sin conocimientos técnicos, la interfaz fácil de usar fue clave. La implementación fue fluida y el equipo de soporte es increíblemente receptivo.",
-      author: 'Maria Garcia',
-      title: 'Fundadora, Stellar Goods',
-      image: PlaceHolderImages.find(p => p.id === 'testimonial-3'),
+      quote: "Trabajamos con nuestro proveedor de sistemas de inventario, facturación y contabilidad porque nos ofrece una plataforma confiable y completa que agiliza nuestros procesos y mantiene nuestra gestión ordenada. Su soporte eficiente y su experiencia nos permiten operar con seguridad y así enfocarnos en el crecimiento de nuestro negocio.",
+      author: 'Sr. Efraín Ballesteros',
+      title: 'Cliente, CPT-SOFT',
+      image: null,
     },
   ];
 
