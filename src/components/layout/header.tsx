@@ -32,7 +32,34 @@ const Header: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [loginNubLeft, setLoginNubLeft] = useState<number | null>(null);
   const { openChatbot } = useChatbot();
+
+  const computeLoginNubLeftAndOpen = () => {
+    const btn = document.getElementById('login-button');
+    if (!btn) {
+      setIsLoginOpen(true);
+      return;
+    }
+    const parent = btn.parentElement;
+    if (!parent) {
+      setIsLoginOpen(true);
+      return;
+    }
+
+    const btnRect = btn.getBoundingClientRect();
+    const parentRect = parent.getBoundingClientRect();
+
+    // Tailwind w-44 is 11rem; convert rem to px
+    const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize || '16');
+    const overlayWidth = 11 * rootFontSize; // 11rem
+
+    const overlayLeft = parentRect.left + parentRect.width - overlayWidth;
+    const btnCenter = btnRect.left + btnRect.width / 2;
+    const left = btnCenter - overlayLeft;
+    setLoginNubLeft(left);
+    setIsLoginOpen(true);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -82,7 +109,15 @@ const Header: React.FC = () => {
         <div className="hidden lg:flex items-center space-x-4">
           <div className="relative w-fit">
             <button
-              onClick={() => setIsLoginOpen(!isLoginOpen)}
+              id="login-button"
+              onClick={() => {
+                if (isLoginOpen) return setIsLoginOpen(false);
+                computeLoginNubLeftAndOpen();
+              }}
+              onMouseEnter={() => {
+                if (!isLoginOpen) computeLoginNubLeftAndOpen();
+              }}
+              aria-expanded={isLoginOpen}
               className="text-slate-600 hover:text-primary px-4 py-2 rounded-lg font-semibold transition-all duration-300 flex items-center gap-2 text-sm w-full"
             >
               <LogIn className="w-4 h-4" />
@@ -92,13 +127,16 @@ const Header: React.FC = () => {
             <AnimatePresence>
               {isLoginOpen && (
                 <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.15 }}
-                  className="absolute right-0 mt-2 bg-white rounded-lg shadow-lg border border-slate-200 overflow-hidden z-50 w-full min-w-max"
+                  id="login-overlay"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.12 }}
+                  className="absolute right-0 top-[calc(100%_+_24px)] bg-gradient-to-b from-white via-white to-slate-50 rounded-lg shadow-lg border border-slate-200 min-w-max w-44"
                   onMouseLeave={() => setIsLoginOpen(false)}
                 >
+                  <Bridge />
+                  <LoginNub buttonId="login-button" overlayId="login-overlay" initialLeft={loginNubLeft} />
                   <a
                     href="https://demo.cpt-soft.com:9443/cptsoft-erp/index.jsp"
                     className="block px-3 py-2 hover:bg-slate-50 transition-colors text-sm font-medium text-slate-700 hover:text-primary border-b border-slate-100 text-center"
@@ -540,6 +578,42 @@ const Nub = ({ selected }: { selected: number | null }) => {
       animate={{ left }}
       transition={{ duration: 0.25, ease: 'easeInOut' }}
       className="absolute left-1/2 top-0 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-tl-sm border-l border-t border-slate-200 bg-white shadow-sm"
+    />
+  );
+};
+
+const LoginNub = ({ buttonId, overlayId, initialLeft }: { buttonId: string; overlayId: string; initialLeft?: number | null }) => {
+  const [left, setLeft] = useState(initialLeft ?? 0);
+
+  useEffect(() => {
+    const moveNub = () => {
+      const btn = document.getElementById(buttonId);
+      const overlay = document.getElementById(overlayId);
+      if (!btn || !overlay) return;
+      const btnRect = btn.getBoundingClientRect();
+      const overlayRect = overlay.getBoundingClientRect();
+      const tabCenter = btnRect.left + btnRect.width / 2 - overlayRect.left;
+      setLeft(tabCenter);
+    };
+
+    // Move on mount
+    if (typeof initialLeft === 'number') {
+      setLeft(initialLeft);
+    } else {
+      moveNub();
+    }
+    // Update on resize in case layout changes
+    window.addEventListener('resize', moveNub);
+    return () => window.removeEventListener('resize', moveNub);
+  }, [buttonId, overlayId, initialLeft]);
+
+  return (
+    <motion.span
+      initial={{ left }}
+      animate={{ left }}
+      transition={{ duration: 0.15, ease: 'easeInOut' }}
+      style={{ clipPath: 'polygon(0 0, 100% 0, 50% 50%, 0% 100%)' }}
+      className="absolute top-0 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-tl-sm border-l border-t border-slate-200 bg-white shadow-sm pointer-events-none"
     />
   );
 };

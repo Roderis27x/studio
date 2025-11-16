@@ -1,7 +1,6 @@
 'use client';
 
 import { Calendar, Clock, ArrowRight, Tag, User } from 'lucide-react';
-import { useState } from 'react';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import FadeIn from '@/components/fade-in';
@@ -112,14 +111,9 @@ const BlogCard = ({ post }: { post: BlogPost }) => (
 );
 
 export default function BlogPage() {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const featuredPost = blogPosts.find(post => post.featured);
   const regularPosts = blogPosts.filter(post => !post.featured);
   const categories = [...new Set(blogPosts.map(post => post.category))];
-  
-  const filteredPosts = selectedCategory 
-    ? regularPosts.filter(post => post.category === selectedCategory)
-    : regularPosts;
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
@@ -148,20 +142,11 @@ export default function BlogPage() {
 
               {/* Categories */}
               <div className="flex flex-wrap justify-center gap-3 mb-12">
-                <Button 
-                  variant={selectedCategory === null ? "default" : "outline"} 
-                  className="rounded-full"
-                  onClick={() => setSelectedCategory(null)}
-                >
+                <Button variant="outline" className="rounded-full">
                   Todos
                 </Button>
                 {categories.map((category) => (
-                  <Button 
-                    key={category} 
-                    variant={selectedCategory === category ? "default" : "outline"} 
-                    className="rounded-full"
-                    onClick={() => setSelectedCategory(category)}
-                  >
+                  <Button key={category} variant="ghost" className="rounded-full">
                     {category}
                   </Button>
                 ))}
@@ -194,7 +179,7 @@ export default function BlogPage() {
                 </p>
               </div>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredPosts.map((post) => (
+                {regularPosts.map((post) => (
                   <BlogCard key={post.id} post={post} />
                 ))}
               </div>
