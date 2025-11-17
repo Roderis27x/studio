@@ -3,7 +3,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { Mail, Phone, MapPin, Send, ArrowRight } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, ArrowRight, MessageCircle } from 'lucide-react';
 import { WazeIcon } from '@/components/icons/waze-icon';
 
 import Header from '@/components/layout/header';
@@ -128,6 +128,12 @@ export default function ContactoPage() {
                                             title="Email Ventas"
                                             value="ventas@cpt-soft.com"
                                             href="mailto:ventas@cpt-soft.com"
+                                        />
+                                        <ContactInfo 
+                                            icon={<MessageCircle className="w-6 h-6"/>}
+                                            title="WhatsApp"
+                                                value="+507 6356-0396"
+                                                href="https://wa.me/50763560396?text=Hola,%20me%20gustaría%20conocer%20más%20sobre%20sus%20servicios"
                                         />
                                     </div>
                                     <div className="rounded-2xl overflow-hidden border border-primary/10 shadow-xl h-96 mt-8 flex flex-col">
