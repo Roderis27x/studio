@@ -432,7 +432,7 @@ export default function BlogPostPage() {
                       ¿Listo para transformar tu negocio?
                     </h2>
                     <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-                      Descubre cómo nuestras soluciones pueden ayudarte a alcanzar tus objetivos empresariales
+                      Descubre cómo nuestras soluciones pueden ayudarte a alcanzar sus objetivos empresariales
                     </p>
                     <Link href="/contacto">
                       <motion.div

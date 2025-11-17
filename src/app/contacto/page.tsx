@@ -133,7 +133,7 @@ export default function ContactoPage() {
                                             icon={<MessageCircle className="w-6 h-6"/>}
                                             title="WhatsApp"
                                                 value="+507 6356-0396"
-                                                href="https://wa.me/50763560396?text=Hola,%20me%20gustaría%20conocer%20más%20sobre%20sus%20servicios"
+                                                href="https://wa.me/50763560396?text=Hola,%20me%20gustaría%20conocer%20más%20sobre%20sus%20productos%20y%20servicios"
                                         />
                                     </div>
                                     <div className="rounded-2xl overflow-hidden border border-primary/10 shadow-xl h-96 mt-8 flex flex-col">
