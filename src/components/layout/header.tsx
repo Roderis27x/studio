@@ -105,6 +105,12 @@ const Header: React.FC = () => {
           >
             Contacto
           </Link>
+          <Link
+            href="https://help-desk.cpt-soft.com:8443/cptsoft-erp-prod/"
+            className="text-slate-600 hover:text-primary transition-colors px-3 py-1.5 rounded-md text-sm font-medium"
+          >
+            Soporte
+          </Link>
         </nav>
         <div className="hidden lg:flex items-center space-x-4">
           <div className="relative w-fit">
@@ -353,6 +359,13 @@ const Header: React.FC = () => {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Contacto
+              </Link>
+              <Link
+                href="https://help-desk.cpt-soft.com:8443/cptsoft-erp-prod/"
+                className="py-2 text-slate-700 hover:text-primary font-semibold"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Soporte
               </Link>
               <Link
                 href="/carreras"
