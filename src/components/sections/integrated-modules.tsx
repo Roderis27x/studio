@@ -113,20 +113,142 @@ const modulesData: ModuleDetail[] = [
             'Sucursales – Bodegas - Ubicaciones'
         ]
     },
-    // Placeholder modules for those not detailed yet
-    { name: 'Manufactura', icon: <Factory className="w-6 h-6" />, features: [] },
-    { name: 'Control de Calidad', icon: <Gem className="w-6 h-6" />, features: [] },
-    { name: 'Facturación Electrónica', icon: <FileText className="w-6 h-6" />, features: [] },
-    { name: 'Facturación', icon: <FileText className="w-6 h-6" />, features: [] },
-    { name: 'Cuentas por Cobrar - Caja', icon: <HandCoins className="w-6 h-6" />, features: [] },
-    { name: 'Planilla', icon: <Users className="w-6 h-6" />, features: [] },
-    { name: 'Reportes y Dashboards', icon: <BarChart className="w-6 h-6" />, features: [] },
-    { name: 'Carga de datos', icon: <FileText className="w-6 h-6" />, features: [] },
-    { name: 'Globales', icon: <Building className="w-6 h-6" />, features: [] },
-    { name: 'Portal', icon: <Briefcase className="w-6 h-6" />, features: [] },
-    { name: 'Mensajería', icon: <FileText className="w-6 h-6" />, features: [] },
-    { name: 'Actividades', icon: <CheckCircle className="w-6 h-6" />, features: [] },
-    { name: 'Sala de Mando', icon: <BarChart className="w-6 h-6" />, features: [] },
+    {
+        name: 'Manufactura',
+        icon: <Factory className="w-6 h-6" />,
+        features: [
+            'Definición de Procesos',
+            'Formulación',
+            'Solicitudes de producción',
+            'Planificación',
+            'Manejo de órdenes'
+        ]
+    },
+    {
+        name: 'Control de Calidad',
+        icon: <Gem className="w-6 h-6" />,
+        features: [
+            'Definición de muestro',
+            'Registro de muestro del proceso productivo',
+            'Gráficos de Control'
+        ]
+    },
+    {
+        name: 'Facturación Electrónica',
+        icon: <FileText className="w-6 h-6" />,
+        features: [
+            'Interfaz con los PAC',
+            'Definición de Variables',
+            'Configuración',
+            'Consultas'
+        ]
+    },
+    {
+        name: 'Facturación',
+        icon: <FileText className="w-6 h-6" />,
+        features: [
+            'Vendedores',
+            'Cajas',
+            'Precios',
+            'Promociones',
+            'Formas de Pago',
+            'Cotizaciones',
+            'Pedidos',
+            'Pre-facturas',
+            'Facturas',
+            'Devoluciones'
+        ]
+    },
+    {
+        name: 'Cuentas por Cobrar - Caja',
+        icon: <HandCoins className="w-6 h-6" />,
+        features: [
+            'Clientes',
+            'Registro de Movimientos NC – ND - Recibos',
+            'Aplicación de Saldos a favor',
+            'Apertura de Caja',
+            'Cierre de Caja'
+        ]
+    },
+    {
+        name: 'Planilla',
+        icon: <Users className="w-6 h-6" />,
+        features: [
+            'Configuración',
+            'Manejo de Cartas y Formularios',
+            'Planilla Regular',
+            'Planilla Especial',
+            'XIII',
+            'Vacaciones',
+            'Liquidaciones',
+            'Preelaborada',
+            'Anexo 03',
+            'Fondo de Cesantía'
+        ]
+    },
+    {
+        name: 'Reportes y Dashboards',
+        icon: <BarChart className="w-6 h-6" />,
+        features: [
+            'Categorización',
+            'Creación y Edición de reporte',
+            'Permisos',
+            'Consulta de Reportes'
+        ]
+    },
+    {
+        name: 'Carga de datos',
+        icon: <FileText className="w-6 h-6" />,
+        features: [
+            'Carga de Parámetros',
+            'Carga de Saldo',
+            'Traspaso de datos entre compañía'
+        ]
+    },
+    {
+        name: 'Globales',
+        icon: <Building className="w-6 h-6" />,
+        features: [
+            'Impuestos',
+            'Bancos',
+            'Tipos',
+            'Grupos',
+            'Razones',
+            'Otros'
+        ]
+    },
+    {
+        name: 'Portal',
+        icon: <Briefcase className="w-6 h-6" />,
+        features: [
+            'Pedidos',
+            'Estados de Cuentas',
+            'Estadísticas de compra'
+        ]
+    },
+    {
+        name: 'Mensajería',
+        icon: <FileText className="w-6 h-6" />,
+        features: [
+            'Configuración de grupos',
+            'Bitácora',
+            'Manejo de Chat Interno de la organización'
+        ]
+    },
+    {
+        name: 'Actividades',
+        icon: <CheckCircle className="w-6 h-6" />,
+        features: [
+            'Creación y Asignación de tareas'
+        ]
+    },
+    {
+        name: 'Sala de Mando',
+        icon: <BarChart className="w-6 h-6" />,
+        features: [
+            'Consultas de diferentes auxiliares en una sola pantalla'
+        ]
+    },
 ];
 
 export default function IntegratedModules() {
