@@ -217,13 +217,13 @@ const Header: React.FC = () => {
                     className="bg-slate-50 rounded-lg p-3 my-2 space-y-3"
                   >
                     <div className="space-y-2">
-                      <h4 className="text-xs font-semibold text-slate-600 uppercase tracking-wider">ERP</h4>
+                      <h4 className="text-xs font-semibold text-slate-600 uppercase tracking-wider">Soluciones</h4>
                       <Link
                         href="/erp"
                         className="block py-1 text-slate-600 hover:text-primary text-sm"
                         onClick={() => { setExpandedMenu(null); setIsMobileMenuOpen(false); }}
                       >
-                        ERP Core
+                        ERP
                       </Link>
                       <Link
                         href="/planilla"
@@ -662,11 +662,11 @@ const SoftwareContent = () => (
   <div className="grid grid-cols-3 gap-8">
     <div className="space-y-2">
       <h3 className="mb-3 text-xs font-semibold text-slate-600 uppercase tracking-wider">
-        ERP
+        Soluciones
       </h3>
       <MenuItem
         icon={<Building className="w-4 h-4" />}
-        title="ERP Core"
+        title="ERP"
         description="Gestión de recursos empresariales."
         href="/erp"
       />
