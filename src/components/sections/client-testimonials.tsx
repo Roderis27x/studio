@@ -60,6 +60,20 @@ const Testimonials: React.FC = () => {
       title: 'Cliente, CPT-SOFT',
       image: null,
     },
+    {
+      id: 'testimonial-2',
+      quote: "El trabajar con CPT-SOFT, ha sido un gran apoyo para nuestra empresa, ya que nos ha ayudado a administrar nuestras solicitudes como mesa de apoyo, en nuestro departamento de tecnología, donde podemos brindar con Help desk, un mejor servicio a nuestros clientes internos, obteniendo diferentes reportes y llevar una trazabilidad, que antes no teníamos.",
+      author: 'Sra. Erika Murillo',
+      title: 'Cliente, CPT-SOFT',
+      image: null,
+    },
+    {
+      id: 'testimonial-3',
+      quote: "Con el sistema de Gestión de Cobros, hemos logrado automatizar un proceso que anteriormente era manual, en el que no teníamos evidencias sistemáticas de nuestros procesos de cobros realizados a los clientes. Actualmente, gracias a CPT Soft, obtenemos reportería, recordatorios y notificaciones automáticas por correos que han sido de gran ayuda para el departamento de cobros.",
+      author: 'Sra. Erika Murillo',
+      title: 'Cliente, CPT-SOFT',
+      image: null,
+    },
   ];
 
   return (
