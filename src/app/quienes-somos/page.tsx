@@ -277,7 +277,57 @@ export default function QuienesSomosPage() {
         </FadeIn>
 
         <FadeIn>
-          <section className="py-24 bg-primary text-white relative overflow-hidden">
+          <section className="py-24 md:py-32 bg-white relative overflow-hidden">
+            <div className="container mx-auto px-6 relative z-10">
+              <div className="max-w-7xl mx-auto">
+                <div className="text-center mb-16">
+                  <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-4">
+                    Industrias
+                  </h2>
+                  <div className="w-20 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-4"></div>
+                  <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                    Nuestro conocimiento y aplicaciones han sido ejecutados en diferentes áreas de las siguientes industrias:
+                  </p>
+                </div>
+
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {[
+                    'Telecomunicaciones',
+                    'Televisión por Cable',
+                    'Educación (Escuelas - Universidades)',
+                    'Industria del Plástico',
+                    'Industria de Aluminio',
+                    'Industria de Embutidos',
+                    'Industria de Envases',
+                    'Constructoras - Inmobiliarias',
+                    'Hoteles',
+                    'Bancos – Financieras',
+                    'Aseguradoras',
+                    'Distribuidores de Equipos Médicos',
+                    'Distribuidores de Hardware',
+                    'Distribuidores de Modulares',
+                    'Distribuidores de Rodamiento',
+                    'Distribuidores de Materiales y Equipos Industriales',
+                    'Abogados',
+                    'Industria Farmacéutica',
+                    'Financieras',
+                  ].map((industria) => (
+                    <div
+                      key={industria}
+                      className="flex items-center gap-3 p-4 bg-gradient-to-br from-primary/5 to-accent/5 rounded-lg border border-primary/20 hover:border-primary/40 hover:shadow-md transition-all duration-300"
+                    >
+                      <CheckCircle className="h-5 w-5 flex-shrink-0 text-primary" />
+                      <span className="text-foreground font-medium">{industria}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        </FadeIn>
+
+        <FadeIn>
+          <section className="py-24 md:py-32 bg-primary text-white relative overflow-hidden">
             <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjA1IiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-40"></div>
             <div className="container mx-auto px-6 text-center relative z-10">
               <h2 className="text-4xl md:text-5xl font-extrabold mb-6">
