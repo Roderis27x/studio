@@ -1,8 +1,12 @@
+'use client';
 
 import Image from 'next/image';
+import * as React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Star, User } from 'lucide-react';
+import Autoplay from 'embla-carousel-autoplay';
 
 interface TestimonialCardProps {
   quote: string;
@@ -14,8 +18,8 @@ interface TestimonialCardProps {
 }
 
 const TestimonialCard: React.FC<TestimonialCardProps> = ({ quote, author, title, avatarUrl, avatarHint, avatarDescription }) => (
-  <Card className="flex flex-col overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-slate-200 bg-white">
-    <CardContent className="p-8 text-left flex flex-col flex-grow">
+  <Card className="h-[700px] flex flex-col overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-slate-200 bg-white">
+    <CardContent className="p-8 text-left flex flex-col flex-grow justify-between">
       {/* Stars */}
       <div className="flex gap-1 mb-4">
         {[...Array(5)].map((_, i) => (
@@ -23,7 +27,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ quote, author, title,
         ))}
       </div>
 
-      <blockquote className="text-muted-foreground text-lg mb-6 flex-grow leading-relaxed">
+      <blockquote className="text-muted-foreground text-lg mb-6 leading-relaxed flex-1 overflow-y-auto">
         <p>"{quote}"</p>
       </blockquote>
 
@@ -52,7 +56,18 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ quote, author, title,
 );
 
 const Testimonials: React.FC = () => {
+  const plugin = React.useRef(
+    Autoplay({ delay: 5000, stopOnInteraction: true })
+  );
+
   const testimonials = [
+    {
+      id: 'testimonial-0',
+      quote: "Deseamos expresar nuestra satisfacción con el servicio brindado por CPT-SOFT como proveedor de nuestro sistema ERP. Su plataforma nos ha permitido mejorar la organización interna y llevar un control más claro y eficiente de nuestras operaciones diarias. También valoramos el acompañamiento que hemos recibido en el proceso de implementación y uso del sistema. Cuando hemos necesitado apoyo, hemos contado con orientación adecuada para resolver las situaciones que se han presentado.",
+      author: 'Sr. Arturo Veiga',
+      title: 'Cliente, CPT-SOFT',
+      image: null,
+    },
     {
       id: 'testimonial-1',
       quote: "Trabajamos con nuestro proveedor de sistemas de inventario, facturación y contabilidad porque nos ofrece una plataforma confiable y completa que agiliza nuestros procesos y mantiene nuestra gestión ordenada. Su soporte eficiente y su experiencia nos permiten operar con seguridad y así enfocarnos en el crecimiento de nuestro negocio.",
@@ -74,6 +89,13 @@ const Testimonials: React.FC = () => {
       title: 'Cliente, CPT-SOFT',
       image: null,
     },
+    {
+      id: 'testimonial-4',
+      quote: "Excelente herramienta para el desarrollo de tu negocio, crecimiento y sostenibilidad.",
+      author: 'Sra. Gabriela Hernández',
+      title: 'Cliente, CPT-SOFT',
+      image: null,
+    },
   ];
 
   return (
@@ -90,19 +112,31 @@ const Testimonials: React.FC = () => {
             Escuche lo que nuestros clientes tienen que decir sobre la transformación de sus operaciones con CPT-SOFT.
           </p>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {testimonials.map((testimonial) => (
-            <TestimonialCard
-              key={testimonial.id}
-              quote={testimonial.quote}
-              author={testimonial.author}
-              title={testimonial.title}
-              avatarUrl={testimonial.image?.imageUrl}
-              avatarHint={testimonial.image?.imageHint}
-              avatarDescription={testimonial.image?.description}
-            />
-          ))}
-        </div>
+        <Carousel
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+          plugins={[plugin.current]}
+          className="w-full max-w-6xl mx-auto"
+        >
+          <CarouselContent className="-ml-4">
+            {testimonials.map((testimonial) => (
+              <CarouselItem key={testimonial.id} className="md:basis-1/2 lg:basis-1/3 pl-4 min-h-[700px]">
+                <TestimonialCard
+                  quote={testimonial.quote}
+                  author={testimonial.author}
+                  title={testimonial.title}
+                  avatarUrl={testimonial.image?.imageUrl}
+                  avatarHint={testimonial.image?.imageHint}
+                  avatarDescription={testimonial.image?.description}
+                />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
       </div>
     </section>
   );
