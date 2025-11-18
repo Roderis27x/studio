@@ -98,7 +98,7 @@ const FAQ: React.FC = () => {
             Preguntas Frecuentes
           </div>
           <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mb-4">
-            Resolvemos tus Dudas
+            Resolvemos Sus Dudas
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
             Encuentra respuestas a las preguntas más comunes sobre CPT-SOFT, nuestros modelos de licenciamiento y servicios.
