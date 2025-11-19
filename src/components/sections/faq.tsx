@@ -42,6 +42,11 @@ const faqData: FAQItem[] = [
     question: '¿Qué tipo de sistema operativo pueden utilizar los servidores?',
     answer: 'Preferiblemente en Linux, también en Windows.',
   },
+  {
+    id: 'faq-7',
+    question: '¿En qué navegadores web funciona el aplicativo?',
+    answer: 'El aplicativo corre en los navegadores más populares: Firefox, Chrome, Edge, Safari.',
+  },
 ];
 
 const FAQItem: React.FC<{ item: FAQItem; isOpen: boolean; onToggle: () => void }> = ({
