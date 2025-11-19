@@ -55,10 +55,6 @@ export default function CarrerasPage() {
     const formData = new FormData(form);
     
     const cv = formData.get('cv') as File;
-    const nombre = formData.get('Nombre') as string;
-    const email = formData.get('Email') as string;
-    const telefono = formData.get('Teléfono') as string;
-    const mensaje = formData.get('Mensaje') as string;
     
     if (!cv || cv.size === 0) {
       e.preventDefault();
@@ -70,21 +66,6 @@ export default function CarrerasPage() {
       e.preventDefault();
       alert('El archivo no debe superar los 5MB');
       return;
-    }
-
-    // Generar la plantilla HTML personalizada
-    const htmlContent = carrerasEmailTemplate({
-      nombre: nombre || '',
-      email: email || '',
-      telefono: telefono || '',
-      mensaje: mensaje || undefined,
-      cvFileName: cv.name
-    });
-
-    // Guardar en campo oculto para que FormSubmit la envíe
-    const hiddenField = document.getElementById('email-html') as HTMLTextAreaElement;
-    if (hiddenField) {
-      hiddenField.value = htmlContent;
     }
     
     setIsSubmitting(true);
@@ -200,10 +181,7 @@ export default function CarrerasPage() {
                   {/* FormSubmit Configuration */}
                   <input type="hidden" name="_subject" value="Nueva aplicación de carrera en CPT-SOFT" />
                   <input type="hidden" name="_captcha" value="false" />
-                  <input type="hidden" name="_template" value="html" />
                   <input type="text" name="_honey" style={{display: 'none'}} />
-                  {/* Plantilla HTML personalizada */}
-                  <textarea id="email-html" name="html" style={{display: 'none'}}></textarea>
                   <div className="space-y-6">
                     <div>
                       <Label htmlFor="nombre" className="text-base font-semibold text-foreground flex items-center gap-2">

@@ -58,31 +58,15 @@ export default function ContactoPage() {
         },
     });
 
-    // FormSubmit se encargará del envío, solo mostramos confirmación
+    // FormSubmit se encargará del envío
     function onSubmit(values: z.infer<typeof formSchema>) {
-        // Generar la plantilla HTML personalizada
-        const htmlContent = contactoEmailTemplate({
-            name: values.name,
-            company: values.company,
-            phone: values.phone,
-            email: values.email,
-            subject: values.subject,
-            message: values.message,
-        });
-        
-        // Guardar en campo oculto para que FormSubmit la envíe
-        const hiddenField = document.getElementById('email-html') as HTMLTextAreaElement;
-        if (hiddenField) {
-            hiddenField.value = htmlContent;
-        }
-        
         // Mostrar confirmación
         toast({
             title: "Enviando Mensaje",
             description: "Por favor espere mientras procesamos su mensaje...",
         });
 
-        // Enviar el formulario
+        // Enviar el formulario a FormSubmit
         const formElement = document.querySelector('form[action="https://formsubmit.co/rortega@cpt-soft.com"]') as HTMLFormElement;
         if (formElement) {
             setTimeout(() => {
@@ -214,10 +198,7 @@ export default function ContactoPage() {
                                             {/* FormSubmit Configuration */}
                                             <input type="hidden" name="_subject" value="Nuevo mensaje de contacto desde CPT-SOFT" />
                                             <input type="hidden" name="_captcha" value="false" />
-                                            <input type="hidden" name="_template" value="html" />
                                             <input type="text" name="_honey" style={{display: 'none'}} />
-                                            {/* Plantilla HTML personalizada */}
-                                            <textarea id="email-html" name="html" style={{display: 'none'}}></textarea>
                                             <FormField
                                                 control={form.control}
                                                 name="name"
