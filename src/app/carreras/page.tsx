@@ -1,6 +1,7 @@
 'use client';
 
 import { ArrowRight, Briefcase, Users, TrendingUp, Heart, Code, Rocket, CheckCircle, Upload, Mail, Phone, User } from 'lucide-react';
+import { carrerasEmailTemplate } from '@/lib/email-templates';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import FadeIn from '@/components/fade-in';
@@ -46,13 +47,53 @@ export default function CarrerasPage() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Aquí se puede implementar el envío del formulario
-    console.log('Formulario enviado:', formData);
-    alert('¡Gracias por tu interés! Nos pondremos en contacto contigo pronto.');
-    // Resetear formulario
-    setFormData({ nombre: '', email: '', telefono: '', mensaje: '' });
+    // Validación básica antes de enviar a FormSubmit
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    
+    const cv = formData.get('cv') as File;
+    const nombre = formData.get('Nombre') as string;
+    const email = formData.get('Email') as string;
+    const telefono = formData.get('Teléfono') as string;
+    const mensaje = formData.get('Mensaje') as string;
+    
+    if (!cv || cv.size === 0) {
+      e.preventDefault();
+      alert('Por favor, adjunta tu CV');
+      return;
+    }
+    
+    if (cv.size > 5 * 1024 * 1024) {
+      e.preventDefault();
+      alert('El archivo no debe superar los 5MB');
+      return;
+    }
+
+    // Generar la plantilla HTML personalizada
+    const htmlContent = carrerasEmailTemplate({
+      nombre: nombre || '',
+      email: email || '',
+      telefono: telefono || '',
+      mensaje: mensaje || undefined,
+      cvFileName: cv.name
+    });
+
+    // Guardar en campo oculto para que FormSubmit la envíe
+    const hiddenField = document.getElementById('email-html') as HTMLTextAreaElement;
+    if (hiddenField) {
+      hiddenField.value = htmlContent;
+    }
+    
+    setIsSubmitting(true);
+    
+    // Enviar el formulario a FormSubmit
+    const formElement = e.target as HTMLFormElement;
+    setTimeout(() => {
+      formElement.submit();
+    }, 100);
   };
 
   useEffect(() => {
@@ -149,7 +190,20 @@ export default function CarrerasPage() {
               </div>
 
               <div className="max-w-3xl mx-auto">
-                <form onSubmit={handleSubmit} className="bg-white p-8 md:p-12 rounded-2xl shadow-lg border border-border/50">
+                <form 
+                  action="https://formsubmit.co/rortega@cpt-soft.com" 
+                  method="POST"
+                  encType="multipart/form-data"
+                  onSubmit={handleSubmit} 
+                  className="bg-white p-8 md:p-12 rounded-2xl shadow-lg border border-border/50"
+                >
+                  {/* FormSubmit Configuration */}
+                  <input type="hidden" name="_subject" value="Nueva aplicación de carrera en CPT-SOFT" />
+                  <input type="hidden" name="_captcha" value="false" />
+                  <input type="hidden" name="_template" value="html" />
+                  <input type="text" name="_honey" style={{display: 'none'}} />
+                  {/* Plantilla HTML personalizada */}
+                  <textarea id="email-html" name="html" style={{display: 'none'}}></textarea>
                   <div className="space-y-6">
                     <div>
                       <Label htmlFor="nombre" className="text-base font-semibold text-foreground flex items-center gap-2">
@@ -158,7 +212,7 @@ export default function CarrerasPage() {
                       </Label>
                       <Input
                         id="nombre"
-                        name="nombre"
+                        name="Nombre"
                         type="text"
                         placeholder="Tu nombre completo"
                         value={formData.nombre}
@@ -176,7 +230,7 @@ export default function CarrerasPage() {
                         </Label>
                         <Input
                           id="email"
-                          name="email"
+                          name="Email"
                           type="email"
                           placeholder="tu@email.com"
                           value={formData.email}
@@ -193,7 +247,7 @@ export default function CarrerasPage() {
                         </Label>
                         <Input
                           id="telefono"
-                          name="telefono"
+                          name="Teléfono"
                           type="tel"
                           placeholder="+507 1234-5678"
                           value={formData.telefono}
@@ -228,7 +282,7 @@ export default function CarrerasPage() {
                       </Label>
                       <Textarea
                         id="mensaje"
-                        name="mensaje"
+                        name="Mensaje"
                         placeholder="Cuéntanos sobre ti, tu experiencia y por qué te gustaría trabajar con nosotros..."
                         value={formData.mensaje}
                         onChange={handleInputChange}
@@ -238,9 +292,9 @@ export default function CarrerasPage() {
                     </div>
 
                     <div className="pt-4">
-                      <Button type="submit" size="lg" className="w-full text-base h-12">
-                        Enviar Aplicación
-                        <ArrowRight className="ml-2 h-5 w-5" />
+                      <Button type="submit" size="lg" className="w-full text-base h-12" disabled={isSubmitting}>
+                        {isSubmitting ? 'Enviando...' : 'Enviar Aplicación'}
+                        {!isSubmitting && <ArrowRight className="ml-2 h-5 w-5" />}
                       </Button>
                     </div>
                   </div>

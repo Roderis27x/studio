@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Mail, Phone, MapPin, Send, ArrowRight, MessageCircle } from 'lucide-react';
 import { WazeIcon } from '@/components/icons/waze-icon';
+import { contactoEmailTemplate } from '@/lib/email-templates';
 
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
@@ -17,6 +18,8 @@ import { toast } from '@/hooks/use-toast';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "El nombre debe tener al menos 2 caracteres." }),
+  company: z.string().min(2, { message: "El nombre de la compañía debe tener al menos 2 caracteres." }).optional().or(z.literal("")),
+  phone: z.string().min(7, { message: "El teléfono debe tener al menos 7 caracteres." }).optional().or(z.literal("")),
   email: z.string().email({ message: "Por favor, ingrese un correo electrónico válido." }),
   subject: z.string().min(5, { message: "El asunto debe tener al menos 5 caracteres." }),
   message: z.string().min(10, { message: "El mensaje debe tener al menos 10 caracteres." }),
@@ -47,19 +50,45 @@ export default function ContactoPage() {
         resolver: zodResolver(formSchema),
         defaultValues: {
             name: "",
+            company: "",
+            phone: "",
             email: "",
             subject: "",
             message: "",
         },
     });
 
+    // FormSubmit se encargará del envío, solo mostramos confirmación
     function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values);
-        toast({
-            title: "Mensaje Enviado",
-            description: "Gracias por contactarnos. Nos pondremos en contacto con usted en breve.",
+        // Generar la plantilla HTML personalizada
+        const htmlContent = contactoEmailTemplate({
+            name: values.name,
+            company: values.company,
+            phone: values.phone,
+            email: values.email,
+            subject: values.subject,
+            message: values.message,
         });
-        form.reset();
+        
+        // Guardar en campo oculto para que FormSubmit la envíe
+        const hiddenField = document.getElementById('email-html') as HTMLTextAreaElement;
+        if (hiddenField) {
+            hiddenField.value = htmlContent;
+        }
+        
+        // Mostrar confirmación
+        toast({
+            title: "Enviando Mensaje",
+            description: "Por favor espere mientras procesamos su mensaje...",
+        });
+
+        // Enviar el formulario
+        const formElement = document.querySelector('form[action="https://formsubmit.co/rortega@cpt-soft.com"]') as HTMLFormElement;
+        if (formElement) {
+            setTimeout(() => {
+                formElement.submit();
+            }, 100);
+        }
     }
 
     return (
@@ -176,35 +205,89 @@ export default function ContactoPage() {
                                         <p className="text-muted-foreground">Responderemos en breve</p>
                                     </div>
                                     <Form {...form}>
-                                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                                        <form 
+                                            action="https://formsubmit.co/rortega@cpt-soft.com" 
+                                            method="POST"
+                                            onSubmit={form.handleSubmit(onSubmit)} 
+                                            className="space-y-6"
+                                        >
+                                            {/* FormSubmit Configuration */}
+                                            <input type="hidden" name="_subject" value="Nuevo mensaje de contacto desde CPT-SOFT" />
+                                            <input type="hidden" name="_captcha" value="false" />
+                                            <input type="hidden" name="_template" value="html" />
+                                            <input type="text" name="_honey" style={{display: 'none'}} />
+                                            {/* Plantilla HTML personalizada */}
+                                            <textarea id="email-html" name="html" style={{display: 'none'}}></textarea>
                                             <FormField
                                                 control={form.control}
                                                 name="name"
                                                 render={({ field }) => (
                                                     <FormItem>
-                                                        <FormLabel className="text-foreground font-semibold">Nombre Completo</FormLabel>
+                                                        <FormLabel className="text-foreground font-semibold">Nombre Completo *</FormLabel>
                                                         <FormControl>
                                                             <Input 
                                                                 placeholder="John Doe" 
                                                                 className="bg-background/50 border-primary/20 focus:border-primary focus:bg-background transition-all"
-                                                                {...field} 
+                                                                {...field}
+                                                                name="Nombre"
                                                             />
                                                         </FormControl>
                                                         <FormMessage />
                                                     </FormItem>
                                                 )}
                                             />
+                                            <div className="grid md:grid-cols-2 gap-6">
+                                                <FormField
+                                                    control={form.control}
+                                                    name="company"
+                                                    render={({ field }) => (
+                                                        <FormItem>
+                                                            <FormLabel className="text-foreground font-semibold">Nombre de Compañía</FormLabel>
+                                                            <FormControl>
+                                                                <Input 
+                                                                    placeholder="Tu Empresa S.A." 
+                                                                    className="bg-background/50 border-primary/20 focus:border-primary focus:bg-background transition-all"
+                                                                    {...field}
+                                                                    name="Compañía"
+                                                                />
+                                                            </FormControl>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                                <FormField
+                                                    control={form.control}
+                                                    name="phone"
+                                                    render={({ field }) => (
+                                                        <FormItem>
+                                                            <FormLabel className="text-foreground font-semibold">Teléfono</FormLabel>
+                                                            <FormControl>
+                                                                <Input 
+                                                                    placeholder="+507 1234-5678" 
+                                                                    className="bg-background/50 border-primary/20 focus:border-primary focus:bg-background transition-all"
+                                                                    {...field}
+                                                                    name="Teléfono"
+                                                                    type="tel"
+                                                                />
+                                                            </FormControl>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                            </div>
                                             <FormField
                                                 control={form.control}
                                                 name="email"
                                                 render={({ field }) => (
                                                     <FormItem>
-                                                        <FormLabel className="text-foreground font-semibold">Correo Electrónico</FormLabel>
+                                                        <FormLabel className="text-foreground font-semibold">Correo Electrónico *</FormLabel>
                                                         <FormControl>
                                                             <Input 
                                                                 placeholder="su@email.com" 
                                                                 className="bg-background/50 border-primary/20 focus:border-primary focus:bg-background transition-all"
-                                                                {...field} 
+                                                                {...field}
+                                                                name="Email"
+                                                                type="email"
                                                             />
                                                         </FormControl>
                                                         <FormMessage />
@@ -221,7 +304,8 @@ export default function ContactoPage() {
                                                             <Input 
                                                                 placeholder="Ej: Consulta sobre ERP" 
                                                                 className="bg-background/50 border-primary/20 focus:border-primary focus:bg-background transition-all"
-                                                                {...field} 
+                                                                {...field}
+                                                                name="Asunto"
                                                             />
                                                         </FormControl>
                                                         <FormMessage />
@@ -238,7 +322,8 @@ export default function ContactoPage() {
                                                             <Textarea 
                                                                 placeholder="Escriba su mensaje aquí..." 
                                                                 className="min-h-[150px] bg-background/50 border-primary/20 focus:border-primary focus:bg-background transition-all"
-                                                                {...field} 
+                                                                {...field}
+                                                                name="Mensaje"
                                                             />
                                                         </FormControl>
                                                         <FormMessage />
