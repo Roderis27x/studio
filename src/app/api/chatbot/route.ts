@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-  console.log('Sending history to Gemini:', history);
+    console.log('Sending history to Gemini:', history);
 
     const knowledgeBaseContent = formatKnowledgeBase();
 

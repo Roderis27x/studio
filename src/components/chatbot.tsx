@@ -51,10 +51,10 @@ const Chatbot: React.FC = () => {
 
     // Intentar inmediatamente
     attemptScroll();
-    
+
     // Intentar con requestAnimationFrame
     requestAnimationFrame(attemptScroll);
-    
+
     // Intentar con pequeño delay
     setTimeout(attemptScroll, 50);
     setTimeout(attemptScroll, 100);
@@ -137,26 +137,38 @@ const Chatbot: React.FC = () => {
           }]);
           return setInputValue('');
         }
-        setDemoData((prev) => ({ ...prev, celular: inputValue }));
-        setDemoStep(4);
-        setSelectedDate(undefined);
-        setMessages((prev) => [...prev, {
-          id: (Date.now() + 5).toString(),
-          text: '¿Qué fecha prefiere para la demo?',
-          sender: 'bot',
-          timestamp: new Date(),
-        }]);
-      } else if (demoStep === 4) {
-        setDemoData((prev) => ({ ...prev, fecha: inputValue }));
+
+        // Finalizar demo después de celular - sin pedir fecha
         setDemoStep(null);
+        const confirmationData = {
+          nombre: demoData.nombre,
+          correo: demoData.correo,
+          empresa: demoData.empresa,
+          celular: inputValue,
+        };
+
+        // Enviar email de notificación
+        try {
+          await fetch('/api/demo', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(confirmationData),
+          });
+        } catch (error) {
+          console.error('Error al enviar email de demo:', error);
+        }
+
         setMessages((prev) => [...prev, {
-          id: (Date.now() + 6).toString(),
-          text: `¡Gracias! Su demo ha sido agendada.\n\nDatos recibidos:\n- Nombre: ${demoData.nombre}\n- Correo: ${demoData.correo}\n- Empresa: ${demoData.empresa}\n- Celular: ${demoData.celular}\n- Fecha: ${inputValue}\n\nPronto nos pondremos en contacto para confirmar la cita.`,
+          id: (Date.now() + 1).toString(),
+          text: `¡Gracias! Su solicitud de demo ha sido recibida.`,
           sender: 'bot',
           timestamp: new Date(),
+          type: 'demo-confirmation',
+          data: confirmationData,
         }]);
         setDemoData({});
-        setSelectedDate(undefined);
       }
       setInputValue('');
       return;
@@ -238,10 +250,10 @@ const Chatbot: React.FC = () => {
     const hours12 = hours24 % 12 || 12;
     const period = hours24 >= 12 ? 'PM' : 'AM';
     const formattedDate = `${dateStr} - ${hours12.toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')} ${period}`;
-    
+
     setSelectedDate(date);
     setDemoData((prev) => ({ ...prev, fecha: formattedDate }));
-    
+
     const userMessage: Message = {
       id: Date.now().toString(),
       text: formattedDate,
@@ -249,7 +261,7 @@ const Chatbot: React.FC = () => {
       timestamp: new Date(),
     };
     setMessages((prev) => [...prev, userMessage]);
-    
+
     // Confirmar cita con mensaje moderno
     setDemoStep(null);
     const confirmationData = {
@@ -259,7 +271,7 @@ const Chatbot: React.FC = () => {
       celular: demoData.celular,
       fecha: formattedDate,
     };
-    
+
     setMessages((prev) => [...prev, {
       id: (Date.now() + 1).toString(),
       text: `¡Gracias! Su demo ha sido agendada.`,
@@ -303,7 +315,7 @@ const Chatbot: React.FC = () => {
             </div>
 
             {/* Messages Container */}
-            <div 
+            <div
               ref={messagesContainerRef}
               className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-slate-50 to-white scrollbar-thin scrollbar-thumb-primary/40 scrollbar-track-slate-100"
             >
@@ -374,16 +386,6 @@ const Chatbot: React.FC = () => {
                             </div>
                           </div>
 
-                          {/* Fecha y Hora */}
-                          <div className="flex items-start gap-3 pt-2 border-t border-green-200">
-                            <div className="w-6 h-6 rounded-lg bg-green-100 flex items-center justify-center text-green-600 text-xs font-bold flex-shrink-0 mt-1">
-                              🕐
-                            </div>
-                            <div className="flex-1">
-                              <p className="text-xs text-slate-500 font-medium">Fecha y Hora</p>
-                              <p className="text-sm font-bold text-green-600">{message.data.fecha}</p>
-                            </div>
-                          </div>
                         </CardContent>
 
                         <CardFooter className="border-t border-green-200 bg-white pt-3 pb-3 rounded-b-lg">
@@ -396,11 +398,10 @@ const Chatbot: React.FC = () => {
                   ) : (
                     // Mensaje normal
                     <div
-                      className={`max-w-xs px-4 py-3 rounded-2xl ${
-                        message.sender === 'user'
-                          ? 'bg-primary text-white rounded-br-none'
-                          : 'bg-slate-100 text-slate-900 rounded-bl-none'
-                      } shadow-sm`}
+                      className={`max-w-xs px-4 py-3 rounded-2xl ${message.sender === 'user'
+                        ? 'bg-primary text-white rounded-br-none'
+                        : 'bg-slate-100 text-slate-900 rounded-bl-none'
+                        } shadow-sm`}
                     >
                       {message.sender === 'bot' ? (
                         <div className="text-sm leading-relaxed">
@@ -437,7 +438,7 @@ const Chatbot: React.FC = () => {
             <div className="border-t border-slate-200 p-4 bg-white">
               {demoStep === 4 ? (
                 <div className="w-full">
-                  <DatePicker 
+                  <DatePicker
                     value={selectedDate}
                     onChange={handleDateSelect}
                     placeholder="Selecciona una fecha"
