@@ -10,7 +10,7 @@ const SocialIcon = ({ href, children }: { href: string; children: React.ReactNod
 const Footer: React.FC = () => {
   const footerLinks = {
     'Software': [
-      'ERP Core',
+      'ERP',
       'Planilla',
       'Reportes',
       'Préstamos',
@@ -25,7 +25,7 @@ const Footer: React.FC = () => {
 
   const getSoftwareLink = (link: string): string => {
     const linkMap: Record<string, string> = {
-      'ERP Core': '/erp',
+      'ERP': '/erp',
       'Planilla': '/planilla',
       'Reportes': '/reportes',
       'Préstamos': '/prestamos',

@@ -7,7 +7,7 @@ export const knowledgeBase = {
   },
 
   modulos: {
-    'ERP Core': {
+    'ERP': {
       descripcion: 'Gestión integral de recursos empresariales',
       caracteristicas: [
         'Automatización de procesos',
