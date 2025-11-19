@@ -44,13 +44,10 @@ export const CarrerasEmail = ({
                     <Container className="mx-auto my-[40px] max-w-[465px] rounded border border-solid border-[#eaeaea] p-[20px]">
                         {/* Logo */}
                         <Section className="mt-[32px]">
-                            <Img
-                                src={`${baseUrl}/static/cpt-soft-logo.svg`}
-                                width="160"
-                                height="25"
-                                alt="CPT-SOFT"
-                                className="mx-auto my-0"
-                            />
+                            <div style={{ textAlign: 'center', fontSize: '32px', fontWeight: 'bold', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Arial, Helvetica, sans-serif' }}>
+                                <span style={{ color: '#1e293b' }}>CPT</span>
+                                <span style={{ color: '#64748b' }}>SOFT</span>
+                            </div>
                         </Section>
 
                         {/* Título */}

@@ -58,20 +58,42 @@ export default function ContactoPage() {
         },
     });
 
-    // FormSubmit se encargará del envío
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        // Mostrar confirmación
-        toast({
-            title: "Enviando Mensaje",
-            description: "Por favor espere mientras procesamos su mensaje...",
-        });
+    // Enviar a través del API route con Resend
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        try {
+            const response = await fetch('/api/contacto', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: values.name,
+                    company: values.company,
+                    phone: values.phone,
+                    email: values.email,
+                    subject: values.subject,
+                    message: values.message,
+                }),
+            });
 
-        // Enviar el formulario a FormSubmit
-        const formElement = document.querySelector('form[action="https://formsubmit.co/rortega@cpt-soft.com"]') as HTMLFormElement;
-        if (formElement) {
-            setTimeout(() => {
-                formElement.submit();
-            }, 100);
+            if (!response.ok) {
+                throw new Error('Error al enviar el mensaje');
+            }
+
+            toast({
+                title: "¡Mensaje Enviado!",
+                description: "Nos pondremos en contacto con usted pronto.",
+            });
+
+            // Limpiar formulario
+            form.reset();
+        } catch (error) {
+            console.error('Error:', error);
+            toast({
+                title: "Error",
+                description: "No se pudo enviar el mensaje. Intente de nuevo.",
+                variant: "destructive",
+            });
         }
     }
 
@@ -190,15 +212,9 @@ export default function ContactoPage() {
                                     </div>
                                     <Form {...form}>
                                         <form 
-                                            action="https://formsubmit.co/rortega@cpt-soft.com" 
-                                            method="POST"
                                             onSubmit={form.handleSubmit(onSubmit)} 
                                             className="space-y-6"
                                         >
-                                            {/* FormSubmit Configuration */}
-                                            <input type="hidden" name="_subject" value="Nuevo mensaje de contacto desde CPT-SOFT" />
-                                            <input type="hidden" name="_captcha" value="false" />
-                                            <input type="text" name="_honey" style={{display: 'none'}} />
                                             <FormField
                                                 control={form.control}
                                                 name="name"

@@ -22,6 +22,8 @@ import {
 
 interface ContactoEmailProps {
     name?: string;
+    company?: string;
+    phone?: string;
     email?: string;
     subject?: string;
     message?: string;
@@ -33,6 +35,8 @@ const baseUrl = process.env.VERCEL_URL
 
 export const ContactoEmail = ({
     name = 'Juan Pérez',
+    company = 'Mi Empresa',
+    phone = '+507 1234-5678',
     email = 'juan.perez@example.com',
     subject = 'Consulta sobre implementación de ERP',
     message = 'Buenos días, me gustaría conocer más sobre sus soluciones ERP y cómo pueden ayudar a mi empresa a optimizar sus procesos de gestión. Actualmente manejamos inventario, facturación y recursos humanos de forma separada y buscamos una solución integrada.',
@@ -48,13 +52,10 @@ export const ContactoEmail = ({
                     <Container className="mx-auto my-[40px] max-w-[465px] rounded border border-solid border-[#eaeaea] p-[20px]">
                         {/* Logo */}
                         <Section className="mt-[32px]">
-                            <Img
-                                src={`${baseUrl}/static/cpt-soft-logo.svg`}
-                                width="160"
-                                height="25"
-                                alt="CPT-SOFT"
-                                className="mx-auto my-0"
-                            />
+                            <div style={{ textAlign: 'center', fontSize: '32px', fontWeight: 'bold', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Arial, Helvetica, sans-serif' }}>
+                                <span style={{ color: '#1e293b' }}>CPT</span>
+                                <span style={{ color: '#64748b' }}>SOFT</span>
+                            </div>
                         </Section>
 
                         {/* Título */}
@@ -79,6 +80,33 @@ export const ContactoEmail = ({
                             <Text className="m-0 mb-[16px] text-[14px] text-black">
                                 {name}
                             </Text>
+
+                            {company && (
+                                <>
+                                    <Text className="m-0 mb-[8px] text-[12px] font-semibold uppercase tracking-wide text-[#666666]">
+                                        Compañía
+                                    </Text>
+                                    <Text className="m-0 mb-[16px] text-[14px] text-black">
+                                        {company}
+                                    </Text>
+                                </>
+                            )}
+
+                            {phone && (
+                                <>
+                                    <Text className="m-0 mb-[8px] text-[12px] font-semibold uppercase tracking-wide text-[#666666]">
+                                        Teléfono
+                                    </Text>
+                                    <Text className="m-0 mb-[16px]">
+                                        <Link
+                                            href={`tel:${phone}`}
+                                            className="text-[14px] text-blue-600 no-underline"
+                                        >
+                                            {phone}
+                                        </Link>
+                                    </Text>
+                                </>
+                            )}
 
                             <Text className="m-0 mb-[8px] text-[12px] font-semibold uppercase tracking-wide text-[#666666]">
                                 Email
@@ -158,6 +186,8 @@ export const ContactoEmail = ({
 
 ContactoEmail.PreviewProps = {
     name: 'Juan Pérez',
+    company: 'Mi Empresa S.A.',
+    phone: '+507 1234-5678',
     email: 'juan.perez@example.com',
     subject: 'Consulta sobre implementación de ERP',
     message: 'Buenos días, me gustaría conocer más sobre sus soluciones ERP y cómo pueden ayudar a mi empresa a optimizar sus procesos de gestión. Actualmente manejamos inventario, facturación y recursos humanos de forma separada y buscamos una solución integrada. ¿Podrían agendar una reunión para discutir nuestras necesidades?',

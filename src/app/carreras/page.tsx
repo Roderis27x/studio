@@ -9,15 +9,16 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import { toast } from '@/hooks/use-toast';
 import { useEffect, useRef, useState } from 'react';
 
-const BenefitCard = ({ 
-  icon, 
-  title, 
-  description 
-}: { 
-  icon: React.ReactNode; 
-  title: string; 
+const BenefitCard = ({
+  icon,
+  title,
+  description
+}: {
+  icon: React.ReactNode;
+  title: string;
   description: string;
 }) => (
   <div className="bg-white p-6 rounded-2xl border border-border/50 shadow-sm hover:shadow-lg transition-all duration-300 hover:border-primary/50">
@@ -49,32 +50,73 @@ export default function CarrerasPage() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    // Validación básica antes de enviar a FormSubmit
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Validación básica
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
-    
+
     const cv = formData.get('cv') as File;
-    
+    const nombre = formData.get('nombre') as string;
+    const email = formData.get('email') as string;
+    const telefono = formData.get('telefono') as string;
+    const mensaje = formData.get('mensaje') as string;
+
     if (!cv || cv.size === 0) {
-      e.preventDefault();
-      alert('Por favor, adjunta tu CV');
+      toast({
+        title: "CV Requerido",
+        description: "Por favor, adjunta tu CV para continuar.",
+        variant: "destructive",
+      });
       return;
     }
-    
+
     if (cv.size > 5 * 1024 * 1024) {
-      e.preventDefault();
-      alert('El archivo no debe superar los 5MB');
+      toast({
+        title: "Archivo muy grande",
+        description: "El archivo no debe superar los 5MB.",
+        variant: "destructive",
+      });
       return;
     }
-    
+
     setIsSubmitting(true);
-    
-    // Enviar el formulario a FormSubmit
-    const formElement = e.target as HTMLFormElement;
-    setTimeout(() => {
-      formElement.submit();
-    }, 100);
+
+    try {
+      // Enviar a través del API route
+      const newFormData = new FormData();
+      newFormData.append('nombre', nombre);
+      newFormData.append('email', email);
+      newFormData.append('telefono', telefono);
+      newFormData.append('mensaje', mensaje);
+      newFormData.append('cv', cv);
+
+      const response = await fetch('/api/carreras', {
+        method: 'POST',
+        body: newFormData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al enviar la aplicación');
+      }
+
+      toast({
+        title: "¡Aplicación Enviada!",
+        description: "Gracias por tu interés. Te contactaremos pronto.",
+      });
+      form.reset();
+      setFormData({ nombre: '', email: '', telefono: '', mensaje: '' });
+    } catch (error) {
+      console.error('Error:', error);
+      toast({
+        title: "Error",
+        description: "No se pudo enviar la aplicación. Intente de nuevo.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   useEffect(() => {
@@ -171,17 +213,11 @@ export default function CarrerasPage() {
               </div>
 
               <div className="max-w-3xl mx-auto">
-                <form 
-                  action="https://formsubmit.co/rortega@cpt-soft.com" 
-                  method="POST"
+                <form
                   encType="multipart/form-data"
-                  onSubmit={handleSubmit} 
+                  onSubmit={handleSubmit}
                   className="bg-white p-8 md:p-12 rounded-2xl shadow-lg border border-border/50"
                 >
-                  {/* FormSubmit Configuration */}
-                  <input type="hidden" name="_subject" value="Nueva aplicación de carrera en CPT-SOFT" />
-                  <input type="hidden" name="_captcha" value="false" />
-                  <input type="text" name="_honey" style={{display: 'none'}} />
                   <div className="space-y-6">
                     <div>
                       <Label htmlFor="nombre" className="text-base font-semibold text-foreground flex items-center gap-2">
@@ -190,7 +226,7 @@ export default function CarrerasPage() {
                       </Label>
                       <Input
                         id="nombre"
-                        name="Nombre"
+                        name="nombre"
                         type="text"
                         placeholder="Tu nombre completo"
                         value={formData.nombre}
@@ -208,7 +244,7 @@ export default function CarrerasPage() {
                         </Label>
                         <Input
                           id="email"
-                          name="Email"
+                          name="email"
                           type="email"
                           placeholder="tu@email.com"
                           value={formData.email}
@@ -225,7 +261,7 @@ export default function CarrerasPage() {
                         </Label>
                         <Input
                           id="telefono"
-                          name="Teléfono"
+                          name="telefono"
                           type="tel"
                           placeholder="+507 1234-5678"
                           value={formData.telefono}
@@ -260,7 +296,7 @@ export default function CarrerasPage() {
                       </Label>
                       <Textarea
                         id="mensaje"
-                        name="Mensaje"
+                        name="mensaje"
                         placeholder="Cuéntanos sobre ti, tu experiencia y por qué te gustaría trabajar con nosotros..."
                         value={formData.mensaje}
                         onChange={handleInputChange}
@@ -307,7 +343,7 @@ export default function CarrerasPage() {
                     <h3 className="font-bold text-lg text-foreground mb-3 text-center">Aplicación</h3>
                     <p className="text-sm text-muted-foreground text-center leading-relaxed">Envía tu CV y carta de presentación</p>
                   </div>
-                  
+
                   {/* Paso 2 */}
                   <div className="flex flex-col items-center">
                     <div className="relative mb-8 group">
@@ -321,7 +357,7 @@ export default function CarrerasPage() {
                     <h3 className="font-bold text-lg text-foreground mb-3 text-center">Revisión</h3>
                     <p className="text-sm text-muted-foreground text-center leading-relaxed">Nuestro equipo evalúa tu perfil</p>
                   </div>
-                  
+
                   {/* Paso 3 */}
                   <div className="flex flex-col items-center">
                     <div className="relative mb-8 group">
@@ -335,7 +371,7 @@ export default function CarrerasPage() {
                     <h3 className="font-bold text-lg text-foreground mb-3 text-center">Entrevista</h3>
                     <p className="text-sm text-muted-foreground text-center leading-relaxed">Conversamos sobre tu experiencia</p>
                   </div>
-                  
+
                   {/* Paso 4 */}
                   <div className="flex flex-col items-center">
                     <div className="relative mb-8 group">
