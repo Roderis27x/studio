@@ -14,7 +14,7 @@ interface FAQItem {
 const faqData: FAQItem[] = [
   {
     id: 'faq-1',
-    question: '¿Cómo se vende el aplicativo?',
+    question: '¿Cómo se licencia el aplicativo?',
     answer: 'Es licenciado por usuario.',
   },
   {
