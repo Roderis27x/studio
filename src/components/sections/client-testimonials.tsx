@@ -1,64 +1,82 @@
 'use client';
 
-import Image from 'next/image';
 import * as React from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Star, User } from 'lucide-react';
-import Autoplay from 'embla-carousel-autoplay';
+import { User, X } from 'lucide-react';
+import Marquee from '@/components/ui/marquee';
 
 interface TestimonialCardProps {
   quote: string;
   author: string;
   title: string;
-  avatarUrl?: string;
-  avatarHint?: string;
-  avatarDescription?: string;
+  onOpenModal: () => void;
 }
 
-const TestimonialCard: React.FC<TestimonialCardProps> = ({ quote, author, title, avatarUrl, avatarHint, avatarDescription }) => (
-  <Card className="h-[700px] flex flex-col overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-slate-200 bg-white">
-    <CardContent className="p-8 text-left flex flex-col flex-grow justify-between">
-      {/* Stars */}
-      <div className="flex gap-1 mb-4">
-        {[...Array(5)].map((_, i) => (
-          <Star key={i} className="h-5 w-5 fill-primary text-primary" />
-        ))}
-      </div>
-
-      <blockquote className="text-muted-foreground text-lg mb-6 leading-relaxed flex-1 overflow-y-auto">
-        <p>"{quote}"</p>
-      </blockquote>
-
-      <figcaption className="flex items-center pt-4 border-t border-slate-100">
-        {avatarUrl ? (
-          <Image
-            className="h-12 w-12 rounded-full object-cover"
-            src={avatarUrl}
-            alt={avatarDescription || `Avatar of ${author}`}
-            width={48}
-            height={48}
-            data-ai-hint={avatarHint}
-          />
-        ) : (
-          <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-            <User className="h-6 w-6 text-primary" />
-          </div>
-        )}
-        <div className="ml-4">
-          <div className="font-bold text-foreground">{author}</div>
-          <div className="text-sm text-muted-foreground">{title}</div>
+const TestimonialCard: React.FC<TestimonialCardProps> = ({ quote, author, title, onOpenModal }) => (
+  <div 
+    onClick={onOpenModal}
+    className="min-w-[480px] max-w-lg bg-white rounded-xl p-6 h-auto flex flex-col border border-slate-200 cursor-pointer hover:shadow-lg transition-shadow duration-300"
+  >
+    <div className="flex items-center justify-between mb-5">
+      <div className="flex items-center gap-4">
+        <div className="h-12 w-12 rounded-full bg-slate-200 text-foreground flex items-center justify-center flex-shrink-0">
+          <span className="text-xl font-medium">{author.charAt(0)}</span>
         </div>
-      </figcaption>
-    </CardContent>
-  </Card>
+        <div>
+          <p className="text-lg font-semibold">{author}</p>
+          <p className="text-sm text-muted-foreground">{title}</p>
+        </div>
+      </div>
+    </div>
+    <p className="text-[17px] leading-relaxed line-clamp-4">{quote}</p>
+  </div>
 );
 
-const Testimonials: React.FC = () => {
-  const plugin = React.useRef(
-    Autoplay({ delay: 5000, stopOnInteraction: true })
+interface ModalProps {
+  isOpen: boolean;
+  quote: string;
+  author: string;
+  title: string;
+  onClose: () => void;
+}
+
+const TestimonialModal: React.FC<ModalProps> = ({ isOpen, quote, author, title, onClose }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={onClose}>
+      <div 
+        className="bg-white rounded-xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-8"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-4">
+            <div className="h-14 w-14 rounded-full bg-slate-200 text-foreground flex items-center justify-center flex-shrink-0">
+              <span className="text-2xl font-medium">{author.charAt(0)}</span>
+            </div>
+            <div>
+              <p className="text-2xl font-semibold">{author}</p>
+              <p className="text-muted-foreground">{title}</p>
+            </div>
+          </div>
+          <button 
+            onClick={onClose}
+            className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
+          >
+            <X className="w-6 h-6" />
+          </button>
+        </div>
+        <p className="text-lg leading-relaxed text-foreground">{quote}</p>
+      </div>
+    </div>
   );
+};
+
+const Testimonials: React.FC = () => {
+  const [selectedTestimonial, setSelectedTestimonial] = React.useState<{
+    quote: string;
+    author: string;
+    title: string;
+  } | null>(null);
 
   const testimonials = [
     {
@@ -84,7 +102,7 @@ const Testimonials: React.FC = () => {
     },
     {
       id: 'testimonial-3',
-      quote: "Con el sistema de Gestión de Cobros, hemos logrado automatizar un proceso que anteriormente era manual, en el que no teníamos evidencias sistemáticas de nuestros procesos de cobros realizados a los clientes. Actualmente, gracias a CPT Soft, obtenemos reportería, recordatorios y notificaciones automáticas por correos que han sido de gran ayuda para el departamento de cobros.",
+      quote: "Con el sistema de Gestión de Cobros, hemos logrado automatizar un proceso que anteriormente era manual, en el que no teníamos evidencias sistemáticas de nuestros procesos de cobros realizados a los clientes. Actualmente, gracias a CPT-SOFT, obtenemos reportería, recordatorios y notificaciones automáticas por correos que han sido de gran ayuda para el departamento de cobros.",
       author: 'Sra. Erika Murillo',
       title: 'Cliente, CPT-SOFT',
       image: null,
@@ -96,48 +114,58 @@ const Testimonials: React.FC = () => {
       title: 'Cliente, CPT-SOFT',
       image: null,
     },
+    {
+      id: 'testimonial-5',
+      quote: "Les quiero contar que durante varios años el Equipo de CPT-SOFT nos ha brindado soluciones a los distintos desarrollos tecnológicos. Desde el inicio, demostraron una buena atención, siempre dispuestos a escuchar nuestras necesidades y ofrecer soluciones claras y efectivas. La comunicación y atención a nuestras consultas es fluida y rápida, lo que nos permite avanzar en nuevos proyectos sin contratiempos. Destacamos su capacidad para cumplir los plazos acordados y entregar resultados de alta calidad con ejecución de pruebas y las inducciones necesarias. El equipo mantiene un amplio conocimiento técnico y una actitud proactiva para resolver cualquier duda, lo que nos ha generado confianza durante todo el proceso. Recomendamos ampliamente sus servicios.",
+      author: 'Sra. Yamileth Bustamante',
+      title: 'Cliente, CPT-SOFT',
+      image: null,
+    },
   ];
 
+  const TestimonialList = () =>
+    testimonials.map((testimonial) => (
+      <TestimonialCard
+        key={testimonial.id}
+        quote={testimonial.quote}
+        author={testimonial.author}
+        title={testimonial.title}
+        onOpenModal={() => setSelectedTestimonial(testimonial)}
+      />
+    ));
+
   return (
-    <section id="testimonials" className="py-24 md:py-32 bg-slate-50">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+    <section id="testimonials" className="flex justify-center items-center py-20">
+      <div className="h-full w-full">
+        <div className="text-center mb-12">
           <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary mb-6 text-sm font-semibold border border-primary/20">
             Testimonios
           </div>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-center tracking-tight px-6 mb-4">
             Con la Confianza de Empresas en Crecimiento
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed px-6">
             Escuche lo que nuestros clientes tienen que decir sobre la transformación de sus operaciones con CPT-SOFT.
           </p>
         </div>
-        <Carousel
-          opts={{
-            align: "start",
-            loop: true,
-          }}
-          plugins={[plugin.current]}
-          className="w-full max-w-6xl mx-auto"
-        >
-          <CarouselContent className="-ml-4">
-            {testimonials.map((testimonial) => (
-              <CarouselItem key={testimonial.id} className="md:basis-1/2 lg:basis-1/3 pl-4 min-h-[700px]">
-                <TestimonialCard
-                  quote={testimonial.quote}
-                  author={testimonial.author}
-                  title={testimonial.title}
-                  avatarUrl={testimonial.image?.imageUrl}
-                  avatarHint={testimonial.image?.imageHint}
-                  avatarDescription={testimonial.image?.description}
-                />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
+        <div className={`relative ${selectedTestimonial ? '[&_*]:[animation-play-state:paused]' : ''}`}>
+          <div className="z-10 absolute left-0 inset-y-0 w-[15%] bg-gradient-to-r from-background to-transparent" />
+          <div className="z-10 absolute right-0 inset-y-0 w-[15%] bg-gradient-to-l from-background to-transparent" />
+          <Marquee pauseOnHover className="[--duration:20s]">
+            <TestimonialList />
+          </Marquee>
+        </div>
       </div>
+      
+      {selectedTestimonial && (
+        <TestimonialModal
+          isOpen={true}
+          quote={selectedTestimonial.quote}
+          author={selectedTestimonial.author}
+          title={selectedTestimonial.title}
+          onClose={() => setSelectedTestimonial(null)}
+        />
+      )}
     </section>
   );
 };
