@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
 import { blogPosts, type BlogPost } from '@/lib/blog-data';
+import { useState } from 'react';
 
 const FeaturedPost = ({ post }: { post: BlogPost }) => (
   <Card className="overflow-hidden border-0 shadow-2xl hover:shadow-3xl transition-all duration-300 group">
@@ -72,7 +73,7 @@ const BlogCard = ({ post }: { post: BlogPost }) => (
         className="object-cover group-hover:scale-110 transition-transform duration-500"
       />
       <div className="absolute top-4 left-4">
-        <Badge className="bg-primary/10 text-primary hover:bg-primary/20 border-primary/20 backdrop-blur-sm">
+        <Badge className="bg-primary/40 text-white hover:bg-primary/50 border-primary/30 backdrop-blur-sm">
           {post.category}
         </Badge>
       </div>
@@ -111,9 +112,26 @@ const BlogCard = ({ post }: { post: BlogPost }) => (
 );
 
 export default function BlogPage() {
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  
   const featuredPost = blogPosts.find(post => post.featured);
   const regularPosts = blogPosts.filter(post => !post.featured);
   const categories = [...new Set(blogPosts.map(post => post.category))];
+
+  // Mostrar featured post solo si no hay filtro seleccionado
+  const showFeaturedPost = selectedCategory === null;
+
+  // Filtrar posts según categoría seleccionada
+  let filteredPosts: BlogPost[] = [];
+  if (selectedCategory === null) {
+    filteredPosts = regularPosts;
+  } else {
+    filteredPosts = [
+      // Si el destacado coincide con la categoría, inclúyelo
+      ...(featuredPost && featuredPost.category === selectedCategory ? [featuredPost] : []),
+      ...regularPosts.filter(post => post.category === selectedCategory)
+    ];
+  }
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
@@ -142,11 +160,20 @@ export default function BlogPage() {
 
               {/* Categories */}
               <div className="flex flex-wrap justify-center gap-3 mb-12">
-                <Button variant="outline" className="rounded-full">
+                <Button 
+                  variant={selectedCategory === null ? "default" : "outline"} 
+                  className="rounded-full"
+                  onClick={() => setSelectedCategory(null)}
+                >
                   Todos
                 </Button>
                 {categories.map((category) => (
-                  <Button key={category} variant="ghost" className="rounded-full">
+                  <Button 
+                    key={category} 
+                    variant={selectedCategory === category ? "default" : "outline"} 
+                    className="rounded-full"
+                    onClick={() => setSelectedCategory(category)}
+                  >
                     {category}
                   </Button>
                 ))}
@@ -156,7 +183,7 @@ export default function BlogPage() {
         </FadeIn>
 
         {/* Featured Post */}
-        {featuredPost && (
+        {featuredPost && showFeaturedPost && (
           <FadeIn>
             <section className="py-12 bg-white">
               <div className="container mx-auto px-6">
@@ -179,7 +206,7 @@ export default function BlogPage() {
                 </p>
               </div>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {regularPosts.map((post) => (
+                {filteredPosts.map((post) => (
                   <BlogCard key={post.id} post={post} />
                 ))}
               </div>
