@@ -15,6 +15,9 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# Copia variables de entorno para el build
+COPY .env.local ./
+
 # Build de Next.js
 RUN npm run build
 
@@ -32,6 +35,7 @@ RUN adduser --system --uid 1001 nextjs
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/.env.local ./
 
 USER nextjs
 
