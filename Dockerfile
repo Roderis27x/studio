@@ -37,6 +37,8 @@ COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/.env.local ./
 
+# Da permisos a nextjs sobre /app y subcarpetas
+RUN mkdir -p /app/.next/cache && chown -R nextjs:nodejs /app
 USER nextjs
 
 EXPOSE 3000
