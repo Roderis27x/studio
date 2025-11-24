@@ -139,13 +139,15 @@ const Chatbot: React.FC = () => {
         }
 
         // Finalizar demo después de celular - sin pedir fecha
-        setDemoStep(null);
         const confirmationData = {
           nombre: demoData.nombre,
           correo: demoData.correo,
           empresa: demoData.empresa,
           celular: inputValue,
         };
+
+        // Agregar mensaje del usuario
+        setMessages((prev) => [...prev, userMessage]);
 
         // Enviar email de notificación
         try {
@@ -160,15 +162,21 @@ const Chatbot: React.FC = () => {
           console.error('Error al enviar email de demo:', error);
         }
 
+        // Mostrar confirmación
         setMessages((prev) => [...prev, {
           id: (Date.now() + 1).toString(),
-          text: `¡Gracias! Su solicitud de demo ha sido recibida.`,
+          text: `¡Gracias! Hemos recibido tu solicitud de contacto para agendar una demo. Pronto te contactaremos para coordinar la cita.`,
           sender: 'bot',
           timestamp: new Date(),
           type: 'demo-confirmation',
           data: confirmationData,
         }]);
+
+        // Limpiar estados
+        setDemoStep(null);
         setDemoData({});
+        setInputValue('');
+        return;
       }
       setInputValue('');
       return;
@@ -335,8 +343,8 @@ const Chatbot: React.FC = () => {
                           <div className="flex items-center gap-2">
                             <CheckCircle2 className="w-6 h-6" />
                             <div>
-                              <h3 className="font-bold text-base">¡Demo Agendada!</h3>
-                              <p className="text-xs text-white/80">Confirmación de cita</p>
+                              <h3 className="font-bold text-base">¡Contacto recibido!</h3>
+                              <p className="text-xs text-white/80">Solicitud para agendar demo</p>
                             </div>
                           </div>
                         </CardHeader>
@@ -390,7 +398,7 @@ const Chatbot: React.FC = () => {
 
                         <CardFooter className="border-t border-green-200 bg-white pt-3 pb-3 rounded-b-lg">
                           <p className="text-xs text-slate-600 text-center w-full">
-                            Pronto te contactaremos para confirmar la cita
+                            Nuestro equipo se pondrá en contacto contigo para coordinar la demo.
                           </p>
                         </CardFooter>
                       </Card>

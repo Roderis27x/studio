@@ -28,7 +28,7 @@ export async function POST(request: Request) {
 
     const data = await resend.emails.send({
       from: 'CPT-SOFT <onboarding@resend.dev>',
-      to: 'rortega@cpt-soft.com',
+      to: ['info@cpt-soft.com', 'ventas@cpt-soft.com'],
       subject: `Nuevo mensaje de contacto: ${subject}`,
       html: emailHtml,
       replyTo: email,
