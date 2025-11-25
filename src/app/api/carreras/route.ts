@@ -42,7 +42,7 @@ export async function POST(request: Request) {
 
     const data = await resend.emails.send({
       from: 'CPT-SOFT <onboarding@resend.dev>',
-      to: ['info@cpt-soft.com', 'ventas@cpt-soft.com'],
+      to: ['cpt-crm@cpt-soft.com'],
       subject: `Nueva aplicación de carrera: ${nombre}`,
       react: CarrerasEmail({
         nombre,
