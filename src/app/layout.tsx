@@ -3,41 +3,46 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import Chatbot from "@/components/chatbot";
 import { ChatbotProvider } from "@/context/ChatbotContext";
+import { seoConfig } from '@/lib/seo-config';
+import { generateOrganizationSchema } from '@/lib/seo-helpers';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://cpt-soft-pagina-demo.vercel.app'),
+  metadataBase: new URL(seoConfig.siteUrl),
   title: 'CPT-SOFT | Solución ERP Empresarial Integral',
-  description: 'CPT-SOFT es la solución ERP todo en uno que integra ventas, finanzas, operaciones y recursos humanos. Optimiza tu negocio con nuestra plataforma inteligente.',
-  keywords: 'ERP, gestión empresarial, software, solución integral, planilla, reportes, CRM',
+  description: seoConfig.description,
+  keywords: `${seoConfig.keywords.general}, ${seoConfig.keywords.services}`,
   authors: [{ name: 'CPT-SOFT' }],
   icons: {
     icon: '/img/logo_icono_negro.svg',
     apple: '/img/logo_icono_negro.svg',
   },
+  alternates: {
+    canonical: seoConfig.siteUrl,
+  },
   openGraph: {
     type: 'website',
-    locale: 'es_SV',
-    url: 'https://cpt-soft-pagina-demo.vercel.app',
-    siteName: 'CPT-SOFT',
+    locale: seoConfig.locale,
+    url: seoConfig.siteUrl,
+    siteName: seoConfig.siteName,
     title: 'CPT-SOFT | Solución ERP Empresarial Integral',
-    description: 'CPT-SOFT es la solución ERP todo en uno que integra ventas, finanzas, operaciones y recursos humanos. Optimiza tu negocio con nuestra plataforma inteligente.',
+    description: seoConfig.description,
     images: [
       {
-        url: '/img/logo_icono_negro.svg',
+        url: seoConfig.defaultImage,
         width: 1200,
         height: 630,
         alt: 'CPT-SOFT - Solución ERP',
-        type: 'image/svg+xml',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'CPT-SOFT | Solución ERP Empresarial Integral',
-    description: 'CPT-SOFT es la solución ERP todo en uno que integra ventas, finanzas, operaciones y recursos humanos.',
-    images: ['/img/logo_icono_negro.svg'],
+    description: seoConfig.description,
+    images: [seoConfig.defaultImage],
+    creator: seoConfig.social.twitter,
   },
-  robots: 'index, follow',
+  robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
 };
 
 export const viewport: Viewport = {
@@ -63,6 +68,14 @@ export default function RootLayout({
         <link rel="icon" type="image/svg+xml" href="/img/logo_icono_blanco.svg" media="(prefers-color-scheme: dark)" />
         <meta name="theme-color" content="#2563eb" media="(prefers-color-scheme: light)" />
         <meta name="theme-color" content="#1e1b4b" media="(prefers-color-scheme: dark)" />
+        
+        {/* Schema.org JSON-LD para Organization */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(generateOrganizationSchema()),
+          }}
+        />
       </head>
       <body className="font-body antialiased">
         <ChatbotProvider>

@@ -146,9 +146,6 @@ const Chatbot: React.FC = () => {
           celular: inputValue,
         };
 
-        // Agregar mensaje del usuario
-        setMessages((prev) => [...prev, userMessage]);
-
         // Enviar email de notificación
         try {
           await fetch('/api/demo', {

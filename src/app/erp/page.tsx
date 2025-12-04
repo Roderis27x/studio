@@ -1,5 +1,5 @@
-'use client';
-
+import { Metadata } from 'next';
+import { generatePageMetadata } from '@/lib/seo-helpers';
 import { ArrowRight, CheckCircle, Scale, PiggyBank, Briefcase, Boxes, Factory, Gem, FileText, HandCoins, Users, BarChart, Banknote, Building } from 'lucide-react';
 import Image from 'next/image';
 import Header from '@/components/layout/header';
@@ -10,6 +10,8 @@ import Link from 'next/link';
 import { DemoButton } from '@/components/demo-button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import IntegratedModules from '@/components/sections/integrated-modules';
+
+export const metadata: Metadata = generatePageMetadata('erp');
 
 const BenefitCard = ({ icon, title, children }: { icon: React.ReactNode; title: string; children: React.ReactNode }) => (
   <Card className="bg-card border-none shadow-none text-center items-center flex flex-col">

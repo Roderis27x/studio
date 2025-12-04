@@ -1,0 +1,13 @@
+# Robots.txt para CPT-SOFT
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /private/
+
+# Crawl delay para respetar recursos del servidor
+Crawl-delay: 1
+
+# Sitemap
+Sitemap: https://cpt-soft.com/sitemap.xml
