@@ -91,7 +91,7 @@ const Header: React.FC = () => {
             href="/blog"
             className="text-slate-600 hover:text-primary transition-colors px-3 py-1.5 rounded-md text-sm font-medium"
           >
-            Blog
+            Noticias
           </Link>
           <Link
             href="/quienes-somos"
@@ -344,7 +344,7 @@ const Header: React.FC = () => {
                 className="py-2 text-slate-700 hover:text-primary font-semibold"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                Blog
+                Noticias
               </Link>
               <Link
                 href="/quienes-somos"
@@ -679,7 +679,7 @@ const SoftwareContent = () => (
        <MenuItem
         icon={<Database className="w-4 h-4" />}
         title="Reportes"
-        description="Inteligencia de negocios y analítica."
+        description="Análisis y reportes de negocio."
         href="/reportes"
       />
     </div>

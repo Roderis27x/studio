@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { User, X } from 'lucide-react';
 import Marquee from '@/components/ui/marquee';
+import { Badge } from '@/components/ui/badge';
 
 interface TestimonialCardProps {
   quote: string;
@@ -11,25 +12,30 @@ interface TestimonialCardProps {
   onOpenModal: () => void;
 }
 
-const TestimonialCard: React.FC<TestimonialCardProps> = ({ quote, author, title, onOpenModal }) => (
-  <div 
-    onClick={onOpenModal}
-    className="min-w-[480px] max-w-lg bg-white rounded-xl p-6 h-auto flex flex-col border border-slate-200 cursor-pointer hover:shadow-lg transition-shadow duration-300"
-  >
-    <div className="flex items-center justify-between mb-5">
-      <div className="flex items-center gap-4">
-        <div className="h-12 w-12 rounded-full bg-slate-200 text-foreground flex items-center justify-center flex-shrink-0">
-          <span className="text-xl font-medium">{author.charAt(0)}</span>
-        </div>
-        <div>
-          <p className="text-lg font-semibold">{author}</p>
-          <p className="text-sm text-muted-foreground">{title}</p>
+const TestimonialCard: React.FC<TestimonialCardProps> = ({ quote, author, title, onOpenModal }) => {
+  return (
+    <div 
+      onClick={onOpenModal}
+      className="min-w-[480px] max-w-lg bg-white rounded-xl p-6 h-auto flex flex-col border border-slate-200 cursor-pointer hover:shadow-lg transition-shadow duration-300"
+    >
+      <div className="flex items-center justify-between mb-5">
+        <div className="flex items-center gap-4">
+          <div className="h-12 w-12 rounded-full bg-slate-200 text-foreground flex items-center justify-center flex-shrink-0">
+            <span className="text-xl font-medium">{author.charAt(0)}</span>
+          </div>
+          <div>
+            <p className="text-lg font-semibold">{author}</p>
+            <p className="text-sm text-muted-foreground">{title}</p>
+          </div>
         </div>
       </div>
+      <p className="text-[17px] leading-relaxed line-clamp-4">{quote}</p>
+      {quote.length > 150 && (
+        <Badge className="w-fit mt-3 bg-primary text-primary-foreground hover:bg-primary/90">Ver más detalle</Badge>
+      )}
     </div>
-    <p className="text-[17px] leading-relaxed line-clamp-4">{quote}</p>
-  </div>
-);
+  );
+};
 
 interface ModalProps {
   isOpen: boolean;
